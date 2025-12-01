@@ -4,10 +4,12 @@
 
 ---
 
-## 🎯 Version Actuelle : **4.0 PWA**
+## 🎯 Version Actuelle : **4.1 HTML (en cours)**
 
-Application React Native d'apprentissage des hiragana avec gamification et exercices variés.
-**Maintenant disponible comme Progressive Web App sur GitHub Pages !**
+Application d'apprentissage des hiragana avec gamification et exercices variés.
+**Version HTML/CSS/JS pure pour compatibilité web maximale.**
+
+⚠️ **Version 4.0 React Native Web** : Problèmes de compatibilité - Application bloquée sur écran de chargement
 
 ---
 
@@ -152,17 +154,26 @@ src/
 
 ## 🚀 Versions
 
-### V4.0 PWA (1er décembre 2025) - **ACTUELLE**
-**Conversion en Progressive Web App et Déploiement**
+### V4.1 HTML Pure (1er décembre 2025) - **EN COURS**
+**Refonte en HTML/CSS/JavaScript pur**
+- 🔄 Recréation de l'application en HTML/CSS/JS vanilla
+- 🔄 Compatibilité web 100% garantie
+- 🔄 Même design et fonctionnalités que V3.2.1
+- 🔄 LocalStorage pour la persistance (remplace AsyncStorage)
+- 🔄 PWA fonctionnelle sans framework
+- 🎯 **Objectif** : Version web stable et performante
+
+### V4.0 PWA (1er décembre 2025) - **ABANDONNÉE**
+**Tentative de conversion React Native Web**
 - ✅ Configuration PWA complète (manifest.json + service worker)
-- ✅ Installable sur écran d'accueil (mobile & desktop)
-- ✅ Mode hors ligne fonctionnel
-- ✅ Déploiement sur GitHub Pages automatisé
-- ✅ URL publique : https://pickuppass.github.io/apprendre-japonais/
+- ✅ Déploiement GitHub Pages et Netlify
 - ✅ React Native Web intégré
 - ✅ Icônes PWA 192x192 et 512x512
-- ✅ Guides de déploiement complets (DEPLOYER_GITHUB.md, etc.)
-- ⚠️ **Problème actuel** : App bloquée sur écran de chargement (en cours de résolution)
+- ❌ **Problème fatal** : Application bloquée sur écran de chargement
+- ❌ **Cause** : Incompatibilité React Native Web + AsyncStorage + Expo Metro
+- ❌ **Chemins absolus** Expo incompatibles avec GitHub Pages sous-dossiers
+- 📝 **Leçon** : React Native Web trop complexe pour déploiement web simple
+- ✅ **Solution** : Refonte en HTML pur (V4.1)
 
 ### V3.2.1 (1er décembre 2025)
 **Correction romaji visible**
@@ -207,13 +218,25 @@ src/
 
 ---
 
-## 🎯 Prochaines Étapes Potentielles
+## 🎯 Prochaines Étapes
 
-### Court Terme
-- [ ] Tester toutes les leçons avec nouvelles transcriptions
+### URGENT - Version 4.1 HTML Pure
+- [ ] Créer structure HTML/CSS/JS de base
+- [ ] Implémenter les 10 leçons en JavaScript vanilla
+- [ ] Recréer les 6 types d'exercices
+- [ ] Système de navigation simple
+- [ ] LocalStorage pour progression et badges
+- [ ] Design identique à V3.2.1 (violet/blanc)
+- [ ] PWA fonctionnelle (manifest + service worker)
+- [ ] Déploiement Netlify/GitHub Pages
+- [ ] Tests sur mobile et desktop
+- [ ] Partage avec testeurs
+
+### Court Terme (Après V4.1)
+- [ ] Tester toutes les leçons
 - [ ] Vérifier la difficulté des exercices
 - [ ] Ajuster feedback si nécessaire
-- [ ] Tests utilisateurs
+- [ ] Tests utilisateurs et retours
 
 ### Moyen Terme
 - [ ] **Écran Profil** - Voir stats, niveau, badges
