@@ -4,9 +4,10 @@
 
 ---
 
-## 🎯 Version Actuelle : **3.2.1**
+## 🎯 Version Actuelle : **4.0 PWA**
 
 Application React Native d'apprentissage des hiragana avec gamification et exercices variés.
+**Maintenant disponible comme Progressive Web App sur GitHub Pages !**
 
 ---
 
@@ -64,6 +65,14 @@ Application React Native d'apprentissage des hiragana avec gamification et exerc
 - ✅ **Romaji caché** - Exercices plus pédagogiques (V3.2.1)
 - ✅ **Romaji dans options** - 72 mots avec romaji (V3.2.1)
 
+### 🌐 PWA & Déploiement (V4.0)
+- ✅ **Progressive Web App** - Installable sur écran d'accueil
+- ✅ **Service Worker** - Fonctionnement hors ligne
+- ✅ **Manifest PWA** - Icônes et configuration complète
+- ✅ **GitHub Pages** - Déploiement automatisé
+- ✅ **URL publique** - https://pickuppass.github.io/apprendre-japonais/
+- ✅ **React Native Web** - Compatibilité web complète
+
 ---
 
 ## 📦 Structure du Projet
@@ -98,7 +107,22 @@ src/
 ├── RECAP_V3.2_TRANSCRIPTIONS.md       (Exercices transcription complets)
 ├── CORRECTION_ROMAJI_VISIBLE.md       (Fix romaji visible)
 ├── ROADMAP_V3.1.md                    (Roadmap détaillée)
+├── DEPLOYER_GITHUB.md                 (Guide déploiement GitHub Pages - 3 étapes)
+├── DEPLOIEMENT_WEB.md                 (Guide complet PWA & déploiement)
+├── GITHUB_PAGES_SIMPLE.md             (Alternatives déploiement)
+├── QUICKSTART_DEPLOY.md               (Démarrage rapide)
+├── netlify.toml                       (Config Netlify)
 └── PROJECT_STATUS.md                  (Ce fichier)
+```
+
+### PWA Files
+```
+/public
+├── index.html                         (HTML avec écran de chargement)
+├── manifest.json                      (Manifest PWA)
+├── service-worker.js                  (Service Worker pour offline)
+├── icon-192.png                       (Icône 192x192)
+└── icon-512.png                       (Icône 512x512)
 ```
 
 ---
@@ -128,7 +152,19 @@ src/
 
 ## 🚀 Versions
 
-### V3.2.1 (1er décembre 2025) - **ACTUELLE**
+### V4.0 PWA (1er décembre 2025) - **ACTUELLE**
+**Conversion en Progressive Web App et Déploiement**
+- ✅ Configuration PWA complète (manifest.json + service worker)
+- ✅ Installable sur écran d'accueil (mobile & desktop)
+- ✅ Mode hors ligne fonctionnel
+- ✅ Déploiement sur GitHub Pages automatisé
+- ✅ URL publique : https://pickuppass.github.io/apprendre-japonais/
+- ✅ React Native Web intégré
+- ✅ Icônes PWA 192x192 et 512x512
+- ✅ Guides de déploiement complets (DEPLOYER_GITHUB.md, etc.)
+- ⚠️ **Problème actuel** : App bloquée sur écran de chargement (en cours de résolution)
+
+### V3.2.1 (1er décembre 2025)
 **Correction romaji visible**
 - ✅ Romaji retiré de l'affichage dans exercices "sentence"
 - ✅ 18 exercices modifiés avec romaji dans options
