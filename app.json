@@ -27,12 +27,12 @@
       "name": "Apprendre le Japonais",
       "shortName": "Japonais",
       "lang": "fr",
-      "scope": "/",
+      "scope": "/apprendre-japonais/",
       "themeColor": "#667eea",
       "backgroundColor": "#ffffff",
       "display": "standalone",
       "orientation": "portrait",
-      "startUrl": "/",
+      "startUrl": "/apprendre-japonais/",
       "bundler": "metro"
     }
   }

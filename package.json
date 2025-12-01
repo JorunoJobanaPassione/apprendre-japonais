@@ -1,16 +1,16 @@
 {
   "name": "japonaisapp",
   "version": "1.0.0",
-  "homepage": ".",
+  "homepage": "https://pickuppass.github.io/apprendre-japonais",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:web": "expo export:web",
+    "build:web": "expo export --platform web",
     "predeploy": "npm run build:web",
-    "deploy": "gh-pages -d web-build",
+    "deploy": "gh-pages -d dist",
     "deploy:netlify": "npm run build:web && netlify deploy --prod --dir web-build",
     "preview:web": "npx serve web-build"
   },
