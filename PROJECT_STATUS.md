@@ -4,7 +4,7 @@
 
 ---
 
-## 🎯 Version Actuelle : **4.1 HTML (✅ DÉPLOYÉE ET PUBLIQUE)**
+## 🎯 Version Actuelle : **4.1.1 HTML (✅ CORRECTIONS PÉDAGOGIQUES)**
 
 Application d'apprentissage des hiragana avec gamification et exercices variés.
 **Version HTML/CSS/JS pure pour compatibilité web maximale.**
@@ -155,7 +155,25 @@ src/
 
 ## 🚀 Versions
 
-### V4.1 HTML Pure (2 décembre 2025) - **✅ TERMINÉE - EN TEST**
+### V4.1.1 HTML Pure (2 décembre 2025) - **✅ CORRECTIONS PÉDAGOGIQUES**
+**Amélioration de la difficulté des exercices**
+- ✅ **Exercices "Lecture en contexte"** - Réponses cachées jusqu'à validation
+  - Transformation en exercice de saisie de texte
+  - L'utilisateur doit taper la réponse avant de voir le romaji correct
+  - Correction du score automatique (maintenant basé sur la réponse)
+- ✅ **Exercices QCM** - Mélange aléatoire des options
+  - Les options changent de position à chaque question
+  - Utilisation de la fonction `shuffleArray()` existante
+- ✅ **Exercices "Intrus"** - Mélange aléatoire des options
+  - Les caractères changent de position à chaque question
+  - Empêche la mémorisation de la position des réponses
+- ✅ **Service Worker** - Mise à jour forcée du cache (v1 → v2)
+  - Assure que les utilisateurs reçoivent la nouvelle version
+  - Suppression automatique de l'ancien cache
+- 🎯 **Résultat** : Exercices beaucoup plus difficiles et pédagogiques
+- 📁 **Fichiers modifiés** : `app.js`, `service-worker.js`
+
+### V4.1 HTML Pure (2 décembre 2025) - **✅ TERMINÉE**
 **Refonte en HTML/CSS/JavaScript pur - SUCCÈS !**
 - ✅ Recréation complète en HTML/CSS/JS vanilla
 - ✅ Compatibilité web 100% garantie
