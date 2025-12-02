@@ -40,33 +40,30 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Interception des requêtes
+// Interception des requêtes - Stratégie Network First
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
+    fetch(event.request)
       .then(response => {
-        // Retourner la ressource du cache si disponible
-        if (response) {
+        // Vérifier si la réponse est valide
+        if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
         }
 
-        // Sinon, faire la requête réseau
-        return fetch(event.request).then(response => {
-          // Vérifier si la réponse est valide
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
+        // Cloner la réponse
+        const responseToCache = response.clone();
 
-          // Cloner la réponse
-          const responseToCache = response.clone();
+        // Mettre à jour le cache avec la nouvelle version
+        caches.open(CACHE_NAME)
+          .then(cache => {
+            cache.put(event.request, responseToCache);
+          });
 
-          caches.open(CACHE_NAME)
-            .then(cache => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        });
+        return response;
+      })
+      .catch(() => {
+        // En cas d'échec réseau, retourner du cache
+        return caches.match(event.request);
       })
   );
 });
