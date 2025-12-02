@@ -4,13 +4,14 @@
 
 ---
 
-## 🎯 Version Actuelle : **4.1 HTML (✅ TERMINÉE - EN TEST)**
+## 🎯 Version Actuelle : **4.1 HTML (✅ DÉPLOYÉE ET PUBLIQUE)**
 
 Application d'apprentissage des hiragana avec gamification et exercices variés.
 **Version HTML/CSS/JS pure pour compatibilité web maximale.**
 
-✅ **Version 4.1 HTML Pure** : Application fonctionnelle et prête pour tests
-⚠️ **Version 4.0 React Native Web** : Problèmes de compatibilité - Application bloquée sur écran de chargement
+✅ **Version 4.1 HTML Pure** : Application déployée et accessible publiquement
+🌐 **URL Publique** : https://jorunojobanapassione.github.io/apprendre-japonais/
+⚠️ **Version 4.0 React Native Web** : Problèmes de compatibilité - Application abandonnée
 
 ---
 
@@ -106,26 +107,25 @@ src/
 ### Documentation
 ```
 /
-├── RECAP_V3.1.md                      (Personnalisation & Transcription)
-├── RECAP_V3.2_TRANSCRIPTIONS.md       (Exercices transcription complets)
-├── CORRECTION_ROMAJI_VISIBLE.md       (Fix romaji visible)
-├── ROADMAP_V3.1.md                    (Roadmap détaillée)
-├── DEPLOYER_GITHUB.md                 (Guide déploiement GitHub Pages - 3 étapes)
-├── DEPLOIEMENT_WEB.md                 (Guide complet PWA & déploiement)
-├── GITHUB_PAGES_SIMPLE.md             (Alternatives déploiement)
-├── QUICKSTART_DEPLOY.md               (Démarrage rapide)
-├── netlify.toml                       (Config Netlify)
-└── PROJECT_STATUS.md                  (Ce fichier)
+├── ACTION_IMMEDIATE.md                (Actions rapides - Démarrage en 15 min)
+├── GUIDE_PARTAGE_FEEDBACKS.md         (Guide complet de partage et collecte de feedbacks)
+├── TEMPLATE_FORMULAIRE_FEEDBACK.md    (20 questions pour Google Forms)
+├── netlify.toml                       (Config Netlify - optionnelle)
+└── PROJECT_STATUS.md                  (Ce fichier - État du projet)
 ```
 
-### PWA Files
+### PWA Files (html-version/)
 ```
-/public
-├── index.html                         (HTML avec écran de chargement)
+/html-version
+├── index.html                         (HTML principal avec écran de chargement)
+├── style.css                          (Styles CSS - Design violet/blanc)
+├── app.js                            (Logique JavaScript - Navigation & exercices)
+├── lessons-data.js                   (Données des 10 leçons et badges)
 ├── manifest.json                      (Manifest PWA)
 ├── service-worker.js                  (Service Worker pour offline)
-├── icon-192.png                       (Icône 192x192)
-└── icon-512.png                       (Icône 512x512)
+├── icon-192.png                       (Icône PWA 192x192)
+├── icon-512.png                       (Icône PWA 512x512)
+└── README.md                          (Documentation technique de la version HTML)
 ```
 
 ---
@@ -228,24 +228,35 @@ src/
 
 ## 🎯 Prochaines Étapes
 
-### ✅ Version 4.1 HTML Pure - TERMINÉE
+### ✅ Phase de Déploiement - TERMINÉE
 - ✅ Créer structure HTML/CSS/JS de base
 - ✅ Implémenter les 10 leçons en JavaScript vanilla
-- ✅ Recréer les 5 types d'exercices
+- ✅ Recréer les 6 types d'exercices
 - ✅ Système de navigation simple
 - ✅ LocalStorage pour progression et badges
-- ✅ Design identique à V3.2.1 (violet/blanc)
+- ✅ Design moderne (violet/blanc)
 - ✅ PWA fonctionnelle (manifest + service worker)
-- 🔄 Tests sur mobile et desktop (en cours)
-- [ ] Créer icônes PWA (192x192 et 512x512)
-- [ ] Déploiement Netlify/GitHub Pages
-- [ ] Partage avec testeurs
+- ✅ Créer icônes PWA (192x192 et 512x512)
+- ✅ Déploiement GitHub Pages
+- ✅ Création des guides de partage et feedback
 
-### Court Terme (Après V4.1)
-- [ ] Tester toutes les leçons
-- [ ] Vérifier la difficulté des exercices
-- [ ] Ajuster feedback si nécessaire
-- [ ] Tests utilisateurs et retours
+### 🔄 Phase Actuelle : Collecte de Feedbacks (Semaine 1-2)
+**Actions immédiates** :
+- [ ] Activer GitHub Pages dans les settings
+- [ ] Tester l'application sur mobile ET desktop
+- [ ] Créer le formulaire Google Forms de feedback
+- [ ] Créer un QR Code de l'URL
+- [ ] Partager avec 10-15 personnes du cercle proche
+- [ ] Collecter les premiers retours
+
+**Voir le fichier `ACTION_IMMEDIATE.md` pour les détails**
+
+### Court Terme (Semaine 2-3)
+- [ ] Analyser les feedbacks collectés
+- [ ] Corriger les bugs critiques identifiés
+- [ ] Ajuster la difficulté si nécessaire
+- [ ] Améliorer l'UX selon les retours
+- [ ] Partager plus largement (Reddit, Facebook, Discord)
 
 ### Moyen Terme
 - [ ] **Écran Profil** - Voir stats, niveau, badges
@@ -281,17 +292,17 @@ src/
 
 ## 📚 Documentation Disponible
 
-### Guides Techniques
-- **RECAP_V3.1.md** - Fonctionnalités V3.1 (personnalisation)
-- **RECAP_V3.2_TRANSCRIPTIONS.md** - Exercices transcription complets
-- **CORRECTION_ROMAJI_VISIBLE.md** - Fix romaji visible
-- **ROADMAP_V3.1.md** - Roadmap détaillée
-- **PROJECT_STATUS.md** - État du projet (ce fichier)
+### Guides de Déploiement et Partage (NOUVEAU)
+- **ACTION_IMMEDIATE.md** - Actions rapides pour démarrer en 15 minutes
+- **GUIDE_PARTAGE_FEEDBACKS.md** - Guide complet de partage (réseaux sociaux, communautés, stratégie)
+- **TEMPLATE_FORMULAIRE_FEEDBACK.md** - 20 questions prêtes pour Google Forms
+- **PROJECT_STATUS.md** - État du projet et progression (ce fichier)
 
-### Code Documentation
-- Commentaires dans chaque fichier
+### Code Documentation (html-version/)
+- **README.md** - Documentation technique de la version HTML
+- Commentaires détaillés dans chaque fichier JS/CSS
 - Structure claire et organisée
-- Nommage explicite
+- Nommage explicite des variables et fonctions
 
 ---
 
@@ -416,29 +427,34 @@ src/
 ## 📞 Contact & Support
 
 Pour toute question ou amélioration :
-- 📧 Email : [À définir]
-- 🐛 Issues : [À définir]
-- 📚 Documentation : Voir fichiers RECAP_*.md
+- 🌐 **URL de l'app** : https://jorunojobanapassione.github.io/apprendre-japonais/
+- 🐛 **GitHub Issues** : https://github.com/JorunoJobanaPassione/apprendre-japonais/issues
+- 📚 **Documentation** : Voir fichiers ACTION_IMMEDIATE.md et GUIDE_PARTAGE_FEEDBACKS.md
+- 💬 **Feedbacks** : Créer un formulaire Google Forms (voir TEMPLATE_FORMULAIRE_FEEDBACK.md)
 
 ---
 
 ## 🏆 Conclusion
 
-Application **complète et fonctionnelle** pour l'apprentissage des hiragana avec :
-- ✅ **10 leçons** progressives
-- ✅ **220+ exercices** variés
-- ✅ **80 exercices de transcription** avec alternatives
-- ✅ **Gamification** complète
-- ✅ **Animations** fluides
-- ✅ **Personnalisation** (10, 15, 20 questions)
-- ✅ **UX** soignée et pédagogique
+Application **complète, déployée et accessible publiquement** pour l'apprentissage des hiragana avec :
+- ✅ **10 leçons** progressives et complètes
+- ✅ **220+ exercices** variés (6 types différents)
+- ✅ **80 exercices de transcription** avec alternatives romaji
+- ✅ **Gamification** complète (badges, niveaux, streak)
+- ✅ **Animations CSS** fluides et modernes
+- ✅ **PWA installable** - Fonctionne hors ligne
+- ✅ **Design responsive** - Mobile et desktop
+- ✅ **Déployée sur GitHub Pages** - Accessible au monde entier
 
-**État** : ✅ Prêt pour tests utilisateurs et déploiement
+**État Actuel** : ✅ Déployée et prête pour la collecte de feedbacks
+**URL Publique** : https://jorunojobanapassione.github.io/apprendre-japonais/
 
-頑張りましょう！(Ganbarimashou !)
+**Prochaine Phase** : Partager avec 10-15 testeurs, collecter des retours, améliorer selon les feedbacks
+
+頑張りましょう！(Ganbarimashou - Bon courage !)
 
 ---
 
-**Version du document** : 1.0
-**Dernière mise à jour** : 1er décembre 2025
-**Prochaine revue** : [À définir]
+**Version du document** : 2.0
+**Dernière mise à jour** : 2 décembre 2025 - Application déployée et guides créés
+**Prochaine revue** : Après collecte des premiers feedbacks (dans 1-2 semaines)
