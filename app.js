@@ -436,13 +436,16 @@ const LessonController = {
   },
 
   renderMCQ: function(container, question) {
+    // Mélanger les options pour chaque affichage
+    const shuffledOptions = this.shuffleArray([...question.data.options]);
+
     container.innerHTML = `
       <div class="exercise">
         <h2 class="exercise-title">❓ ${question.title}</h2>
         <p class="exercise-instruction">${question.instruction}</p>
         <div class="question-hiragana">${question.data.hiragana}</div>
         <div class="options-grid">
-          ${question.data.options.map(option => `
+          ${shuffledOptions.map(option => `
             <button class="option-btn" data-answer="${option}">${option}</button>
           `).join('')}
         </div>
@@ -481,12 +484,15 @@ const LessonController = {
   },
 
   renderIntruder: function(container, question) {
+    // Mélanger les options pour chaque affichage
+    const shuffledOptions = this.shuffleArray([...question.data.options]);
+
     container.innerHTML = `
       <div class="exercise">
         <h2 class="exercise-title">🔍 ${question.title}</h2>
         <p class="exercise-instruction">${question.instruction}</p>
         <div class="options-grid">
-          ${question.data.options.map(option => `
+          ${shuffledOptions.map(option => `
             <button class="option-btn" data-answer="${option}" style="font-size: 48px;">${option}</button>
           `).join('')}
         </div>
@@ -581,17 +587,48 @@ const LessonController = {
         <p class="exercise-instruction">${question.instruction}</p>
         <div class="transcription-word">${question.data.hiragana}</div>
         <p class="transcription-meaning">${question.data.meaning}</p>
-        <div id="feedback" class="feedback success" style="display: block;">
-          <strong>Lecture :</strong> ${question.data.romaji}
+        <div class="input-container">
+          <input type="text" class="transcription-input" id="sentence-input" placeholder="Écrivez en romaji..." autocomplete="off">
         </div>
-        <button class="primary-btn next-btn" onclick="LessonController.nextQuestion()">
-          Suivant →
+        <div id="feedback"></div>
+        <button class="primary-btn next-btn" onclick="LessonController.checkSentence()">
+          Valider
         </button>
       </div>
     `;
 
-    // Auto-score pour les exercices de lecture
-    appState.score++;
+    // Focus sur l'input
+    const input = document.getElementById('sentence-input');
+    input.focus();
+
+    // Validation avec Enter
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        LessonController.checkSentence();
+      }
+    });
+  },
+
+  checkSentence: function() {
+    const question = appState.selectedQuestions[appState.currentQuestion];
+    const input = document.getElementById('sentence-input');
+    const answer = input.value.toLowerCase().trim();
+    const correct = question.data.romaji.toLowerCase();
+
+    const isCorrect = answer === correct;
+
+    input.classList.add(isCorrect ? 'correct' : 'incorrect');
+    input.disabled = true;
+
+    const feedback = document.getElementById('feedback');
+    feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
+    feedback.innerHTML = isCorrect
+      ? '✅ Bonne réponse !'
+      : `❌ La bonne réponse était : ${question.data.romaji}`;
+
+    if (isCorrect) appState.score++;
+
+    setTimeout(() => LessonController.nextQuestion(), 1500);
   },
 
   nextQuestion: function() {

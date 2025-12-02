@@ -3,7 +3,7 @@
  * Permet le fonctionnement hors ligne
  */
 
-const CACHE_NAME = 'japonais-app-v1';
+const CACHE_NAME = 'japonais-app-v2';
 const urlsToCache = [
   './',
   './index.html',
