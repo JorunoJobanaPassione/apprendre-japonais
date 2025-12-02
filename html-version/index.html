@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apprenez le japonais : hiragana, katakana et vocabulaire">
+    <meta name="theme-color" content="#667eea">
+    <title>Apprendre le Japonais - Hiragana</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Container principal -->
+    <div id="app">
+        <!-- Écran de chargement -->
+        <div id="loading-screen" class="screen">
+            <div class="loading-content">
+                <h1 class="loading-title">日本語</h1>
+                <p class="loading-subtitle">Apprendre le Japonais</p>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Écran d'accueil -->
+        <div id="home-screen" class="screen" style="display: none;">
+            <header class="app-header">
+                <h1 class="app-title">📚 Apprendre le Japonais</h1>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">🏆</span>
+                        <span class="stat-value" id="user-level">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⭐</span>
+                        <span class="stat-value" id="user-points">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🔥</span>
+                        <span class="stat-value" id="user-streak">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content">
+                <section class="progress-section">
+                    <h2 class="section-title">Votre progression</h2>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="global-progress" style="width: 0%"></div>
+                    </div>
+                    <p class="progress-text"><span id="completed-lessons">0</span>/10 leçons complétées</p>
+                </section>
+
+                <section class="lessons-section">
+                    <h2 class="section-title">Leçons d'hiragana</h2>
+                    <div id="lessons-list" class="lessons-grid">
+                        <!-- Les leçons seront insérées ici par JavaScript -->
+                    </div>
+                </section>
+            </div>
+
+            <footer class="app-footer">
+                <button class="footer-btn" id="stats-btn">
+                    <span class="btn-icon">📊</span>
+                    <span class="btn-label">Statistiques</span>
+                </button>
+                <button class="footer-btn" id="badges-btn">
+                    <span class="btn-icon">🏅</span>
+                    <span class="btn-label">Badges</span>
+                </button>
+                <button class="footer-btn" id="settings-btn">
+                    <span class="btn-icon">⚙️</span>
+                    <span class="btn-label">Réglages</span>
+                </button>
+            </footer>
+        </div>
+
+        <!-- Écran de configuration de leçon -->
+        <div id="config-screen" class="screen" style="display: none;">
+            <header class="lesson-header">
+                <button class="back-btn" id="config-back-btn">← Retour</button>
+                <h2 class="lesson-title" id="config-lesson-title">Leçon 1</h2>
+            </header>
+
+            <div class="content config-content">
+                <div class="config-card">
+                    <h3 class="config-title">⚙️ Configuration de la leçon</h3>
+                    <p class="config-description" id="config-description">Choisissez le nombre de questions</p>
+
+                    <div class="config-options">
+                        <button class="config-option active" data-questions="10">
+                            <span class="option-number">10</span>
+                            <span class="option-label">questions</span>
+                            <span class="option-time">~5 min</span>
+                        </button>
+                        <button class="config-option" data-questions="15">
+                            <span class="option-number">15</span>
+                            <span class="option-label">questions</span>
+                            <span class="option-time">~8 min</span>
+                        </button>
+                        <button class="config-option" data-questions="20">
+                            <span class="option-number">20</span>
+                            <span class="option-label">questions</span>
+                            <span class="option-time">~10 min</span>
+                        </button>
+                    </div>
+
+                    <button class="start-lesson-btn" id="start-lesson-btn">
+                        Commencer la leçon
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Écran de leçon -->
+        <div id="lesson-screen" class="screen" style="display: none;">
+            <header class="lesson-header">
+                <button class="back-btn" id="lesson-back-btn">← Quitter</button>
+                <div class="lesson-progress">
+                    <span id="current-question">1</span>/<span id="total-questions">10</span>
+                </div>
+                <div class="lesson-score">
+                    Score: <span id="current-score">0</span>
+                </div>
+            </header>
+
+            <div class="lesson-progress-bar-container">
+                <div class="lesson-progress-bar" id="lesson-progress-bar" style="width: 0%"></div>
+            </div>
+
+            <div class="content lesson-content" id="exercise-container">
+                <!-- Les exercices seront insérés ici dynamiquement -->
+            </div>
+        </div>
+
+        <!-- Écran de résultats -->
+        <div id="results-screen" class="screen" style="display: none;">
+            <div class="content results-content">
+                <div class="results-card">
+                    <div class="results-icon" id="results-icon">🎉</div>
+                    <h2 class="results-title" id="results-title">Félicitations !</h2>
+                    <p class="results-subtitle" id="results-subtitle">Leçon terminée</p>
+
+                    <div class="results-stats">
+                        <div class="result-stat">
+                            <span class="result-stat-label">Score</span>
+                            <span class="result-stat-value" id="final-score">0/10</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="result-stat-label">Précision</span>
+                            <span class="result-stat-value" id="final-accuracy">0%</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="result-stat-label">Points gagnés</span>
+                            <span class="result-stat-value" id="points-earned">+0</span>
+                        </div>
+                    </div>
+
+                    <div class="results-badges" id="results-badges" style="display: none;">
+                        <h3 class="badges-title">🏅 Nouveaux badges débloqués !</h3>
+                        <div id="unlocked-badges-list" class="unlocked-badges-list">
+                            <!-- Les badges débloqués seront insérés ici -->
+                        </div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button class="secondary-btn" id="retry-btn">🔄 Refaire</button>
+                        <button class="primary-btn" id="continue-btn">✅ Continuer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Écran des badges -->
+        <div id="badges-screen" class="screen" style="display: none;">
+            <header class="lesson-header">
+                <button class="back-btn" id="badges-back-btn">← Retour</button>
+                <h2 class="lesson-title">🏅 Mes Badges</h2>
+            </header>
+
+            <div class="content">
+                <div id="badges-list" class="badges-grid">
+                    <!-- Les badges seront insérés ici -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de badge débloqué -->
+    <div id="badge-modal" class="modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content badge-modal-content">
+            <div class="badge-unlock-animation">
+                <div class="badge-icon-large" id="modal-badge-icon">🏆</div>
+                <h3 class="badge-unlock-title">Nouveau badge débloqué !</h3>
+                <h4 class="badge-name" id="modal-badge-name">Badge Name</h4>
+                <p class="badge-description" id="modal-badge-description">Description</p>
+                <button class="primary-btn" id="close-badge-modal">Super !</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="lessons-data.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker enregistré avec succès:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Échec de l\'enregistrement du Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,14 +1,15 @@
 # 📊 État du Projet - App d'Apprentissage du Japonais
 
-## Dernière mise à jour : 1er décembre 2025
+## Dernière mise à jour : 2 décembre 2025
 
 ---
 
-## 🎯 Version Actuelle : **4.1 HTML (en cours)**
+## 🎯 Version Actuelle : **4.1 HTML (✅ TERMINÉE - EN TEST)**
 
 Application d'apprentissage des hiragana avec gamification et exercices variés.
 **Version HTML/CSS/JS pure pour compatibilité web maximale.**
 
+✅ **Version 4.1 HTML Pure** : Application fonctionnelle et prête pour tests
 ⚠️ **Version 4.0 React Native Web** : Problèmes de compatibilité - Application bloquée sur écran de chargement
 
 ---
@@ -154,14 +155,21 @@ src/
 
 ## 🚀 Versions
 
-### V4.1 HTML Pure (1er décembre 2025) - **EN COURS**
-**Refonte en HTML/CSS/JavaScript pur**
-- 🔄 Recréation de l'application en HTML/CSS/JS vanilla
-- 🔄 Compatibilité web 100% garantie
-- 🔄 Même design et fonctionnalités que V3.2.1
-- 🔄 LocalStorage pour la persistance (remplace AsyncStorage)
-- 🔄 PWA fonctionnelle sans framework
-- 🎯 **Objectif** : Version web stable et performante
+### V4.1 HTML Pure (2 décembre 2025) - **✅ TERMINÉE - EN TEST**
+**Refonte en HTML/CSS/JavaScript pur - SUCCÈS !**
+- ✅ Recréation complète en HTML/CSS/JS vanilla
+- ✅ Compatibilité web 100% garantie
+- ✅ Même design et fonctionnalités que V3.2.1
+- ✅ LocalStorage pour la persistance (remplace AsyncStorage)
+- ✅ PWA fonctionnelle sans framework (manifest + service worker)
+- ✅ 7 fichiers créés (~2000 lignes de code)
+- ✅ 10 leçons complètes avec 5 types d'exercices
+- ✅ Gamification complète (badges, points, streak, niveaux)
+- ✅ Design violet/blanc responsive
+- ✅ Animations CSS fluides
+- ✅ Documentation complète (README + RECAP)
+- 🎯 **Résultat** : Application stable, performante et déployable
+- 📁 **Location** : `/html-version/`
 
 ### V4.0 PWA (1er décembre 2025) - **ABANDONNÉE**
 **Tentative de conversion React Native Web**
@@ -220,16 +228,17 @@ src/
 
 ## 🎯 Prochaines Étapes
 
-### URGENT - Version 4.1 HTML Pure
-- [ ] Créer structure HTML/CSS/JS de base
-- [ ] Implémenter les 10 leçons en JavaScript vanilla
-- [ ] Recréer les 6 types d'exercices
-- [ ] Système de navigation simple
-- [ ] LocalStorage pour progression et badges
-- [ ] Design identique à V3.2.1 (violet/blanc)
-- [ ] PWA fonctionnelle (manifest + service worker)
+### ✅ Version 4.1 HTML Pure - TERMINÉE
+- ✅ Créer structure HTML/CSS/JS de base
+- ✅ Implémenter les 10 leçons en JavaScript vanilla
+- ✅ Recréer les 5 types d'exercices
+- ✅ Système de navigation simple
+- ✅ LocalStorage pour progression et badges
+- ✅ Design identique à V3.2.1 (violet/blanc)
+- ✅ PWA fonctionnelle (manifest + service worker)
+- 🔄 Tests sur mobile et desktop (en cours)
+- [ ] Créer icônes PWA (192x192 et 512x512)
 - [ ] Déploiement Netlify/GitHub Pages
-- [ ] Tests sur mobile et desktop
 - [ ] Partage avec testeurs
 
 ### Court Terme (Après V4.1)

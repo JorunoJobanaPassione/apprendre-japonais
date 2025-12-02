@@ -1,0 +1,23 @@
+# Fichiers à ignorer pour GitHub
+
+# Fichier de génération d'icônes (optionnel)
+generate-icons.html
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Fichiers d'éditeur
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Fichiers temporaires
+*.tmp
+*.temp
