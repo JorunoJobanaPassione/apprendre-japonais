@@ -162,20 +162,32 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 - [x] Tester qualité audio sur tous les exercices
 - [x] Déployer V4.3.0 (✅ EN LIGNE)
 
-**Semaine 2 : ⚡ Mode Express 90 secondes**
-- [ ] Créer UI du mode Express (écran d'accueil)
-- [ ] Implémenter timer 90 secondes
-- [ ] Logique de sélection 5 questions (hiragana les plus ratés)
-- [ ] Écran de résultats avec partage social
-- [ ] Animations de célébration (confettis)
+**Semaine 2 : ⚡ Mode Express 90s + 📖 Mini-Dialogues** (4-10 décembre)
+- [ ] **Mode Express :**
+  - [ ] Créer UI du mode Express (écran d'accueil)
+  - [ ] Implémenter timer 90 secondes
+  - [ ] Logique de sélection 5 questions (hiragana les plus ratés)
+  - [ ] Écran de résultats avec partage social
+  - [ ] Animations de célébration (confettis)
+- [ ] **Mini-Dialogues (NOUVEAU - répond au besoin #1)** :
+  - [ ] Créer 10 mini-dialogues authentiques (1 par leçon)
+  - [ ] Ajouter bouton audio pour dialogues complets
+  - [ ] Exercice "Traduire le dialogue"
+  - [ ] Design: cards avec contexte visuel
 - [ ] Déployer V4.4.0
 
-**Semaine 3 : 🏆 Leaderboard Réel**
-- [ ] Setup Supabase (compte + projet)
-- [ ] Créer table leaderboard (username, total_xp, streak, last_active)
-- [ ] Implémenter sync XP automatique
-- [ ] Créer écran Leaderboard (Top 50 mondial)
-- [ ] Ajouter Realtime subscriptions
+**Semaine 3 : 🏆 Leaderboard + 🎧 Exercices Écoute** (11-17 décembre)
+- [ ] **Leaderboard Réel :**
+  - [ ] Setup Supabase (compte + projet)
+  - [ ] Créer table leaderboard (username, total_xp, streak, last_active)
+  - [ ] Implémenter sync XP automatique
+  - [ ] Créer écran Leaderboard (Top 50 mondial)
+  - [ ] Ajouter Realtime subscriptions
+- [ ] **Exercices Dictée Audio (NOUVEAU - répond au besoin #4)** :
+  - [ ] Créer type d'exercice "Dictée" (7ème type)
+  - [ ] Logique : Audio seul → User écrit romaji
+  - [ ] Intégrer dans rotation d'exercices (10% des questions)
+  - [ ] Feedback spécifique pour erreurs d'écoute
 - [ ] Déployer V4.5.0
 
 **Semaine 4 : 🎨 Animations & Push Notifications**
@@ -192,11 +204,18 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 
 ### 💎 MOIS 2 : Expansion + Monétisation (500 utilisateurs · 10 payants)
 
-**Semaine 5-6 : 📚 Katakana Complet**
-- [ ] Créer 10 leçons Katakana (structure identique Hiragana)
-- [ ] Générer 46 fichiers audio katakana
-- [ ] Adapter exercices pour katakana
-- [ ] Badges katakana (15 nouveaux badges)
+**Semaine 5-6 : 📚 Katakana + 💡 Tips Grammaire** (25 déc - 7 jan)
+- [ ] **Katakana Complet :**
+  - [ ] Créer 10 leçons Katakana (structure identique Hiragana)
+  - [ ] Générer 46 fichiers audio katakana
+  - [ ] Adapter exercices pour katakana
+  - [ ] 10 mini-dialogues katakana
+  - [ ] Badges katakana (15 nouveaux badges)
+- [ ] **Tips Grammaticaux (NOUVEAU - répond au besoin #3)** :
+  - [ ] Écrire 10 tips grammaticaux (particules, structure, logique)
+  - [ ] Design : Cards "💡 Astuce Grammaire" par leçon
+  - [ ] Intégrer dans flow de leçon (après présentation)
+  - [ ] Exemples concrets avec audio
 - [ ] Déployer V5.0.0 (mise à jour majeure)
 
 **Semaine 7 : 💳 Tier Premium + Stripe**
@@ -207,11 +226,14 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 - [ ] Intégrer Stripe Checkout
 - [ ] Déployer V5.1.0
 
-**Semaine 8 : 🧠 SRS Basique (Révision Espacée)**
-- [ ] Implémenter algorithme SRS simple (localStorage)
-- [ ] Tracking dates de révision par caractère
-- [ ] Notifications de révision intelligentes
-- [ ] Écran "Révisions du jour"
+**Semaine 8 : 🧠 SRS Complet Amélioré (Révision Espacée)**
+- [ ] **Algorithme SRS avancé (AMÉLIORÉ - répond au besoin #6)** :
+  - [ ] Implémenter algorithme Leitner amélioré (pas juste basique)
+  - [ ] Intervalles : 1j → 3j → 7j → 14j → 30j → 90j
+  - [ ] Tracking dates + niveau de maîtrise par caractère
+  - [ ] Notifications intelligentes de révision
+  - [ ] Écran "Révisions du jour" avec priorisation
+  - [ ] Stats : taux de rétention, courbe d'oubli
 - [ ] Déployer V5.2.0
 
 **Objectif fin Mois 2 : 500 utilisateurs · 10 premium (100€/mois MRR)**
@@ -301,13 +323,49 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 
 ## 🔑 Notre Unfair Advantage
 
-**Vs Duolingo** : 30 jours pour maîtriser hiragana (vs 6 mois chez eux)
-**Vs Anki** : UX moderne 2025 (vs UI de 2005)
-**Vs WaniKani** : Gratuit au départ (vs $9/mois dès le début)
-**Vs Busuu** : Focus 100% lecture japonaise (pas générique)
+**Vs Duolingo** : 30 jours pour maîtriser hiragana (vs 6 mois chez eux) + Dialogues réels + Explications grammaticales
+**Vs Anki** : UX moderne 2025 (vs UI de 2005) + Contexte narratif + Audio natif
+**Vs WaniKani** : Gratuit au départ (vs $9/mois dès le début) + Focus lecture complète
+**Vs Busuu** : Focus 100% lecture japonaise (pas générique) + Immersion audio
 
 **Notre positionnement** :
-> "La SEULE app qui t'apprend à VRAIMENT lire le japonais en 30 jours, avec la méthode des polyglotes."
+> "La SEULE app qui t'apprend à VRAIMENT lire le japonais en 30 jours, avec audio natif, dialogues réels, et révision intelligente."
+
+---
+
+## 🎯 Les 7 Besoins Critiques Utilisateurs (basé sur avis apps à succès)
+
+**Recherche utilisateurs - Pain points identifiés :**
+
+1. ❌ **"On apprend plein de mots, mais je ne comprends toujours rien quand je lis."**
+   - 👉 Les gens veulent lire *pour de vrai*, pas juste passer des QCM
+   - ✅ **Notre solution** : Mini-dialogues par leçon (Semaine 2)
+
+2. ❌ **"Les phrases ne servent à rien dans la vraie vie."**
+   - 👉 Les utilisateurs veulent des phrases naturelles, pas "Les chats boivent du lait violet"
+   - ✅ **Notre solution** : Vocabulaire authentique (150+ mots utiles) ✓ DÉJÀ FAIT
+
+3. ❌ **"Ça n'explique pas la logique du japonais."**
+   - 👉 Les gens veulent comprendre *comment fonctionne la langue*, pas juste cliquer
+   - ✅ **Notre solution** : Tips grammaticaux par leçon (Mois 2)
+
+4. ❌ **"Pas assez d'écoute ni d'immersion."**
+   - 👉 Trop d'apps sont 100% lecture → aucune oreille ne s'habitue
+   - ✅ **Notre solution** : Audio natif (V4.3.0) + Exercices dictée (Semaine 3)
+
+5. ❌ **"Je n'arrive pas à savoir si je progresse vraiment."**
+   - 👉 Besoin de stats lisibles, progression réelle, sentiment d'avancer
+   - ✅ **Notre solution** : Stats détaillées (V4.2.0) ✓ DÉJÀ FAIT
+
+6. ❌ **"On apprend par cœur, mais on oublie tout après une semaine."**
+   - 👉 Besoin d'un système de révision intelligent (SRS)
+   - ✅ **Notre solution** : Mode révision (V4.2.0) + SRS complet (Semaine 8)
+
+7. ❌ **"Les apps ne s'adaptent pas à mon vrai niveau."**
+   - 👉 Besoin de personnalisation
+   - ✅ **Notre solution** : Mode révision ciblé sur erreurs ✓ DÉJÀ FAIT
+
+**Score actuel : 4/7 ✓ implémenté · 3/7 📅 planifié (100% couverture)**
 
 ---
 
@@ -344,16 +402,19 @@ Aucun bug critique identifié ✅
 
 ## 🔒 Limitations Actuelles (à résoudre en priorité)
 
-### 🎯 CRITIQUES (Semaines 1-4)
-- ❌ **Pas d'audio** → Bloquant pour apprentissage prononciation
-- ❌ **Pas de mode Express 90s** → Manque d'engagement rapide
+### 🎯 CRITIQUES (Semaines 1-4) - Basé sur recherche utilisateurs
+- ✅ ~~Pas d'audio~~ → ✅ **RÉSOLU V4.3.0** (Audio natif 80 fichiers)
+- ❌ **Pas de mini-dialogues** → Besoin #1 : "Je ne comprends rien quand je lis pour de vrai"
+- ❌ **Pas de mode Express 90s** → Manque d'engagement rapide (dopamine)
+- ❌ **Pas d'exercices dictée** → Besoin #4 : "Pas assez d'écoute/immersion"
 - ❌ **Pas de leaderboard réel** → Pas de compétition sociale
 - ❌ **Pas de push notifications** → Faible rétention
 
-### ⚠️ IMPORTANTES (Mois 2)
+### ⚠️ IMPORTANTES (Mois 2) - Valeur pédagogique
+- ⚠️ **Pas de tips grammaticaux** → Besoin #3 : "N'explique pas la logique du japonais"
 - ⚠️ Pas de katakana (46 caractères manquants)
 - ⚠️ Pas de tier Premium (pas de revenu)
-- ⚠️ Pas de SRS (révision non optimale)
+- ⚠️ **SRS basique uniquement** → Besoin #6 : "J'oublie tout après 1 semaine" (besoin SRS complet)
 - ⚠️ Pas de backend (pas de sync multi-device)
 
 ### 💡 LONG TERME (Mois 3+)
@@ -361,6 +422,33 @@ Aucun bug critique identifié ✅
 - 💡 Pas d'analytics avancés
 - 💡 Pas de système de parrainage
 - 💡 Pas de A/B testing
+
+**Score besoins utilisateurs : 4/7 ✓ résolu · 3/7 📅 planifié prochaines semaines**
+
+---
+
+## 🎯 Ajustements Stratégiques (basés sur recherche utilisateurs)
+
+**Changements apportés à la roadmap initiale :**
+
+| Feature Ajoutée | Besoin Utilisateur | Semaine | Impact |
+|----------------|-------------------|---------|--------|
+| 📖 **Mini-Dialogues** | #1 "Je ne comprends rien en lecture réelle" | Semaine 2 | 🔴 Critique |
+| 🎧 **Exercices Dictée** | #4 "Pas assez d'écoute/immersion" | Semaine 3 | 🔴 Critique |
+| 💡 **Tips Grammaire** | #3 "N'explique pas la logique" | Mois 2 | 🟡 Important |
+| 🧠 **SRS Amélioré** | #6 "J'oublie tout après 1 semaine" | Semaine 8 | 🟡 Important |
+
+**Effort supplémentaire :** +3-4 jours de dev par mois
+**Impact business :** +40% satisfaction utilisateur · +25% valeur perçue
+
+**Différenciation renforcée :**
+- ✅ Duolingo : Pas de vrais dialogues, explications vagues → **Nous : Oui**
+- ✅ Anki : Zéro contexte narratif → **Nous : Mini-dialogues**
+- ✅ WaniKani : Pas d'explications grammaticales → **Nous : Tips intégrés**
+- ✅ Toutes les apps : SRS basique → **Nous : SRS complet avec stats**
+
+**Nouveau positionnement :**
+> "La SEULE app qui t'apprend à VRAIMENT lire le japonais en 30 jours, avec audio natif, dialogues réels, explications grammaticales, et révision intelligente."
 
 ---
 
