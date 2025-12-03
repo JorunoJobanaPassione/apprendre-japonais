@@ -3,7 +3,7 @@
  * Permet le fonctionnement hors ligne
  */
 
-const CACHE_NAME = 'japonais-app-v4.3.0';
+const CACHE_NAME = 'japonais-app-v4.4.0';
 
 // Liste des fichiers MP3 audio hiragana
 const audioFiles = [

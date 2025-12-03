@@ -1,13 +1,14 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 4.3.0 🎉
+**Version** : 4.4.0 🎉
 **Dernière mise à jour** : 3 décembre 2025
-**Status** : ✅ Déployée avec AUDIO NATIF
+**Status** : ✅ Mini-Dialogues Authentiques Implémentés
 **URL** : https://jorunojobanapassione.github.io/apprendre-japonais/
 
 **🎯 VISION** : Devenir l'app de référence pour apprendre à lire le japonais (viser l'échelle Duolingo)
 **📈 OBJECTIF 3 MOIS** : 2000 utilisateurs actifs · 100 utilisateurs premium · 1000€/mois MRR
 **🏆 SEMAINE 1** : ✅ COMPLÉTÉE - Audio natif implémenté (80 fichiers MP3, 371 KB)
+**🏆 SEMAINE 2** : ✅ EN COURS - Mini-Dialogues implémentés (10 dialogues authentiques)
 
 ---
 
@@ -89,7 +90,35 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 
 ## 🚀 Historique des Versions
 
-### V4.3.0 (3 décembre 2025) - ✅ ACTUELLE - AUDIO NATIF
+### V4.4.0 (3 décembre 2025) - ✅ ACTUELLE - MINI-DIALOGUES
+**🎯 SEMAINE 2 EN COURS : Feature #2 critique - Mini-Dialogues authentiques**
+- 📖 **10 Mini-Dialogues Authentiques** :
+  - 1 dialogue par leçon (contextes réels)
+  - Leçon 1 : Première rencontre (salutations)
+  - Leçon 2 : Au restaurant (commander)
+  - Leçon 3 : Les animaux (parler de son chat)
+  - Leçon 4 : À la gare (prendre le train)
+  - Leçon 5 : Shopping (acheter au marché)
+  - Leçon 6 : À l'école (discussion étudiants)
+  - Leçon 7 : Météo (parler du temps)
+  - Leçon 8 : Au parc (pique-nique)
+  - Leçon 9 : Restaurant japonais (commander avec combinaisons)
+  - Leçon 10 : Conversation quotidienne (dialogue complet)
+- 🎨 **Design dialogues** :
+  - Contexte visuel avec emoji et description
+  - Affichage speaker + hiragana + romaji + français
+  - Boutons audio pour chaque ligne
+  - Animations fadeInUp séquentielles
+  - Hover effects et gradient violet
+- ⚡ **Intégration technique** :
+  - Nouveau type "dialogue" dans app.js
+  - Fonction renderDialogue() dédiée
+  - Styles CSS harmonisés (120 lignes)
+  - Service Worker V4.4.0
+
+**Impact business** : Répond au besoin utilisateur #1 "Je ne comprends rien en lecture réelle" - Différenciation majeure vs Duolingo/Anki.
+
+### V4.3.0 (3 décembre 2025) - AUDIO NATIF
 **🎯 SEMAINE 1 COMPLÉTÉE : Feature #1 critique pour compétition Duolingo**
 - 🎧 **Système audio complet** :
   - 80 fichiers MP3 générés avec Google TTS (gTTS)
