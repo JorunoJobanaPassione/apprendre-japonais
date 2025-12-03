@@ -5,6 +5,9 @@
 **Status** : ✅ Déployée et fonctionnelle
 **URL** : https://jorunojobanapassione.github.io/apprendre-japonais/
 
+**🎯 VISION** : Devenir l'app de référence pour apprendre à lire le japonais (viser l'échelle Duolingo)
+**📈 OBJECTIF 3 MOIS** : 2000 utilisateurs actifs · 100 utilisateurs premium · 1000€/mois MRR
+
 ---
 
 ## 🎯 Description
@@ -117,25 +120,163 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 
 ---
 
-## 🎯 Prochaines Étapes
+## 🚀 ROADMAP AGGRESSIVE (3 mois pour devenir incontournable)
 
-### Court Terme (Semaines 1-2)
-- [ ] Collecter des feedbacks utilisateurs
-- [ ] Tester sur différents devices
-- [ ] Créer un formulaire de feedback
-- [ ] Partager avec des testeurs (10-15 personnes)
+### 🔥 MOIS 1 : Fondations Addictives (100 utilisateurs quotidiens)
 
-### Moyen Terme (Mois 1-2)
-- [ ] Écran Profil avec statistiques détaillées
-- [ ] Mode révision (exercices ratés uniquement)
-- [ ] Audio pour la prononciation
-- [ ] Leaderboards
+**Semaine 1 : 🎧 Audio Natif**
+- [ ] Générer 71 fichiers MP3 (Amazon Polly / ElevenLabs)
+- [ ] Intégrer lecteur audio dans app.js
+- [ ] Ajouter bouton de prononciation sur chaque hiragana
+- [ ] Tester qualité audio sur tous les exercices
+- [ ] Déployer V4.3.0
 
-### Long Terme (Mois 3+)
-- [ ] Katakana (46+ caractères)
-- [ ] Kanji (introduction progressive)
-- [ ] Système de révision espacée (SRS)
-- [ ] Mode multijoueur
+**Semaine 2 : ⚡ Mode Express 90 secondes**
+- [ ] Créer UI du mode Express (écran d'accueil)
+- [ ] Implémenter timer 90 secondes
+- [ ] Logique de sélection 5 questions (hiragana les plus ratés)
+- [ ] Écran de résultats avec partage social
+- [ ] Animations de célébration (confettis)
+- [ ] Déployer V4.4.0
+
+**Semaine 3 : 🏆 Leaderboard Réel**
+- [ ] Setup Supabase (compte + projet)
+- [ ] Créer table leaderboard (username, total_xp, streak, last_active)
+- [ ] Implémenter sync XP automatique
+- [ ] Créer écran Leaderboard (Top 50 mondial)
+- [ ] Ajouter Realtime subscriptions
+- [ ] Déployer V4.5.0
+
+**Semaine 4 : 🎨 Animations & Push Notifications**
+- [ ] Ajouter animations CSS (correct/wrong/celebrate)
+- [ ] Intégrer sons (ding, buzz, fanfare)
+- [ ] Implémenter Push Notifications PWA
+- [ ] Message quotidien "Ne perds pas ton streak"
+- [ ] Améliorer feedback visuel global
+- [ ] Déployer V4.6.0
+
+**Objectif fin Mois 1 : 100 utilisateurs actifs quotidiens**
+
+---
+
+### 💎 MOIS 2 : Expansion + Monétisation (500 utilisateurs · 10 payants)
+
+**Semaine 5-6 : 📚 Katakana Complet**
+- [ ] Créer 10 leçons Katakana (structure identique Hiragana)
+- [ ] Générer 46 fichiers audio katakana
+- [ ] Adapter exercices pour katakana
+- [ ] Badges katakana (15 nouveaux badges)
+- [ ] Déployer V5.0.0 (mise à jour majeure)
+
+**Semaine 7 : 💳 Tier Premium + Stripe**
+- [ ] Créer compte Stripe
+- [ ] Définir features Free vs Premium
+- [ ] Implémenter système de vies (5 erreurs/jour en Free)
+- [ ] Écran d'upgrade vers Premium
+- [ ] Intégrer Stripe Checkout
+- [ ] Déployer V5.1.0
+
+**Semaine 8 : 🧠 SRS Basique (Révision Espacée)**
+- [ ] Implémenter algorithme SRS simple (localStorage)
+- [ ] Tracking dates de révision par caractère
+- [ ] Notifications de révision intelligentes
+- [ ] Écran "Révisions du jour"
+- [ ] Déployer V5.2.0
+
+**Objectif fin Mois 2 : 500 utilisateurs · 10 premium (100€/mois MRR)**
+
+---
+
+### 🌟 MOIS 3 : Scale + Viral (2000 utilisateurs · 100 payants)
+
+**Semaine 9-10 : 🔤 Kanji N5 (100 premiers kanji)**
+- [ ] Implémenter leçons kanji (sens, lecture, exemples)
+- [ ] Exercices spécifiques kanji (reconnaissance, écriture)
+- [ ] Audio pour les lectures kun/on
+- [ ] Mini-phrases avec kanji en contexte
+- [ ] Déployer V6.0.0 (feature Premium exclusive)
+
+**Semaine 11 : 🎁 Système de Parrainage Viral**
+- [ ] Créer système de codes de parrainage
+- [ ] "Invite 3 amis → 1 mois Premium gratuit"
+- [ ] Écran de partage (social media)
+- [ ] Tracking des invitations
+- [ ] Déployer V6.1.0
+
+**Semaine 12 : 📊 Analytics Avancés + A/B Testing**
+- [ ] Intégrer Google Analytics 4
+- [ ] Setup Plausible.io (privacy-friendly)
+- [ ] Créer dashboard metrics clés
+- [ ] A/B test sur CTA Premium
+- [ ] Optimisation conversion
+- [ ] Déployer V6.2.0
+
+**Objectif fin Mois 3 : 2000 utilisateurs · 100 premium (1000€/mois MRR)**
+
+---
+
+## 💰 Modèle de Monétisation
+
+### FREE (80% des utilisateurs)
+- ✅ Tous les hiragana + katakana
+- ✅ Exercices illimités
+- ✅ Gamification de base
+- ✅ Leaderboards
+- ❌ 5 vies/jour (5 erreurs max)
+- ❌ Pub discrète entre leçons
+
+### PREMIUM @ 9.99€/mois (20% des utilisateurs)
+- ✅ Vies illimitées
+- ✅ Pas de publicité
+- ✅ **Kanji N5 + N4 (valeur ajoutée énorme)**
+- ✅ SRS avancé (révision optimale)
+- ✅ Téléchargement offline
+- ✅ Badge exclusif 👑
+- ✅ Support prioritaire
+
+### Projections Financières
+| Utilisateurs | Premium (20%) | MRR        | Annuel    |
+|--------------|---------------|------------|-----------|
+| 100          | 20            | 200€       | 2.4K€     |
+| 500          | 100           | 1K€        | 12K€      |
+| 2000         | 400           | 4K€        | 48K€      |
+| 10K          | 2000          | 20K€       | 240K€     |
+| 100K         | 20K           | 200K€      | 2.4M€     |
+
+---
+
+## 🎯 Stratégie de Croissance Virale
+
+### Phase 1 : Early Adopters (Mois 1)
+- ✅ Google Form de feedback envoyé
+- 📢 Reddit r/LearnJapanese (300K membres)
+- 📢 Discord communautés japonais
+- 🎁 100 premiers = 1 mois Premium gratuit
+
+### Phase 2 : Influenceurs (Mois 2)
+- 📧 Contacter créateurs YouTube japonais
+  - Dogen (250K subs)
+  - That Japanese Man Yuta (1M+ subs)
+- 💰 Programme d'affiliation (30% commission)
+- 🎥 Vidéo de présentation professionnelle
+
+### Phase 3 : Viral & PR (Mois 3)
+- 🚀 Product Hunt launch (objectif Top 5)
+- 📱 TikTok content strategy
+- 📰 Pitch à TechCrunch, The Verge
+- 🎁 Système de parrainage actif
+
+---
+
+## 🔑 Notre Unfair Advantage
+
+**Vs Duolingo** : 30 jours pour maîtriser hiragana (vs 6 mois chez eux)
+**Vs Anki** : UX moderne 2025 (vs UI de 2005)
+**Vs WaniKani** : Gratuit au départ (vs $9/mois dès le début)
+**Vs Busuu** : Focus 100% lecture japonaise (pas générique)
+
+**Notre positionnement** :
+> "La SEULE app qui t'apprend à VRAIMENT lire le japonais en 30 jours, avec la méthode des polyglotes."
 
 ---
 
@@ -170,18 +311,25 @@ Aucun bug critique identifié ✅
 
 ---
 
-## 🔒 Limitations Actuelles
+## 🔒 Limitations Actuelles (à résoudre en priorité)
 
-### Fonctionnelles
-- ⚠️ Pas d'audio (prononciation)
-- ⚠️ Pas de révision espacée (SRS)
-- ⚠️ Pas de katakana/kanji
-- ⚠️ Pas de mode multijoueur
+### 🎯 CRITIQUES (Semaines 1-4)
+- ❌ **Pas d'audio** → Bloquant pour apprentissage prononciation
+- ❌ **Pas de mode Express 90s** → Manque d'engagement rapide
+- ❌ **Pas de leaderboard réel** → Pas de compétition sociale
+- ❌ **Pas de push notifications** → Faible rétention
 
-### Techniques
-- ⚠️ Pas de backend (tout en local)
-- ⚠️ Pas de sync entre devices
-- ⚠️ Pas d'analytics
+### ⚠️ IMPORTANTES (Mois 2)
+- ⚠️ Pas de katakana (46 caractères manquants)
+- ⚠️ Pas de tier Premium (pas de revenu)
+- ⚠️ Pas de SRS (révision non optimale)
+- ⚠️ Pas de backend (pas de sync multi-device)
+
+### 💡 LONG TERME (Mois 3+)
+- 💡 Pas de kanji (limite à hiragana/katakana)
+- 💡 Pas d'analytics avancés
+- 💡 Pas de système de parrainage
+- 💡 Pas de A/B testing
 
 ---
 
@@ -201,5 +349,6 @@ Application complète et fonctionnelle pour apprendre les hiragana, déployée e
 
 ---
 
-**Version du document** : 3.0
-**Prochaine revue** : Après collecte des feedbacks
+**Version du document** : 4.0 (Roadmap Business Agressive)
+**Prochaine revue** : Fin de Mois 1 (4 janvier 2026)
+**Objectif 2026** : 10K utilisateurs · 2000 premium · 20K€/mois MRR

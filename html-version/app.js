@@ -17,6 +17,81 @@ let appState = {
   startTime: null
 };
 
+// ===== SYSTÈME AUDIO =====
+const AudioPlayer = {
+  // Cache des objets Audio pour éviter de les recréer
+  audioCache: {},
+
+  // Mapper un hiragana vers le nom de fichier correspondant
+  getAudioFilename: function(hiragana) {
+    // Map special cases (combinaisons, etc.)
+    const romajiMap = {
+      'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
+      'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
+      'さ': 'sa', 'し': 'shi', 'す': 'su', 'せ': 'se', 'そ': 'so',
+      'た': 'ta', 'ち': 'chi', 'つ': 'tsu', 'て': 'te', 'と': 'to',
+      'な': 'na', 'に': 'ni', 'ぬ': 'nu', 'ね': 'ne', 'の': 'no',
+      'は': 'ha', 'ひ': 'hi', 'ふ': 'fu', 'へ': 'he', 'ほ': 'ho',
+      'ま': 'ma', 'み': 'mi', 'む': 'mu', 'め': 'me', 'も': 'mo',
+      'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
+      'ら': 'ra', 'り': 'ri', 'る': 'ru', 'れ': 're', 'ろ': 'ro',
+      'わ': 'wa', 'を': 'wo', 'ん': 'n',
+      'が': 'ga', 'ぎ': 'gi', 'ぐ': 'gu', 'げ': 'ge', 'ご': 'go',
+      'ざ': 'za', 'じ': 'ji', 'ず': 'zu', 'ぜ': 'ze', 'ぞ': 'zo',
+      'だ': 'da', 'ぢ': 'ji2', 'づ': 'zu2', 'で': 'de', 'ど': 'do',
+      'ば': 'ba', 'び': 'bi', 'ぶ': 'bu', 'べ': 'be', 'ぼ': 'bo',
+      'ぱ': 'pa', 'ぴ': 'pi', 'ぷ': 'pu', 'ぺ': 'pe', 'ぽ': 'po',
+      'きゃ': 'kya', 'きゅ': 'kyu', 'きょ': 'kyo',
+      'しゃ': 'sha', 'しゅ': 'shu', 'しょ': 'sho',
+      'ちゃ': 'cha', 'ちゅ': 'chu', 'ちょ': 'cho'
+    };
+
+    return romajiMap[hiragana] || null;
+  },
+
+  // Jouer l'audio d'un hiragana
+  play: function(hiragana) {
+    const filename = this.getAudioFilename(hiragana);
+    if (!filename) {
+      console.warn(`Audio non disponible pour : ${hiragana}`);
+      return;
+    }
+
+    const audioPath = `audio/${filename}.mp3`;
+
+    // Utiliser le cache ou créer un nouvel objet Audio
+    if (!this.audioCache[filename]) {
+      this.audioCache[filename] = new Audio(audioPath);
+    }
+
+    const audio = this.audioCache[filename];
+
+    // Réinitialiser et jouer
+    audio.currentTime = 0;
+    audio.play().catch(error => {
+      console.error(`Erreur lecture audio ${filename}:`, error);
+    });
+  },
+
+  // Créer un bouton audio HTML
+  createButton: function(hiragana, size = 'medium') {
+    const filename = this.getAudioFilename(hiragana);
+    if (!filename) return '';
+
+    const sizeClass = size === 'small' ? 'audio-btn-small' : '';
+
+    return `
+      <button
+        class="audio-btn ${sizeClass}"
+        onclick="AudioPlayer.play('${hiragana}')"
+        title="Écouter la prononciation"
+        aria-label="Écouter ${hiragana}">
+        🔊
+      </button>
+    `;
+  }
+};
+
 // ===== GESTION DU LOCALSTORAGE =====
 const Storage = {
   // Récupérer la progression
@@ -686,6 +761,7 @@ const LessonController = {
         <div class="hiragana-table">
           ${lesson.hiragana.map(h => `
             <div class="hiragana-card">
+              ${AudioPlayer.createButton(h.char, 'small')}
               <div class="hiragana-char">${h.char}</div>
               <div class="hiragana-romaji">${h.romaji}</div>
             </div>
@@ -706,7 +782,10 @@ const LessonController = {
       <div class="exercise">
         <h2 class="exercise-title">❓ ${question.title}</h2>
         <p class="exercise-instruction">${question.instruction}</p>
-        <div class="question-hiragana">${question.data.hiragana}</div>
+        <div class="question-hiragana-container">
+          ${AudioPlayer.createButton(question.data.hiragana, 'medium')}
+          <div class="question-hiragana">${question.data.hiragana}</div>
+        </div>
         <div class="options-grid">
           ${shuffledOptions.map(option => `
             <button class="option-btn" data-answer="${option}">${option}</button>
@@ -801,7 +880,10 @@ const LessonController = {
       <div class="exercise">
         <h2 class="exercise-title">✍️ ${question.title}</h2>
         <p class="exercise-instruction">${question.instruction}</p>
-        <div class="transcription-word">${question.data.hiragana}</div>
+        <div class="transcription-container">
+          ${AudioPlayer.createButton(question.data.hiragana, 'medium')}
+          <div class="transcription-word">${question.data.hiragana}</div>
+        </div>
         <p class="transcription-meaning">${question.data.meaning}</p>
         <div class="input-container">
           <input type="text" class="transcription-input" id="transcription-input" placeholder="Écrivez en romaji..." autocomplete="off">
@@ -864,7 +946,10 @@ const LessonController = {
       <div class="exercise">
         <h2 class="exercise-title">📖 ${question.title}</h2>
         <p class="exercise-instruction">${question.instruction}</p>
-        <div class="transcription-word">${question.data.hiragana}</div>
+        <div class="transcription-container">
+          ${AudioPlayer.createButton(question.data.hiragana, 'medium')}
+          <div class="transcription-word">${question.data.hiragana}</div>
+        </div>
         <p class="transcription-meaning">${question.data.meaning}</p>
         <div class="input-container">
           <input type="text" class="transcription-input" id="sentence-input" placeholder="Écrivez en romaji..." autocomplete="off">

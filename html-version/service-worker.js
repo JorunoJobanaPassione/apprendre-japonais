@@ -3,14 +3,38 @@
  * Permet le fonctionnement hors ligne
  */
 
-const CACHE_NAME = 'japonais-app-v4.2.0';
+const CACHE_NAME = 'japonais-app-v4.3.0';
+
+// Liste des fichiers MP3 audio hiragana
+const audioFiles = [
+  'a', 'i', 'u', 'e', 'o',
+  'ka', 'ki', 'ku', 'ke', 'ko',
+  'sa', 'shi', 'su', 'se', 'so',
+  'ta', 'chi', 'tsu', 'te', 'to',
+  'na', 'ni', 'nu', 'ne', 'no',
+  'ha', 'hi', 'fu', 'he', 'ho',
+  'ma', 'mi', 'mu', 'me', 'mo',
+  'ya', 'yu', 'yo',
+  'ra', 'ri', 'ru', 're', 'ro',
+  'wa', 'wo', 'n',
+  'ga', 'gi', 'gu', 'ge', 'go',
+  'za', 'ji', 'zu', 'ze', 'zo',
+  'da', 'ji2', 'zu2', 'de', 'do',
+  'ba', 'bi', 'bu', 'be', 'bo',
+  'pa', 'pi', 'pu', 'pe', 'po',
+  'kya', 'kyu', 'kyo',
+  'sha', 'shu', 'sho',
+  'cha', 'chu', 'cho'
+].map(file => `./audio/${file}.mp3`);
+
 const urlsToCache = [
   './',
   './index.html',
   './style.css',
   './app.js',
   './lessons-data.js',
-  './manifest.json'
+  './manifest.json',
+  ...audioFiles // Ajouter tous les fichiers audio
 ];
 
 // Installation du service worker
