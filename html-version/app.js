@@ -1054,6 +1054,270 @@ function closeBadgeModal() {
   document.getElementById('badge-modal').style.display = 'none';
 }
 
+// ===== MODE EXPRESS 90s =====
+const ExpressMode = {
+  timer: null,
+  timeRemaining: 90,
+  currentQuestion: 0,
+  questions: [],
+  score: 0,
+  startTime: 0,
+
+  start: function() {
+    this.reset();
+    this.selectQuestions();
+    Navigation.goTo('express-game-screen');
+    this.startTimer();
+    this.renderQuestion();
+  },
+
+  reset: function() {
+    this.timeRemaining = 90;
+    this.currentQuestion = 0;
+    this.score = 0;
+    this.questions = [];
+    this.startTime = Date.now();
+    if (this.timer) clearInterval(this.timer);
+  },
+
+  selectQuestions: function() {
+    // Récupérer tous les hiragana de toutes les leçons
+    let allHiragana = [];
+    lessonsData.forEach(lesson => {
+      lesson.hiragana.forEach(h => {
+        allHiragana.push({ char: h.char, romaji: h.romaji });
+      });
+    });
+
+    // Créer un pool pondéré basé sur les erreurs
+    let weightedPool = [];
+    allHiragana.forEach(h => {
+      const mistakes = appState.mistakes[h.char] || 0;
+      const weight = Math.max(1, mistakes * 3); // Plus d'erreurs = plus de poids
+      for (let i = 0; i < weight; i++) {
+        weightedPool.push(h);
+      }
+    });
+
+    // Sélectionner 5 hiragana aléatoires du pool pondéré
+    const selectedHiragana = [];
+    for (let i = 0; i < 5 && weightedPool.length > 0; i++) {
+      const randomIndex = Math.floor(Math.random() * weightedPool.length);
+      const selected = weightedPool[randomIndex];
+      selectedHiragana.push(selected);
+      // Retirer tous les exemplaires de ce hiragana du pool
+      weightedPool = weightedPool.filter(h => h.char !== selected.char);
+    }
+
+    // Créer les questions MCQ
+    this.questions = selectedHiragana.map(h => {
+      // Générer 3 mauvaises options différentes
+      const wrongOptions = allHiragana
+        .filter(oh => oh.romaji !== h.romaji)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3)
+        .map(oh => oh.romaji);
+
+      const options = [h.romaji, ...wrongOptions].sort(() => Math.random() - 0.5);
+
+      return {
+        hiragana: h.char,
+        correct: h.romaji,
+        options: options
+      };
+    });
+  },
+
+  startTimer: function() {
+    const timerEl = document.getElementById('express-timer');
+
+    this.timer = setInterval(() => {
+      this.timeRemaining--;
+      timerEl.textContent = this.timeRemaining;
+
+      // Ajouter classes warning/danger
+      timerEl.classList.remove('warning', 'danger');
+      if (this.timeRemaining <= 10) {
+        timerEl.classList.add('danger');
+      } else if (this.timeRemaining <= 30) {
+        timerEl.classList.add('warning');
+      }
+
+      if (this.timeRemaining <= 0) {
+        clearInterval(this.timer);
+        this.showResults();
+      }
+    }, 1000);
+  },
+
+  renderQuestion: function() {
+    if (this.currentQuestion >= this.questions.length) {
+      this.showResults();
+      return;
+    }
+
+    const question = this.questions[this.currentQuestion];
+    const container = document.getElementById('express-question-container');
+
+    // Mettre à jour le compteur
+    document.getElementById('express-current-q').textContent = this.currentQuestion + 1;
+    document.getElementById('express-total-q').textContent = this.questions.length;
+
+    container.innerHTML = `
+      <div class="exercise">
+        <h2 class="exercise-title">⚡ Question ${this.currentQuestion + 1}</h2>
+        <div class="question-hiragana-container">
+          ${AudioPlayer.createButton(question.hiragana, 'medium')}
+          <div class="question-hiragana">${question.hiragana}</div>
+        </div>
+        <div class="options-grid">
+          ${question.options.map(option => `
+            <button class="option-btn express-option-btn" data-answer="${option}">${option}</button>
+          `).join('')}
+        </div>
+        <div id="express-feedback"></div>
+      </div>
+    `;
+
+    // Ajouter les event listeners
+    document.querySelectorAll('.express-option-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => this.handleAnswer(e.target.dataset.answer));
+    });
+  },
+
+  handleAnswer: function(answer) {
+    const question = this.questions[this.currentQuestion];
+    const isCorrect = answer === question.correct;
+
+    if (isCorrect) {
+      this.score++;
+    } else {
+      // Enregistrer l'erreur
+      if (!appState.mistakes[question.hiragana]) {
+        appState.mistakes[question.hiragana] = 0;
+      }
+      appState.mistakes[question.hiragana]++;
+    }
+
+    // Feedback visuel rapide
+    const feedback = document.getElementById('express-feedback');
+    feedback.innerHTML = isCorrect ?
+      '<p class="feedback-correct">✓ Correct !</p>' :
+      '<p class="feedback-wrong">✗ ' + question.correct + '</p>';
+
+    // Passer à la question suivante après un court délai
+    setTimeout(() => {
+      this.currentQuestion++;
+      this.renderQuestion();
+    }, 800);
+
+    saveProgress();
+  },
+
+  showResults: function() {
+    clearInterval(this.timer);
+    const timeUsed = Math.floor((Date.now() - this.startTime) / 1000);
+    const timeTaken = Math.min(timeUsed, 90);
+
+    document.getElementById('express-final-score').textContent = this.score;
+    document.getElementById('express-correct').textContent = this.score;
+    document.getElementById('express-wrong').textContent = this.questions.length - this.score;
+    document.getElementById('express-time-taken').textContent = timeTaken;
+
+    // Titre selon le score
+    const title = document.getElementById('express-results-title');
+    if (this.score === 5) {
+      title.textContent = 'Parfait ! 🎉';
+    } else if (this.score >= 3) {
+      title.textContent = 'Bien joué ! 👍';
+    } else {
+      title.textContent = 'Continue ! 💪';
+    }
+
+    // Ajouter des points bonus
+    const bonusPoints = this.score * 10;
+    addPoints(bonusPoints);
+
+    Navigation.goTo('express-results-screen');
+
+    // Lancer les confettis si score >= 4
+    if (this.score >= 4) {
+      setTimeout(() => this.launchConfetti(), 300);
+    }
+  },
+
+  launchConfetti: function() {
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const confettiCount = 100;
+    const confetti = [];
+    const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#FFD700'];
+
+    for (let i = 0; i < confettiCount; i++) {
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        r: Math.random() * 6 + 4,
+        d: Math.random() * confettiCount,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        tilt: Math.floor(Math.random() * 10) - 10,
+        tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+        tiltAngle: 0
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      confetti.forEach((c, i) => {
+        ctx.beginPath();
+        ctx.lineWidth = c.r / 2;
+        ctx.strokeStyle = c.color;
+        ctx.moveTo(c.x + c.tilt + c.r / 3, c.y);
+        ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 5);
+        ctx.stroke();
+
+        c.tiltAngle += c.tiltAngleIncremental;
+        c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+        c.x += Math.sin(c.d);
+        c.tilt = Math.sin(c.tiltAngle - i / 3) * 15;
+
+        if (c.y > canvas.height) {
+          confetti[i] = {
+            x: Math.random() * canvas.width,
+            y: -30,
+            r: c.r,
+            d: c.d,
+            color: c.color,
+            tilt: c.tilt,
+            tiltAngle: c.tiltAngle,
+            tiltAngleIncremental: c.tiltAngleIncremental
+          };
+        }
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    // Arrêter après 5 secondes
+    setTimeout(() => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }, 5000);
+  },
+
+  quit: function() {
+    if (confirm('Êtes-vous sûr de vouloir quitter ? Votre progression sera perdue.')) {
+      clearInterval(this.timer);
+      Navigation.goToHome();
+    }
+  }
+};
+
 // ===== EVENT LISTENERS =====
 document.addEventListener('DOMContentLoaded', function() {
   // Boutons de navigation
@@ -1074,6 +1338,12 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('stats-back-btn')?.addEventListener('click', () => Navigation.goToHome());
   document.getElementById('start-review-btn')?.addEventListener('click', () => Navigation.goToReview());
   document.getElementById('close-badge-modal')?.addEventListener('click', closeBadgeModal);
+
+  // Mode Express
+  document.getElementById('start-express-btn')?.addEventListener('click', () => ExpressMode.start());
+  document.getElementById('express-quit-btn')?.addEventListener('click', () => ExpressMode.quit());
+  document.getElementById('express-retry-btn')?.addEventListener('click', () => ExpressMode.start());
+  document.getElementById('express-home-btn')?.addEventListener('click', () => Navigation.goToHome());
 
   // Initialisation
   setTimeout(() => {

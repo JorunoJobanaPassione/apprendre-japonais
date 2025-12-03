@@ -50,6 +50,18 @@
                     <p class="progress-text"><span id="completed-lessons">0</span>/10 leçons complétées</p>
                 </section>
 
+                <!-- Mode Express 90s -->
+                <div class="express-mode-section">
+                    <div class="express-mode-card">
+                        <div class="express-mode-icon">⚡</div>
+                        <div class="express-mode-info">
+                            <h3 class="express-mode-title">Mode Express 90s</h3>
+                            <p class="express-mode-description">5 questions · Chrono 90 secondes</p>
+                        </div>
+                        <button class="primary-btn express-btn" id="start-express-btn">GO!</button>
+                    </div>
+                </div>
+
                 <!-- Bouton Mode Révision -->
                 <div id="review-mode-section" class="review-mode-section" style="display: none;">
                     <div class="review-mode-card">
@@ -284,6 +296,69 @@
                 </div>
             </div>
         </div>
+
+        <!-- Écran Mode Express - Jeu -->
+        <div id="express-game-screen" class="screen" style="display: none;">
+            <header class="lesson-header express-header">
+                <button class="back-btn" id="express-quit-btn">✕ Quitter</button>
+                <div class="express-timer-container">
+                    <span class="express-timer-icon">⏱️</span>
+                    <span class="express-timer" id="express-timer">90</span>
+                </div>
+                <div class="express-progress">
+                    <span id="express-current-q">1</span>/<span id="express-total-q">5</span>
+                </div>
+            </header>
+
+            <div class="content express-content">
+                <div id="express-question-container" class="express-question">
+                    <!-- Les questions seront insérées ici -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Écran Mode Express - Résultats -->
+        <div id="express-results-screen" class="screen" style="display: none;">
+            <header class="lesson-header">
+                <h2 class="lesson-title">⚡ Mode Express 90s</h2>
+            </header>
+
+            <div class="content express-results-content">
+                <div class="express-results-card">
+                    <div class="express-results-score">
+                        <div class="express-score-circle">
+                            <span class="express-score-value" id="express-final-score">0</span>
+                            <span class="express-score-total">/5</span>
+                        </div>
+                        <h3 class="express-results-title" id="express-results-title">Bravo !</h3>
+                        <p class="express-results-time">
+                            Complété en <span id="express-time-taken">0</span>s
+                        </p>
+                    </div>
+
+                    <div class="express-results-stats">
+                        <div class="express-stat">
+                            <span class="express-stat-icon">✅</span>
+                            <span class="express-stat-value" id="express-correct">0</span>
+                            <span class="express-stat-label">Corrects</span>
+                        </div>
+                        <div class="express-stat">
+                            <span class="express-stat-icon">❌</span>
+                            <span class="express-stat-value" id="express-wrong">0</span>
+                            <span class="express-stat-label">Erreurs</span>
+                        </div>
+                    </div>
+
+                    <div class="express-results-actions">
+                        <button class="primary-btn" id="express-retry-btn">🔄 Rejouer</button>
+                        <button class="secondary-btn" id="express-home-btn">🏠 Accueil</button>
+                    </div>
+                </div>
+
+                <!-- Canvas pour les confettis -->
+                <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+            </div>
+        </div>
     </div>
 
     <!-- Modal de badge débloqué -->
@@ -301,8 +376,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="lessons-data.js?v=4.3.0"></script>
-    <script src="app.js?v=4.3.0"></script>
+    <script src="lessons-data.js?v=4.5.0"></script>
+    <script src="app.js?v=4.5.0"></script>
 
     <!-- Service Worker Registration -->
     <script>
