@@ -33,8 +33,47 @@ const Storage = {
         lessonsCompleted: 0,
         transcriptionsCompleted: 0,
         wordsLearned: 0
-      }
+      },
+      mistakes: {} // Format: { "あ": { count: 2, lastSeen: "2024-01-01" } }
     };
+  },
+
+  // Enregistrer une erreur sur un caractère
+  recordMistake: function(hiragana) {
+    const progress = this.getProgress();
+
+    if (!progress.mistakes) {
+      progress.mistakes = {};
+    }
+
+    if (!progress.mistakes[hiragana]) {
+      progress.mistakes[hiragana] = { count: 0, lastSeen: null };
+    }
+
+    progress.mistakes[hiragana].count++;
+    progress.mistakes[hiragana].lastSeen = new Date().toISOString();
+
+    this.saveProgress(progress);
+  },
+
+  // Récupérer les caractères à réviser (triés par nombre d'erreurs)
+  getMistakesToReview: function() {
+    const progress = this.getProgress();
+    if (!progress.mistakes) return [];
+
+    return Object.entries(progress.mistakes)
+      .filter(([char, data]) => data.count > 0)
+      .sort((a, b) => b[1].count - a[1].count)
+      .map(([char, data]) => ({ char, ...data }));
+  },
+
+  // Réinitialiser les erreurs (après une révision réussie)
+  clearMistake: function(hiragana) {
+    const progress = this.getProgress();
+    if (progress.mistakes && progress.mistakes[hiragana]) {
+      delete progress.mistakes[hiragana];
+      this.saveProgress(progress);
+    }
   },
 
   // Sauvegarder la progression
@@ -175,8 +214,11 @@ const Navigation = {
   },
 
   goToConfig: function(lessonId) {
-    appState.currentLesson = lessonsData.find(l => l.id === lessonId);
-    if (!appState.currentLesson) return;
+    // Si lessonId est null, on utilise la leçon déjà dans appState (mode révision)
+    if (lessonId !== null) {
+      appState.currentLesson = lessonsData.find(l => l.id === lessonId);
+      if (!appState.currentLesson) return;
+    }
 
     this.showScreen('config-screen');
     this.renderConfig();
@@ -197,6 +239,107 @@ const Navigation = {
     this.renderBadges();
   },
 
+  goToStats: function() {
+    this.showScreen('stats-screen');
+    this.renderStats();
+  },
+
+  goToReview: function() {
+    // Générer une leçon de révision personnalisée
+    const mistakes = Storage.getMistakesToReview();
+    if (mistakes.length === 0) {
+      alert('Aucun caractère à réviser pour le moment !');
+      return;
+    }
+
+    // Créer une leçon spéciale pour la révision
+    const reviewLesson = this.generateReviewLesson(mistakes);
+    appState.currentLesson = reviewLesson;
+    appState.totalQuestions = Storage.getQuestionPreference();
+    this.goToConfig(null);
+  },
+
+  generateReviewLesson: function(mistakes) {
+    // Récupérer les données de caractères hiragana de toutes les leçons
+    const allHiragana = [];
+    lessonsData.forEach(lesson => {
+      lesson.hiragana.forEach(h => allHiragana.push(h));
+    });
+
+    // Filtrer pour ne garder que les hiragana avec erreurs
+    const hiraganaToReview = allHiragana.filter(h =>
+      mistakes.some(m => m.char === h.char)
+    );
+
+    // Créer les exercices de révision
+    const mcqQuestions = hiraganaToReview.map(h => ({
+      hiragana: h.char,
+      options: this.generateOptions(h.romaji, allHiragana),
+      correct: h.romaji
+    }));
+
+    // Créer des paires pour transcription
+    const transcriptionQuestions = [];
+    for (let i = 0; i < hiraganaToReview.length - 1; i += 2) {
+      if (hiraganaToReview[i + 1]) {
+        transcriptionQuestions.push({
+          hiragana: hiraganaToReview[i].char + hiraganaToReview[i + 1].char,
+          correct: hiraganaToReview[i].romaji + hiraganaToReview[i + 1].romaji,
+          alternatives: [],
+          meaning: 'révision'
+        });
+      }
+    }
+
+    return {
+      id: 'review',
+      title: '🔄 Mode Révision',
+      description: `Révision de ${hiraganaToReview.length} caractère(s)`,
+      level: 'review',
+      free: true,
+      icon: '🔄',
+      hiragana: hiraganaToReview,
+      steps: [
+        {
+          type: 'presentation',
+          title: 'Caractères à réviser',
+          instruction: 'Voici les caractères où vous avez fait des erreurs'
+        },
+        {
+          type: 'mcq',
+          title: 'Exercice de reconnaissance',
+          instruction: 'Quelle est la lecture de ce hiragana ?',
+          questions: mcqQuestions
+        },
+        transcriptionQuestions.length > 0 ? {
+          type: 'transcription',
+          title: 'Transcription',
+          instruction: 'Écrivez la transcription en romaji',
+          questions: transcriptionQuestions
+        } : null
+      ].filter(step => step !== null)
+    };
+  },
+
+  generateOptions: function(correct, allHiragana) {
+    // Générer 3 mauvaises options + la bonne
+    const options = [correct];
+    const availableOptions = allHiragana
+      .map(h => h.romaji)
+      .filter(r => r !== correct);
+
+    while (options.length < 4 && availableOptions.length > 0) {
+      const randomIndex = Math.floor(Math.random() * availableOptions.length);
+      const option = availableOptions[randomIndex];
+      if (!options.includes(option)) {
+        options.push(option);
+      }
+      availableOptions.splice(randomIndex, 1);
+    }
+
+    return options;
+  },
+
   renderHome: function() {
     const progress = Storage.getProgress();
 
@@ -210,6 +353,16 @@ const Navigation = {
     const percentage = (completedLessons / 10) * 100;
     document.getElementById('global-progress').style.width = percentage + '%';
     document.getElementById('completed-lessons').textContent = completedLessons;
+
+    // Afficher le mode révision si des erreurs existent
+    const mistakes = Storage.getMistakesToReview();
+    const reviewSection = document.getElementById('review-mode-section');
+    if (mistakes.length > 0) {
+      reviewSection.style.display = 'block';
+      document.getElementById('mistakes-count').textContent = mistakes.length;
+    } else {
+      reviewSection.style.display = 'none';
+    }
 
     // Afficher les leçons
     const lessonsList = document.getElementById('lessons-list');
@@ -338,6 +491,116 @@ const Navigation = {
       `;
       badgesList.appendChild(card);
     });
+  },
+
+  renderStats: function() {
+    const progress = Storage.getProgress();
+
+    // Stats du profil
+    document.getElementById('stats-level').textContent = progress.level;
+    document.getElementById('stats-total-points').textContent = progress.totalPoints;
+    document.getElementById('stats-streak').textContent = progress.streak;
+    document.getElementById('stats-lessons-completed').textContent = progress.stats.lessonsCompleted;
+    document.getElementById('stats-badges-count').textContent = progress.badges.length;
+
+    // Barre de progression du niveau
+    const pointsInCurrentLevel = progress.totalPoints % 100;
+    const progressPercentage = pointsInCurrentLevel;
+    document.getElementById('stats-level-progress').style.width = progressPercentage + '%';
+
+    const pointsToNext = 100 - pointsInCurrentLevel;
+    document.getElementById('stats-points-to-next').textContent = pointsToNext;
+
+    // Dernière session
+    if (progress.lastStudyDate) {
+      const lastDate = new Date(progress.lastStudyDate);
+      const today = new Date();
+      const isToday = lastDate.toDateString() === today.toDateString();
+      const yesterday = new Date(today);
+      yesterday.setDate(yesterday.getDate() - 1);
+      const isYesterday = lastDate.toDateString() === yesterday.toDateString();
+
+      let dateText;
+      if (isToday) {
+        dateText = "Aujourd'hui";
+      } else if (isYesterday) {
+        dateText = "Hier";
+      } else {
+        dateText = lastDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+      document.getElementById('stats-last-study').textContent = dateText;
+    } else {
+      document.getElementById('stats-last-study').textContent = 'Jamais';
+    }
+
+    // Stats d'activité
+    document.getElementById('stats-transcriptions').textContent = progress.stats.transcriptionsCompleted || 0;
+    document.getElementById('stats-words').textContent = progress.stats.wordsLearned || 0;
+
+    // Stats des leçons
+    const lessonsStatsList = document.getElementById('lessons-stats-list');
+    lessonsStatsList.innerHTML = '';
+
+    if (Object.keys(progress.lessons).length === 0) {
+      lessonsStatsList.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: var(--spacing-lg);">Aucune leçon commencée pour le moment.</p>';
+    } else {
+      lessonsData.forEach(lesson => {
+        const lessonProgress = progress.lessons[lesson.id];
+        if (lessonProgress) {
+          const item = document.createElement('div');
+          item.className = 'lesson-stat-item';
+
+          const lastAttemptDate = lessonProgress.lastAttempt ? new Date(lessonProgress.lastAttempt).toLocaleDateString('fr-FR') : 'Jamais';
+
+          item.innerHTML = `
+            <div class="lesson-stat-icon">${lesson.icon}</div>
+            <div class="lesson-stat-info">
+              <div class="lesson-stat-name">${lesson.title}</div>
+              <div class="lesson-stat-details">
+                <span class="lesson-stat-detail">📝 ${lessonProgress.attempts} tentative${lessonProgress.attempts > 1 ? 's' : ''}</span>
+                <span class="lesson-stat-detail">📅 ${lastAttemptDate}</span>
+              </div>
+            </div>
+            <div class="lesson-stat-score">${lessonProgress.bestScore}%</div>
+            ${lessonProgress.completed ? '<div class="lesson-stat-badge">✓ Réussie</div>' : ''}
+          `;
+
+          lessonsStatsList.appendChild(item);
+        }
+      });
+    }
+
+    // Caractères à réviser
+    const mistakes = Storage.getMistakesToReview();
+    const mistakesCard = document.getElementById('mistakes-stats-card');
+    const mistakesList = document.getElementById('mistakes-stats-list');
+
+    if (mistakes.length > 0) {
+      mistakesCard.style.display = 'block';
+      mistakesList.innerHTML = '';
+
+      // Récupérer les données complètes des hiragana
+      const allHiragana = [];
+      lessonsData.forEach(lesson => {
+        lesson.hiragana.forEach(h => allHiragana.push(h));
+      });
+
+      mistakes.forEach(mistake => {
+        const hiraganaData = allHiragana.find(h => h.char === mistake.char);
+        if (hiraganaData) {
+          const item = document.createElement('div');
+          item.className = 'mistake-item';
+          item.innerHTML = `
+            <div class="mistake-count">${mistake.count}</div>
+            <div class="mistake-char">${mistake.char}</div>
+            <div class="mistake-romaji">${hiraganaData.romaji}</div>
+          `;
+          mistakesList.appendChild(item);
+        }
+      });
+    } else {
+      mistakesCard.style.display = 'none';
+    }
   }
 };
 
@@ -474,8 +737,13 @@ const LessonController = {
         feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
         feedback.innerHTML = isCorrect ? '✅ Bonne réponse !' : `❌ La bonne réponse était : ${correct}`;
 
-        // Mettre à jour le score
-        if (isCorrect) appState.score++;
+        // Mettre à jour le score et enregistrer les erreurs
+        if (isCorrect) {
+          appState.score++;
+        } else {
+          // Enregistrer l'erreur pour ce hiragana
+          Storage.recordMistake(question.data.hiragana);
+        }
 
         // Passer à la question suivante après un délai
         setTimeout(() => LessonController.nextQuestion(), 1500);
@@ -516,7 +784,12 @@ const LessonController = {
         feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
         feedback.innerHTML = (isCorrect ? '✅ Bonne réponse ! ' : '❌ ') + question.data.explanation;
 
-        if (isCorrect) appState.score++;
+        if (isCorrect) {
+          appState.score++;
+        } else {
+          // Enregistrer l'intrus comme erreur (le caractère que l'utilisateur n'a pas su identifier)
+          Storage.recordMistake(question.data.intruder);
+        }
 
         setTimeout(() => LessonController.nextQuestion(), 2000);
       });
@@ -570,7 +843,13 @@ const LessonController = {
       ? '✅ Bonne réponse !'
       : `❌ La bonne réponse était : ${correct}${alternatives.length > 0 ? ' (ou ' + alternatives.join(', ') + ')' : ''}`;
 
-    if (isCorrect) appState.score++;
+    if (isCorrect) {
+      appState.score++;
+    } else {
+      // Enregistrer chaque hiragana du mot comme erreur
+      const hiraganaChars = question.data.hiragana.split('');
+      hiraganaChars.forEach(char => Storage.recordMistake(char));
+    }
 
     // Comptabiliser les transcriptions
     const progress = Storage.getProgress();
@@ -626,7 +905,13 @@ const LessonController = {
       ? '✅ Bonne réponse !'
       : `❌ La bonne réponse était : ${question.data.romaji}`;
 
-    if (isCorrect) appState.score++;
+    if (isCorrect) {
+      appState.score++;
+    } else {
+      // Enregistrer chaque hiragana du mot comme erreur
+      const hiraganaChars = question.data.hiragana.split('');
+      hiraganaChars.forEach(char => Storage.recordMistake(char));
+    }
 
     setTimeout(() => LessonController.nextQuestion(), 1500);
   },
@@ -656,10 +941,19 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('config-back-btn')?.addEventListener('click', () => Navigation.goToHome());
   document.getElementById('lesson-back-btn')?.addEventListener('click', () => Navigation.goToHome());
   document.getElementById('start-lesson-btn')?.addEventListener('click', () => Navigation.goToLesson());
-  document.getElementById('retry-btn')?.addEventListener('click', () => Navigation.goToConfig(appState.currentLesson.id));
+  document.getElementById('retry-btn')?.addEventListener('click', () => {
+    if (appState.currentLesson.id === 'review') {
+      Navigation.goToReview();
+    } else {
+      Navigation.goToConfig(appState.currentLesson.id);
+    }
+  });
   document.getElementById('continue-btn')?.addEventListener('click', () => Navigation.goToHome());
   document.getElementById('badges-btn')?.addEventListener('click', () => Navigation.goToBadges());
   document.getElementById('badges-back-btn')?.addEventListener('click', () => Navigation.goToHome());
+  document.getElementById('stats-btn')?.addEventListener('click', () => Navigation.goToStats());
+  document.getElementById('stats-back-btn')?.addEventListener('click', () => Navigation.goToHome());
+  document.getElementById('start-review-btn')?.addEventListener('click', () => Navigation.goToReview());
   document.getElementById('close-badge-modal')?.addEventListener('click', closeBadgeModal);
 
   // Initialisation

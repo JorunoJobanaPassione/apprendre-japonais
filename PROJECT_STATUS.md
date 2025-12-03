@@ -1,7 +1,7 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 4.1.1
-**Dernière mise à jour** : 2 décembre 2025
+**Version** : 4.2.0
+**Dernière mise à jour** : 3 décembre 2025
 **Status** : ✅ Déployée et fonctionnelle
 **URL** : https://jorunojobanapassione.github.io/apprendre-japonais/
 
@@ -13,6 +13,8 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 - ✅ 10 leçons progressives complètes
 - ✅ 6 types d'exercices variés (~220 exercices)
 - ✅ Système de gamification (badges, points, streak, niveaux)
+- ✅ **Mode révision intelligent** basé sur les erreurs
+- ✅ **Écran de statistiques détaillées** avec progression
 - ✅ PWA installable fonctionnant hors ligne
 - ✅ Design responsive mobile et desktop
 
@@ -82,7 +84,22 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 
 ## 🚀 Historique des Versions
 
-### V4.1.1 (2 décembre 2025) - ✅ ACTUELLE
+### V4.2.0 (3 décembre 2025) - ✅ ACTUELLE
+**Nouvelles fonctionnalités : Mode Révision + Statistiques détaillées**
+- 📊 **Écran de statistiques complet** :
+  - Carte de profil avec niveau et progression
+  - Vue détaillée de chaque leçon (score, tentatives, dates)
+  - Activité récente et métriques
+  - Visualisation des caractères à réviser
+- 🔄 **Mode révision intelligent** :
+  - Tracking automatique des erreurs par caractère
+  - Génération de leçons personnalisées
+  - Exercices ciblés sur les hiragana problématiques
+  - Affichage dans statistiques avec compteur d'erreurs
+- 🎨 Design responsive pour toutes les nouvelles pages
+- 📦 Nettoyage du projet (suppression fichiers obsolètes React/Node)
+
+### V4.1.1 (2 décembre 2025)
 **Corrections pédagogiques et cache**
 - Exercices "Lecture en contexte" : réponses cachées, saisie obligatoire
 - QCM et Intrus : mélange aléatoire des options à chaque question

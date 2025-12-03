@@ -50,6 +50,18 @@
                     <p class="progress-text"><span id="completed-lessons">0</span>/10 leçons complétées</p>
                 </section>
 
+                <!-- Bouton Mode Révision -->
+                <div id="review-mode-section" class="review-mode-section" style="display: none;">
+                    <div class="review-mode-card">
+                        <div class="review-mode-icon">🔄</div>
+                        <div class="review-mode-info">
+                            <h3 class="review-mode-title">Mode Révision</h3>
+                            <p class="review-mode-description"><span id="mistakes-count">0</span> caractère(s) à réviser</p>
+                        </div>
+                        <button class="primary-btn" id="start-review-btn">Commencer</button>
+                    </div>
+                </div>
+
                 <section class="lessons-section">
                     <h2 class="section-title">Leçons d'hiragana</h2>
                     <div id="lessons-list" class="lessons-grid">
@@ -183,6 +195,95 @@
                 </div>
             </div>
         </div>
+
+        <!-- Écran des statistiques -->
+        <div id="stats-screen" class="screen" style="display: none;">
+            <header class="lesson-header">
+                <button class="back-btn" id="stats-back-btn">← Retour</button>
+                <h2 class="lesson-title">📊 Mes Statistiques</h2>
+            </header>
+
+            <div class="content stats-content">
+                <!-- Carte du profil utilisateur -->
+                <div class="stats-card profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">👤</div>
+                        <div class="profile-info">
+                            <h3 class="profile-name">Niveau <span id="stats-level">1</span></h3>
+                            <div class="profile-progress-bar">
+                                <div class="profile-progress-fill" id="stats-level-progress" style="width: 0%"></div>
+                            </div>
+                            <p class="profile-next-level"><span id="stats-points-to-next">100</span> points pour le niveau suivant</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-stats-grid">
+                        <div class="profile-stat">
+                            <span class="profile-stat-icon">⭐</span>
+                            <span class="profile-stat-value" id="stats-total-points">0</span>
+                            <span class="profile-stat-label">Points totaux</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="profile-stat-icon">🔥</span>
+                            <span class="profile-stat-value" id="stats-streak">0</span>
+                            <span class="profile-stat-label">Jours consécutifs</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="profile-stat-icon">📚</span>
+                            <span class="profile-stat-value" id="stats-lessons-completed">0</span>
+                            <span class="profile-stat-label">Leçons réussies</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="profile-stat-icon">🏅</span>
+                            <span class="profile-stat-value" id="stats-badges-count">0</span>
+                            <span class="profile-stat-label">Badges débloqués</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carte de progression des leçons -->
+                <div class="stats-card">
+                    <h3 class="stats-card-title">📖 Progression des leçons</h3>
+                    <div id="lessons-stats-list" class="lessons-stats-list">
+                        <!-- Les statistiques des leçons seront insérées ici -->
+                    </div>
+                </div>
+
+                <!-- Carte des activités récentes -->
+                <div class="stats-card">
+                    <h3 class="stats-card-title">📅 Activité récente</h3>
+                    <div class="activity-item">
+                        <span class="activity-icon">📆</span>
+                        <div class="activity-info">
+                            <span class="activity-label">Dernière session</span>
+                            <span class="activity-value" id="stats-last-study">Jamais</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-icon">✍️</span>
+                        <div class="activity-info">
+                            <span class="activity-label">Transcriptions complétées</span>
+                            <span class="activity-value" id="stats-transcriptions">0</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-icon">📝</span>
+                        <div class="activity-info">
+                            <span class="activity-label">Mots appris</span>
+                            <span class="activity-value" id="stats-words">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carte des caractères à réviser -->
+                <div id="mistakes-stats-card" class="stats-card" style="display: none;">
+                    <h3 class="stats-card-title">🔄 Caractères à réviser</h3>
+                    <div id="mistakes-stats-list" class="mistakes-stats-list">
+                        <!-- Les caractères avec erreurs seront insérés ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal de badge débloqué -->
@@ -200,8 +301,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="lessons-data.js?v=4.1.1"></script>
-    <script src="app.js?v=4.1.1"></script>
+    <script src="lessons-data.js?v=4.2.0"></script>
+    <script src="app.js?v=4.2.0"></script>
 
     <!-- Service Worker Registration -->
     <script>
