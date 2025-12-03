@@ -1207,3 +1207,67 @@ body {
 .mb-2 { margin-bottom: var(--spacing-md); }
 .mb-3 { margin-bottom: var(--spacing-lg); }
 .mb-4 { margin-bottom: var(--spacing-xl); }
+
+/* ===== AUDIO BUTTONS ===== */
+.audio-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+.audio-btn:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.audio-btn:active {
+    transform: scale(0.95);
+}
+
+.audio-btn-small {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+}
+
+/* Container pour question hiragana avec audio */
+.question-hiragana-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
+}
+
+/* Container pour transcription avec audio */
+.transcription-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin: var(--spacing-md) 0;
+}
+
+/* Ajustement des cartes hiragana avec audio */
+.hiragana-card {
+    position: relative;
+}
+
+.hiragana-card .audio-btn-small {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+}
