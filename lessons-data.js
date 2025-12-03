@@ -29,6 +29,21 @@ const lessonsData = [
         instruction: "Étudiez ces caractères et leur prononciation"
       },
       {
+        type: "dialogue",
+        title: "Mini-Dialogue : Première Rencontre",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "🏫 Deux personnes se rencontrent pour la première fois",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "おはよう", romaji: "ohayou", french: "Bonjour !" },
+            { speaker: "B", hiragana: "おはよう", romaji: "ohayou", french: "Bonjour !" },
+            { speaker: "A", hiragana: "あき です", romaji: "aki desu", french: "Je suis Aki" },
+            { speaker: "B", hiragana: "かおる です", romaji: "kaoru desu", french: "Je suis Kaoru" }
+          ],
+          audioFile: "dialogue_lesson1.mp3"
+        }
+      },
+      {
         type: "mcq",
         title: "Exercice de reconnaissance",
         instruction: "Quelle est la lecture de ce hiragana ?",
@@ -113,6 +128,21 @@ const lessonsData = [
         instruction: "Étudiez ces caractères et leur prononciation"
       },
       {
+        type: "dialogue",
+        title: "Mini-Dialogue : Au Restaurant",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "🍣 Commander dans un restaurant japonais",
+        dialogue: {
+          lines: [
+            { speaker: "Client", hiragana: "すし ください", romaji: "sushi kudasai", french: "Des sushis s'il vous plaît" },
+            { speaker: "Serveur", hiragana: "はい、すし です", romaji: "hai, sushi desu", french: "Oui, voici les sushis" },
+            { speaker: "Client", hiragana: "お茶 も ください", romaji: "ocha mo kudasai", french: "Du thé aussi s'il vous plaît" },
+            { speaker: "Serveur", hiragana: "はい、どうぞ", romaji: "hai, douzo", french: "Oui, voilà" }
+          ],
+          audioFile: "dialogue_lesson2.mp3"
+        }
+      },
+      {
         type: "mcq",
         title: "Exercice de reconnaissance",
         instruction: "Quelle est la lecture de ce hiragana ?",
@@ -183,6 +213,21 @@ const lessonsData = [
         type: "presentation",
         title: "Présentation des hiragana",
         instruction: "Étudiez ces caractères et leur prononciation"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Les Animaux",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "🐱 Parler de ses animaux domestiques",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "ねこ が います", romaji: "neko ga imasu", french: "J'ai un chat" },
+            { speaker: "B", hiragana: "かわいい です ね", romaji: "kawaii desu ne", french: "Il est mignon !" },
+            { speaker: "A", hiragana: "なまえ は はな です", romaji: "namae wa hana desu", french: "Son nom est Hana" },
+            { speaker: "B", hiragana: "いい なまえ です ね", romaji: "ii namae desu ne", french: "C'est un joli nom !" }
+          ],
+          audioFile: "dialogue_lesson3.mp3"
+        }
       },
       {
         type: "mcq",
@@ -259,6 +304,21 @@ const lessonsData = [
         instruction: "Étudiez ces caractères et leur prononciation"
       },
       {
+        type: "dialogue",
+        title: "Mini-Dialogue : À la Gare",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "🚆 Prendre le train",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "とうきょう まで ください", romaji: "toukyou made kudasai", french: "Pour Tokyo s'il vous plaît" },
+            { speaker: "B", hiragana: "はい、ろくせん えん です", romaji: "hai, rokusen en desu", french: "Oui, 6000 yens" },
+            { speaker: "A", hiragana: "なんじ の でんしゃ です か", romaji: "nanji no densha desu ka", french: "À quelle heure est le train ?" },
+            { speaker: "B", hiragana: "よじ です", romaji: "yoji desu", french: "À 4 heures" }
+          ],
+          audioFile: "dialogue_lesson4.mp3"
+        }
+      },
+      {
         type: "mcq",
         title: "Exercice de reconnaissance",
         instruction: "Quelle est la lecture de ce hiragana ?",
@@ -322,6 +382,21 @@ const lessonsData = [
         instruction: "Étudiez ces caractères spéciaux"
       },
       {
+        type: "dialogue",
+        title: "Mini-Dialogue : Shopping",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "🛍️ Acheter des fruits au marché",
+        dialogue: {
+          lines: [
+            { speaker: "Client", hiragana: "りんご を ください", romaji: "ringo wo kudasai", french: "Des pommes s'il vous plaît" },
+            { speaker: "Vendeur", hiragana: "はい、なんこ です か", romaji: "hai, nanko desu ka", french: "Oui, combien ?" },
+            { speaker: "Client", hiragana: "さんこ を おねがいします", romaji: "sanko wo onegaishimasu", french: "Trois s'il vous plaît" },
+            { speaker: "Vendeur", hiragana: "わかりました", romaji: "wakarimashita", french: "Compris !" }
+          ],
+          audioFile: "dialogue_lesson5.mp3"
+        }
+      },
+      {
         type: "mcq",
         title: "Exercice de reconnaissance",
         instruction: "Quelle est la lecture de ce hiragana ?",
@@ -376,6 +451,21 @@ const lessonsData = [
         type: "presentation",
         title: "Présentation des hiragana",
         instruction: "Hiragana avec dakuten (゛)"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : À l'École",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "📚 Discussion entre étudiants",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "がっこう は どう です か", romaji: "gakkou wa dou desu ka", french: "Comment est l'école ?" },
+            { speaker: "B", hiragana: "たのしい です", romaji: "tanoshii desu", french: "C'est amusant" },
+            { speaker: "A", hiragana: "えいご を べんきょう します か", romaji: "eigo wo benkyou shimasu ka", french: "Tu étudies l'anglais ?" },
+            { speaker: "B", hiragana: "はい、まいにち べんきょう します", romaji: "hai, mainichi benkyou shimasu", french: "Oui, j'étudie tous les jours" }
+          ],
+          audioFile: "dialogue_lesson6.mp3"
+        }
       },
       {
         type: "mcq",
@@ -434,6 +524,21 @@ const lessonsData = [
         instruction: "Hiragana avec dakuten (゛)"
       },
       {
+        type: "dialogue",
+        title: "Mini-Dialogue : La Météo",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "☁️ Parler de la météo",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "きょう の てんき は どう です か", romaji: "kyou no tenki wa dou desu ka", french: "Quel temps fait-il aujourd'hui ?" },
+            { speaker: "B", hiragana: "あめ が ふって います", romaji: "ame ga futte imasu", french: "Il pleut" },
+            { speaker: "A", hiragana: "ざんねん です ね", romaji: "zannen desu ne", french: "C'est dommage" },
+            { speaker: "B", hiragana: "でも、あした は はれ です", romaji: "demo, ashita wa hare desu", french: "Mais demain il fera beau" }
+          ],
+          audioFile: "dialogue_lesson7.mp3"
+        }
+      },
+      {
         type: "mcq",
         title: "Exercice de reconnaissance",
         instruction: "Quelle est la lecture de ce hiragana ?",
@@ -482,6 +587,21 @@ const lessonsData = [
         type: "presentation",
         title: "Présentation des hiragana",
         instruction: "Hiragana avec handakuten (゜)"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Au Parc",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "🌳 Se promener au parc",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "こうえん に いきませんか", romaji: "kouen ni ikimasen ka", french: "On va au parc ?" },
+            { speaker: "B", hiragana: "いいです ね！ピクニック しましょう", romaji: "ii desu ne! pikunikku shimashou", french: "Bonne idée ! Faisons un pique-nique" },
+            { speaker: "A", hiragana: "パン を かいましょう", romaji: "pan wo kaimashou", french: "Achetons du pain" },
+            { speaker: "B", hiragana: "はい、たのしみ です", romaji: "hai, tanoshimi desu", french: "Oui, j'ai hâte" }
+          ],
+          audioFile: "dialogue_lesson8.mp3"
+        }
       },
       {
         type: "mcq",
@@ -538,6 +658,21 @@ const lessonsData = [
         instruction: "Hiragana combinés (yōon)"
       },
       {
+        type: "dialogue",
+        title: "Mini-Dialogue : Restaurant Japonais",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "🍱 Commander dans un restaurant traditionnel",
+        dialogue: {
+          lines: [
+            { speaker: "Client", hiragana: "ちゅうもん を おねがいします", romaji: "chuumon wo onegaishimasu", french: "Je voudrais commander s'il vous plaît" },
+            { speaker: "Serveur", hiragana: "はい、なに に しますか", romaji: "hai, nani ni shimasu ka", french: "Oui, que prenez-vous ?" },
+            { speaker: "Client", hiragana: "ぎゅうにゅう と ちゃ を ください", romaji: "gyuunyuu to cha wo kudasai", french: "Du lait et du thé s'il vous plaît" },
+            { speaker: "Serveur", hiragana: "りょうかい です", romaji: "ryoukai desu", french: "Compris" }
+          ],
+          audioFile: "dialogue_lesson9.mp3"
+        }
+      },
+      {
         type: "mcq",
         title: "Exercice de reconnaissance",
         instruction: "Quelle est la lecture de cette combinaison ?",
@@ -576,6 +711,22 @@ const lessonsData = [
     free: false,
     hiragana: [],
     steps: [
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Conversation Quotidienne",
+        instruction: "Lisez ce dialogue authentique complet (cliquez 🔊 pour écouter)",
+        context: "💬 Une conversation naturelle du quotidien",
+        dialogue: {
+          lines: [
+            { speaker: "Yuki", hiragana: "おはよう ございます", romaji: "ohayou gozaimasu", french: "Bonjour" },
+            { speaker: "Hiro", hiragana: "おはよう。きょう は いい てんき です ね", romaji: "ohayou. kyou wa ii tenki desu ne", french: "Bonjour. Il fait beau aujourd'hui !" },
+            { speaker: "Yuki", hiragana: "そう です ね。どこ に いきます か", romaji: "sou desu ne. doko ni ikimasu ka", french: "Oui ! Où allez-vous ?" },
+            { speaker: "Hiro", hiragana: "としょかん に いきます。あなた は", romaji: "toshokan ni ikimasu. anata wa", french: "Je vais à la bibliothèque. Et vous ?" },
+            { speaker: "Yuki", hiragana: "わたし も です。いっしょ に いきましょう", romaji: "watashi mo desu. issho ni ikimashou", french: "Moi aussi. Allons-y ensemble" }
+          ],
+          audioFile: "dialogue_lesson10.mp3"
+        }
+      },
       {
         type: "mcq",
         title: "Révision générale",

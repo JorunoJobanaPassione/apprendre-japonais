@@ -1156,6 +1156,102 @@ body {
     font-weight: 700;
 }
 
+/* ===== MINI-DIALOGUES ===== */
+.dialogue-context {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.dialogue-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
+}
+
+.dialogue-line {
+    background: var(--surface);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.dialogue-line:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.dialogue-speaker {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.dialogue-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.dialogue-hiragana {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.dialogue-hiragana span {
+    flex: 1;
+}
+
+.dialogue-romaji {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.95rem;
+    padding-left: var(--spacing-xs);
+}
+
+.dialogue-french {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding-left: var(--spacing-xs);
+}
+
+/* Animation pour les dialogues */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dialogue-line {
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+.dialogue-line:nth-child(1) { animation-delay: 0.1s; }
+.dialogue-line:nth-child(2) { animation-delay: 0.2s; }
+.dialogue-line:nth-child(3) { animation-delay: 0.3s; }
+.dialogue-line:nth-child(4) { animation-delay: 0.4s; }
+.dialogue-line:nth-child(5) { animation-delay: 0.5s; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .lessons-grid {

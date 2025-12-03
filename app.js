@@ -700,6 +700,8 @@ const LessonController = {
     lesson.steps.forEach(step => {
       if (step.type === 'presentation') {
         appState.selectedQuestions.push({ type: 'presentation', data: step });
+      } else if (step.type === 'dialogue') {
+        appState.selectedQuestions.push({ type: 'dialogue', data: step });
       } else {
         const questions = step.questions || [];
         const selected = this.shuffleArray([...questions]).slice(0, Math.min(appState.totalQuestions, questions.length));
@@ -737,6 +739,9 @@ const LessonController = {
       case 'presentation':
         this.renderPresentation(container, question);
         break;
+      case 'dialogue':
+        this.renderDialogue(container, question);
+        break;
       case 'mcq':
         this.renderMCQ(container, question);
         break;
@@ -764,6 +769,35 @@ const LessonController = {
               ${AudioPlayer.createButton(h.char, 'small')}
               <div class="hiragana-char">${h.char}</div>
               <div class="hiragana-romaji">${h.romaji}</div>
+            </div>
+          `).join('')}
+        </div>
+        <button class="primary-btn next-btn" onclick="LessonController.nextQuestion()">
+          Suivant →
+        </button>
+      </div>
+    `;
+  },
+
+  renderDialogue: function(container, question) {
+    const dialogueData = question.data.dialogue;
+    container.innerHTML = `
+      <div class="exercise">
+        <h2 class="exercise-title">💬 ${question.data.title}</h2>
+        <p class="exercise-instruction">${question.data.instruction}</p>
+        <div class="dialogue-context">${question.data.context}</div>
+        <div class="dialogue-container">
+          ${dialogueData.lines.map((line, index) => `
+            <div class="dialogue-line">
+              <div class="dialogue-speaker">${line.speaker}</div>
+              <div class="dialogue-content">
+                <div class="dialogue-hiragana">
+                  ${AudioPlayer.createButton(line.hiragana, 'small')}
+                  <span>${line.hiragana}</span>
+                </div>
+                <div class="dialogue-romaji">${line.romaji}</div>
+                <div class="dialogue-french">${line.french}</div>
+              </div>
             </div>
           `).join('')}
         </div>
