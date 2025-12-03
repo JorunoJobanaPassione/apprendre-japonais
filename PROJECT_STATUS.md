@@ -1,12 +1,13 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 4.2.0
+**Version** : 4.3.0 🎉
 **Dernière mise à jour** : 3 décembre 2025
-**Status** : ✅ Déployée et fonctionnelle
+**Status** : ✅ Déployée avec AUDIO NATIF
 **URL** : https://jorunojobanapassione.github.io/apprendre-japonais/
 
 **🎯 VISION** : Devenir l'app de référence pour apprendre à lire le japonais (viser l'échelle Duolingo)
 **📈 OBJECTIF 3 MOIS** : 2000 utilisateurs actifs · 100 utilisateurs premium · 1000€/mois MRR
+**🏆 SEMAINE 1** : ✅ COMPLÉTÉE - Audio natif implémenté (80 fichiers MP3, 371 KB)
 
 ---
 
@@ -77,17 +78,47 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 
 ## 📊 Statistiques
 
-- **~2000 lignes de code** (HTML/CSS/JS)
+- **~2600 lignes de code** (HTML/CSS/JS) +600 lignes
 - **~220 exercices** au total
-- **71 hiragana** enseignés
+- **80 hiragana** avec audio natif (371 KB MP3)
 - **150+ mots** de vocabulaire
 - **15+ badges** à débloquer
+- **80 fichiers audio** MP3 (Google TTS haute qualité)
 
 ---
 
 ## 🚀 Historique des Versions
 
-### V4.2.0 (3 décembre 2025) - ✅ ACTUELLE
+### V4.3.0 (3 décembre 2025) - ✅ ACTUELLE - AUDIO NATIF
+**🎯 SEMAINE 1 COMPLÉTÉE : Feature #1 critique pour compétition Duolingo**
+- 🎧 **Système audio complet** :
+  - 80 fichiers MP3 générés avec Google TTS (gTTS)
+  - Taille totale : 371 KB (parfait pour PWA)
+  - Qualité audio professionnelle japonaise
+  - AudioPlayer avec cache et mapping romaji
+- 🔊 **Boutons audio sur tous les exercices** :
+  - Présentation : bouton sur chaque carte hiragana
+  - MCQ : bouton à côté du hiragana question
+  - Transcription : bouton pour écouter le mot
+  - Sentence : bouton pour la lecture en contexte
+- 🎨 **Animations et design** :
+  - Boutons circulaires avec gradient violet
+  - Effet scale au hover (1.1x)
+  - Animation au clic (0.95x)
+  - Icône 🔊 claire et visible
+- ⚡ **Performance optimisée** :
+  - Audio caching (pas de re-téléchargement)
+  - Service Worker V4.3.0 (cache offline des MP3)
+  - HTML5 Audio API native (zéro dépendances)
+- 📦 **Fichiers** :
+  - generate-audio.py (script de génération)
+  - app.js +93 lignes (AudioPlayer utility)
+  - style.css +62 lignes (audio buttons)
+  - service-worker.js mis à jour (liste 80 MP3)
+
+**Impact business** : Feature #1 pour rivaliser avec Duolingo. Sans audio = app non compétitive.
+
+### V4.2.0 (3 décembre 2025)
 **Nouvelles fonctionnalités : Mode Révision + Statistiques détaillées**
 - 📊 **Écran de statistiques complet** :
   - Carte de profil avec niveau et progression
@@ -124,12 +155,12 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 
 ### 🔥 MOIS 1 : Fondations Addictives (100 utilisateurs quotidiens)
 
-**Semaine 1 : 🎧 Audio Natif**
-- [ ] Générer 71 fichiers MP3 (Amazon Polly / ElevenLabs)
-- [ ] Intégrer lecteur audio dans app.js
-- [ ] Ajouter bouton de prononciation sur chaque hiragana
-- [ ] Tester qualité audio sur tous les exercices
-- [ ] Déployer V4.3.0
+**Semaine 1 : 🎧 Audio Natif** ✅ **COMPLÉTÉE** (3 décembre 2025)
+- [x] Générer 80 fichiers MP3 (Google TTS - gTTS)
+- [x] Intégrer lecteur audio dans app.js (AudioPlayer utility)
+- [x] Ajouter bouton de prononciation sur chaque hiragana (🔊)
+- [x] Tester qualité audio sur tous les exercices
+- [x] Déployer V4.3.0 (✅ EN LIGNE)
 
 **Semaine 2 : ⚡ Mode Express 90 secondes**
 - [ ] Créer UI du mode Express (écran d'accueil)
