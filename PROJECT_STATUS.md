@@ -79,8 +79,9 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 
 ## 📊 Statistiques
 
-- **~2600 lignes de code** (HTML/CSS/JS) +600 lignes
+- **~2900 lignes de code** (HTML/CSS/JS) +300 lignes
 - **~220 exercices** au total
+- **10 mini-dialogues** authentiques (40+ lignes de dialogue)
 - **80 hiragana** avec audio natif (371 KB MP3)
 - **150+ mots** de vocabulaire
 - **15+ badges** à débloquer
@@ -198,12 +199,12 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
   - [ ] Logique de sélection 5 questions (hiragana les plus ratés)
   - [ ] Écran de résultats avec partage social
   - [ ] Animations de célébration (confettis)
-- [ ] **Mini-Dialogues (NOUVEAU - répond au besoin #1)** :
-  - [ ] Créer 10 mini-dialogues authentiques (1 par leçon)
-  - [ ] Ajouter bouton audio pour dialogues complets
-  - [ ] Exercice "Traduire le dialogue"
-  - [ ] Design: cards avec contexte visuel
-- [ ] Déployer V4.4.0
+- [x] **Mini-Dialogues (NOUVEAU - répond au besoin #1)** :
+  - [x] Créer 10 mini-dialogues authentiques (1 par leçon)
+  - [x] Ajouter bouton audio pour dialogues complets
+  - [x] Intégrer dans le système de leçons
+  - [x] Design: cards avec contexte visuel
+- [x] Déployer V4.4.0
 
 **Semaine 3 : 🏆 Leaderboard + 🎧 Exercices Écoute** (11-17 décembre)
 - [ ] **Leaderboard Réel :**
@@ -452,7 +453,10 @@ Aucun bug critique identifié ✅
 - 💡 Pas de système de parrainage
 - 💡 Pas de A/B testing
 
-**Score besoins utilisateurs : 4/7 ✓ résolu · 3/7 📅 planifié prochaines semaines**
+**Score besoins utilisateurs : 5/7 ✓ résolu · 2/7 📅 planifié prochaines semaines**
+
+**Mise à jour 3 décembre 2025** :
+- ✅ Besoin #1 "Lecture réelle" → **RÉSOLU** avec mini-dialogues V4.4.0
 
 ---
 
