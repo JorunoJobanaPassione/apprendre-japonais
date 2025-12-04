@@ -1066,7 +1066,7 @@ const ExpressMode = {
   start: function() {
     this.reset();
     this.selectQuestions();
-    Navigation.goTo('express-game-screen');
+    Navigation.showScreen('express-game-screen');
     this.startTimer();
     this.renderQuestion();
   },
@@ -1089,11 +1089,15 @@ const ExpressMode = {
       });
     });
 
+    // Récupérer les erreurs du Storage
+    const progress = Storage.getProgress();
+    const mistakesData = progress.mistakes || {};
+
     // Créer un pool pondéré basé sur les erreurs
     let weightedPool = [];
     allHiragana.forEach(h => {
-      const mistakes = appState.mistakes[h.char] || 0;
-      const weight = Math.max(1, mistakes * 3); // Plus d'erreurs = plus de poids
+      const mistakeCount = mistakesData[h.char]?.count || 0;
+      const weight = Math.max(1, mistakeCount * 3); // Plus d'erreurs = plus de poids
       for (let i = 0; i < weight; i++) {
         weightedPool.push(h);
       }
@@ -1192,11 +1196,8 @@ const ExpressMode = {
     if (isCorrect) {
       this.score++;
     } else {
-      // Enregistrer l'erreur
-      if (!appState.mistakes[question.hiragana]) {
-        appState.mistakes[question.hiragana] = 0;
-      }
-      appState.mistakes[question.hiragana]++;
+      // Enregistrer l'erreur dans Storage
+      Storage.recordMistake(question.hiragana);
     }
 
     // Feedback visuel rapide
@@ -1210,8 +1211,6 @@ const ExpressMode = {
       this.currentQuestion++;
       this.renderQuestion();
     }, 800);
-
-    saveProgress();
   },
 
   showResults: function() {
@@ -1236,9 +1235,12 @@ const ExpressMode = {
 
     // Ajouter des points bonus
     const bonusPoints = this.score * 10;
-    addPoints(bonusPoints);
+    const progress = Storage.getProgress();
+    progress.totalPoints += bonusPoints;
+    progress.level = Math.floor(progress.totalPoints / 100) + 1;
+    Storage.saveProgress(progress);
 
-    Navigation.goTo('express-results-screen');
+    Navigation.showScreen('express-results-screen');
 
     // Lancer les confettis si score >= 4
     if (this.score >= 4) {
