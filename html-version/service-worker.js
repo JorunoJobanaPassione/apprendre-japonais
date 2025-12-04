@@ -3,7 +3,7 @@
  * Permet le fonctionnement hors ligne
  */
 
-const CACHE_NAME = 'japonais-app-v4.5.0';
+const CACHE_NAME = 'japonais-app-v4.6.0';
 
 // Liste des fichiers MP3 audio hiragana
 const audioFiles = [
@@ -33,6 +33,8 @@ const urlsToCache = [
   './style.css',
   './app.js',
   './lessons-data.js',
+  './supabase-config.js',
+  './leaderboard.js',
   './manifest.json',
   ...audioFiles // Ajouter tous les fichiers audio
 ];

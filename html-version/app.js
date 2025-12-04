@@ -212,6 +212,14 @@ const Storage = {
     }
 
     this.saveProgress(progress);
+
+    // Sync automatique avec le leaderboard Supabase
+    if (typeof LeaderboardSystem !== 'undefined') {
+      LeaderboardSystem.syncToLeaderboard().catch(err =>
+        console.warn('⚠️ Sync leaderboard échoué (mode hors ligne?)', err)
+      );
+    }
+
     return { points, newBadges: this.checkBadges(progress) };
   },
 
@@ -317,6 +325,11 @@ const Navigation = {
   goToStats: function() {
     this.showScreen('stats-screen');
     this.renderStats();
+  },
+
+  goToLeaderboard: function() {
+    this.showScreen('leaderboard-screen');
+    this.renderLeaderboard();
   },
 
   goToReview: function() {
@@ -675,6 +688,79 @@ const Navigation = {
       });
     } else {
       mistakesCard.style.display = 'none';
+    }
+  },
+
+  renderLeaderboard: async function() {
+    // Afficher un loading
+    const leaderboardList = document.getElementById('leaderboard-list');
+    const userRankCard = document.getElementById('user-rank-card');
+
+    leaderboardList.innerHTML = '<div class="loading-text">⏳ Chargement du classement...</div>';
+
+    try {
+      // Récupérer le Top 50
+      const top50 = await LeaderboardSystem.getTop50();
+
+      // Récupérer le rang de l'utilisateur
+      const userRank = await LeaderboardSystem.getUserRank();
+
+      // Afficher le rang de l'utilisateur
+      if (userRank) {
+        userRankCard.style.display = 'block';
+        document.getElementById('user-rank-position').textContent = `#${userRank.rank}`;
+        document.getElementById('user-rank-username').textContent = userRank.username;
+        document.getElementById('user-rank-xp').textContent = userRank.total_xp;
+      } else {
+        userRankCard.style.display = 'none';
+      }
+
+      // Afficher le classement
+      if (top50.length === 0) {
+        leaderboardList.innerHTML = '<div class="empty-leaderboard">Aucun joueur pour le moment. Soyez le premier ! 🎉</div>';
+        return;
+      }
+
+      leaderboardList.innerHTML = '';
+      top50.forEach((player, index) => {
+        const item = document.createElement('div');
+        item.className = 'leaderboard-item';
+
+        // Highlight si c'est l'utilisateur actuel
+        if (player.username === LeaderboardSystem.currentUsername) {
+          item.classList.add('current-user');
+        }
+
+        // Médailles pour le top 3
+        let rankDisplay = `#${player.rank}`;
+        if (player.rank === 1) rankDisplay = '🥇';
+        else if (player.rank === 2) rankDisplay = '🥈';
+        else if (player.rank === 3) rankDisplay = '🥉';
+
+        item.innerHTML = `
+          <div class="leaderboard-rank">${rankDisplay}</div>
+          <div class="leaderboard-info">
+            <div class="leaderboard-username">${player.username}</div>
+            <div class="leaderboard-stats">
+              <span class="leaderboard-stat">🏆 Niveau ${player.level}</span>
+              <span class="leaderboard-stat">🔥 ${player.streak} jours</span>
+              <span class="leaderboard-stat">📚 ${player.lessons_completed}/10</span>
+            </div>
+          </div>
+          <div class="leaderboard-xp">${player.total_xp} XP</div>
+        `;
+
+        leaderboardList.appendChild(item);
+      });
+
+    } catch (error) {
+      console.error('❌ Erreur chargement leaderboard:', error);
+      leaderboardList.innerHTML = `
+        <div class="error-message">
+          ❌ Erreur de chargement du classement.<br>
+          Vérifiez votre connexion internet.
+        </div>
+      `;
     }
   }
 };
@@ -1240,6 +1326,13 @@ const ExpressMode = {
     progress.level = Math.floor(progress.totalPoints / 100) + 1;
     Storage.saveProgress(progress);
 
+    // Sync automatique avec le leaderboard
+    if (typeof LeaderboardSystem !== 'undefined') {
+      LeaderboardSystem.syncToLeaderboard().catch(err =>
+        console.warn('⚠️ Sync leaderboard échoué', err)
+      );
+    }
+
     Navigation.showScreen('express-results-screen');
 
     // Lancer les confettis si score >= 4
@@ -1340,6 +1433,10 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('stats-back-btn')?.addEventListener('click', () => Navigation.goToHome());
   document.getElementById('start-review-btn')?.addEventListener('click', () => Navigation.goToReview());
   document.getElementById('close-badge-modal')?.addEventListener('click', closeBadgeModal);
+
+  // Leaderboard
+  document.getElementById('leaderboard-btn')?.addEventListener('click', () => Navigation.goToLeaderboard());
+  document.getElementById('leaderboard-back-btn')?.addEventListener('click', () => Navigation.goToHome());
 
   // Mode Express
   document.getElementById('start-express-btn')?.addEventListener('click', () => ExpressMode.start());

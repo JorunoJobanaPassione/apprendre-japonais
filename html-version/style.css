@@ -1619,3 +1619,234 @@ body {
     right: 8px;
     z-index: 10;
 }
+
+/* ================================================ */
+/* LEADERBOARD - Styles pour le classement mondial */
+/* ================================================ */
+
+/* Carte du rang de l'utilisateur */
+.user-rank-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: var(--spacing-xl);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+.user-rank-title {
+    font-size: 1em;
+    opacity: 0.9;
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.user-rank-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+}
+
+.user-rank-position {
+    font-size: 3em;
+    font-weight: 800;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}
+
+.user-rank-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.user-rank-username {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.user-rank-xp {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+/* Container du leaderboard */
+.leaderboard-container {
+    background: var(--card-bg);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.leaderboard-header {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    font-size: 1.3em;
+}
+
+/* Liste du leaderboard */
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: var(--spacing-xs);
+}
+
+/* Scrollbar custom pour la liste */
+.leaderboard-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.leaderboard-list::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+.leaderboard-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+/* Item du leaderboard */
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-md);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.leaderboard-item:hover {
+    border-color: var(--primary-color);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+/* Highlight pour l'utilisateur actuel */
+.leaderboard-item.current-user {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.leaderboard-item.current-user::before {
+    content: '👤';
+    position: absolute;
+    left: -10px;
+    font-size: 1.5em;
+}
+
+/* Rang */
+.leaderboard-rank {
+    font-size: 1.5em;
+    font-weight: 700;
+    min-width: 50px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+/* Info du joueur */
+.leaderboard-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.leaderboard-username {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.leaderboard-stats {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.leaderboard-stat {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+}
+
+/* XP du joueur */
+.leaderboard-xp {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--accent-color);
+    min-width: 80px;
+    text-align: right;
+}
+
+/* Messages de chargement et erreurs */
+.loading-text {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--text-secondary);
+    font-size: 1.2em;
+}
+
+.empty-leaderboard {
+    text-align: center;
+    padding: var(--spacing-xxl);
+    color: var(--text-secondary);
+    font-size: 1.1em;
+}
+
+.error-message {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--error-color);
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: var(--border-radius-md);
+    border: 2px solid var(--error-color);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+    .user-rank-position {
+        font-size: 2.5em;
+    }
+
+    .user-rank-username {
+        font-size: 1.2em;
+    }
+
+    .leaderboard-rank {
+        font-size: 1.2em;
+        min-width: 40px;
+    }
+
+    .leaderboard-username {
+        font-size: 1em;
+    }
+
+    .leaderboard-stats {
+        gap: var(--spacing-sm);
+    }
+
+    .leaderboard-stat {
+        font-size: 0.75em;
+    }
+
+    .leaderboard-xp {
+        font-size: 1em;
+        min-width: 60px;
+    }
+
+    .footer-btn {
+        font-size: 0.75em;
+        padding: var(--spacing-sm);
+    }
+
+    .btn-icon {
+        font-size: 1.2em;
+    }
+}
