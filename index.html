@@ -87,6 +87,10 @@
                     <span class="btn-icon">📊</span>
                     <span class="btn-label">Statistiques</span>
                 </button>
+                <button class="footer-btn" id="leaderboard-btn">
+                    <span class="btn-icon">🏆</span>
+                    <span class="btn-label">Classement</span>
+                </button>
                 <button class="footer-btn" id="badges-btn">
                     <span class="btn-icon">🏅</span>
                     <span class="btn-label">Badges</span>
@@ -297,6 +301,36 @@
             </div>
         </div>
 
+        <!-- Écran Leaderboard -->
+        <div id="leaderboard-screen" class="screen" style="display: none;">
+            <header class="lesson-header">
+                <button class="back-btn" id="leaderboard-back-btn">← Retour</button>
+                <h2 class="lesson-title">🏆 Classement Mondial</h2>
+            </header>
+
+            <div class="content">
+                <!-- Carte du rang de l'utilisateur -->
+                <div id="user-rank-card" class="user-rank-card" style="display: none;">
+                    <h3 class="user-rank-title">Votre classement</h3>
+                    <div class="user-rank-info">
+                        <div class="user-rank-position" id="user-rank-position">#-</div>
+                        <div class="user-rank-details">
+                            <div class="user-rank-username" id="user-rank-username">Username</div>
+                            <div class="user-rank-xp"><span id="user-rank-xp">0</span> XP</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top 50 mondial -->
+                <div class="leaderboard-container">
+                    <h3 class="leaderboard-header">🌍 Top 50 Mondial</h3>
+                    <div id="leaderboard-list" class="leaderboard-list">
+                        <!-- Les entrées du leaderboard seront insérées ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Écran Mode Express - Jeu -->
         <div id="express-game-screen" class="screen" style="display: none;">
             <header class="lesson-header express-header">
@@ -376,8 +410,14 @@
     </div>
 
     <!-- Scripts -->
-    <script src="lessons-data.js?v=4.5.0"></script>
-    <script src="app.js?v=4.5.0"></script>
+    <!-- Supabase SDK (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Scripts de l'application -->
+    <script src="lessons-data.js?v=4.6.0"></script>
+    <script src="supabase-config.js?v=4.6.0"></script>
+    <script src="leaderboard.js?v=4.6.0"></script>
+    <script src="app.js?v=4.6.0"></script>
 
     <!-- Service Worker Registration -->
     <script>
