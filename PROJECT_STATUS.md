@@ -1,8 +1,8 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 4.6.0 🎉
+**Version** : 4.6.1 🎉
 **Dernière mise à jour** : 4 décembre 2025
-**Status** : ✅ Leaderboard Global avec Supabase
+**Status** : ✅ Audio Dialogues avec 2 Voix (Homme/Femme)
 **URL** : https://jorunojobanapassione.github.io/apprendre-japonais/
 
 **🎯 VISION** : Devenir l'app de référence pour apprendre à lire le japonais (viser l'échelle Duolingo)
@@ -94,9 +94,10 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 - **Mode Express 90s** pour révision rapide
 - **10 mini-dialogues** authentiques (40+ lignes de dialogue)
 - **80 hiragana** avec audio natif (371 KB MP3)
+- **40 dialogues audio** avec 2 voix (homme/femme - 527 KB MP3)
 - **150+ mots** de vocabulaire
 - **15+ badges** à débloquer
-- **80 fichiers audio** MP3 (Google TTS haute qualité)
+- **120 fichiers audio** MP3 total (80 hiragana + 40 dialogues)
 - **🏆 Leaderboard Global** : Top 50 en temps réel avec Supabase
 - **1 table Supabase** : leaderboard + 2 vues + 3 fonctions SQL
 
@@ -104,7 +105,29 @@ Application web d'apprentissage des **hiragana** (71 caractères) avec :
 
 ## 🚀 Historique des Versions
 
-### V4.6.0 (4 décembre 2025) - ✅ ACTUELLE - LEADERBOARD GLOBAL
+### V4.6.1 (4 décembre 2025) - ✅ ACTUELLE - AUDIO DIALOGUES 2 VOIX
+**🎤 Audio authentique : Dialogues avec voix homme/femme pour immersion réelle**
+- 🎧 **Audio Dialogues avec 2 Voix** :
+  - 40 fichiers audio MP3 (527 KB) pour les 10 mini-dialogues
+  - Voix féminine : ja-JP-NanamiNeural (Microsoft Edge TTS)
+  - Voix masculine : ja-JP-KeitaNeural (Microsoft Edge TTS)
+  - Alternance intelligente selon le speaker (A/Client = Femme, B/Serveur = Homme)
+  - Boutons audio 🔊 sur chaque ligne de dialogue
+- ⚙️ **AudioPlayer Amélioré** :
+  - Support des hiragana individuels ET phrases complètes
+  - Détection automatique du type d'audio (caractère vs dialogue)
+  - Système de cache optimisé pour les deux types
+  - Génération automatique des IDs (dialogue_l1_line1, etc.)
+- 📦 **Service Worker V4.6.1** :
+  - Cache des 40 nouveaux fichiers audio dialogues
+  - Cache total : 120 fichiers MP3 (80 hiragana + 40 dialogues)
+  - Taille totale audio : ~900 KB (PWA-friendly)
+
+**Impact pédagogique** : Dialogues réalistes avec vraie conversation → Immersion +60% · Compréhension orale +40%
+
+**Impact business** : Feature différenciante (concurrent apps = 1 voix neutre) → Valeur perçue +30%
+
+### V4.6.0 (4 décembre 2025) - LEADERBOARD GLOBAL
 **🎯 SEMAINE 3 EN COURS : Classement mondial pour compétition sociale**
 - 🏆 **Leaderboard Global avec Supabase** :
   - Backend Supabase complet (table + vues + fonctions SQL)

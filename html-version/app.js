@@ -49,33 +49,59 @@ const AudioPlayer = {
     return romajiMap[hiragana] || null;
   },
 
-  // Jouer l'audio d'un hiragana
-  play: function(hiragana) {
-    const filename = this.getAudioFilename(hiragana);
-    if (!filename) {
-      console.warn(`Audio non disponible pour : ${hiragana}`);
-      return;
-    }
+  // Jouer l'audio d'un hiragana OU d'une phrase de dialogue
+  play: function(text, dialogueId = null) {
+    let audioPath = '';
+    let cacheKey = '';
 
-    const audioPath = `audio/${filename}.mp3`;
+    // Si c'est un dialogue (avec ID), utiliser le chemin dialogues/
+    if (dialogueId) {
+      audioPath = `audio/dialogues/${dialogueId}.mp3`;
+      cacheKey = `dialogue_${dialogueId}`;
+    }
+    // Sinon, c'est un hiragana individuel
+    else {
+      const filename = this.getAudioFilename(text);
+      if (!filename) {
+        console.warn(`Audio non disponible pour : ${text}`);
+        return;
+      }
+      audioPath = `audio/${filename}.mp3`;
+      cacheKey = filename;
+    }
 
     // Utiliser le cache ou créer un nouvel objet Audio
-    if (!this.audioCache[filename]) {
-      this.audioCache[filename] = new Audio(audioPath);
+    if (!this.audioCache[cacheKey]) {
+      this.audioCache[cacheKey] = new Audio(audioPath);
     }
 
-    const audio = this.audioCache[filename];
+    const audio = this.audioCache[cacheKey];
 
     // Réinitialiser et jouer
     audio.currentTime = 0;
     audio.play().catch(error => {
-      console.error(`Erreur lecture audio ${filename}:`, error);
+      console.error(`Erreur lecture audio ${cacheKey}:`, error);
     });
   },
 
   // Créer un bouton audio HTML
-  createButton: function(hiragana, size = 'medium') {
-    const filename = this.getAudioFilename(hiragana);
+  createButton: function(text, size = 'medium', dialogueId = null) {
+    // Si c'est un dialogue
+    if (dialogueId) {
+      const sizeClass = size === 'small' ? 'audio-btn-small' : '';
+      return `
+        <button
+          class="audio-btn ${sizeClass}"
+          onclick="AudioPlayer.play('${text.replace(/'/g, "\\'")}', '${dialogueId}')"
+          title="Écouter la prononciation"
+          aria-label="Écouter ${text}">
+          🔊
+        </button>
+      `;
+    }
+
+    // Sinon c'est un hiragana individuel
+    const filename = this.getAudioFilename(text);
     if (!filename) return '';
 
     const sizeClass = size === 'small' ? 'audio-btn-small' : '';
@@ -83,9 +109,9 @@ const AudioPlayer = {
     return `
       <button
         class="audio-btn ${sizeClass}"
-        onclick="AudioPlayer.play('${hiragana}')"
+        onclick="AudioPlayer.play('${text}')"
         title="Écouter la prononciation"
-        aria-label="Écouter ${hiragana}">
+        aria-label="Écouter ${text}">
         🔊
       </button>
     `;
@@ -867,25 +893,35 @@ const LessonController = {
 
   renderDialogue: function(container, question) {
     const dialogueData = question.data.dialogue;
+    const lesson = appState.currentLesson;
+
+    // Extraire le numéro de leçon (lesson1 → l1, lesson2 → l2, etc.)
+    const lessonNum = lesson.id.replace('lesson', 'l');
+
     container.innerHTML = `
       <div class="exercise">
         <h2 class="exercise-title">💬 ${question.data.title}</h2>
         <p class="exercise-instruction">${question.data.instruction}</p>
         <div class="dialogue-context">${question.data.context}</div>
         <div class="dialogue-container">
-          ${dialogueData.lines.map((line, index) => `
-            <div class="dialogue-line">
-              <div class="dialogue-speaker">${line.speaker}</div>
-              <div class="dialogue-content">
-                <div class="dialogue-hiragana">
-                  ${AudioPlayer.createButton(line.hiragana, 'small')}
-                  <span>${line.hiragana}</span>
+          ${dialogueData.lines.map((line, index) => {
+            // Créer un ID unique pour chaque ligne de dialogue
+            const dialogueId = `dialogue_${lessonNum}_line${index + 1}`;
+
+            return `
+              <div class="dialogue-line">
+                <div class="dialogue-speaker">${line.speaker}</div>
+                <div class="dialogue-content">
+                  <div class="dialogue-hiragana">
+                    ${AudioPlayer.createButton(line.hiragana, 'small', dialogueId)}
+                    <span>${line.hiragana}</span>
+                  </div>
+                  <div class="dialogue-romaji">${line.romaji}</div>
+                  <div class="dialogue-french">${line.french}</div>
                 </div>
-                <div class="dialogue-romaji">${line.romaji}</div>
-                <div class="dialogue-french">${line.french}</div>
               </div>
-            </div>
-          `).join('')}
+            `;
+          }).join('')}
         </div>
         <button class="primary-btn next-btn" onclick="LessonController.nextQuestion()">
           Suivant →
