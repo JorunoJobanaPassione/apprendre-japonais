@@ -3,7 +3,7 @@
  * Permet le fonctionnement hors ligne
  */
 
-const CACHE_NAME = 'japonais-app-v4.7.0';
+const CACHE_NAME = 'japonais-app-v4.7.1';
 
 // Liste des fichiers MP3 audio hiragana
 const audioFiles = [
@@ -33,11 +33,11 @@ for (let i = 1; i <= 100; i++) {
   numberAudioFiles.push(`./audio/numbers/num_${i}.mp3`);
 }
 
-// Liste des fichiers MP3 audio dialogues (44 lignes)
+// Liste des fichiers MP3 audio dialogues (45 lignes)
 const dialogueAudioFiles = [];
 for (let i = 1; i <= 11; i++) {
   const lessonNum = `l${i}`;
-  const linesCount = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; // Nombre de lignes par dialogue
+  const linesCount = [4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 4]; // Nombre de lignes par dialogue (leçon 10 = 5 lignes)
   for (let j = 1; j <= linesCount[i-1]; j++) {
     dialogueAudioFiles.push(`./audio/dialogues/dialogue_${lessonNum}_line${j}.mp3`);
   }

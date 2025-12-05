@@ -33,51 +33,52 @@ dialogues = [
 
     # Lecon 3 : Les Animaux
     {"id": "dialogue_l3_line1", "text": "ねこ が います", "speaker": "A"},
-    {"id": "dialogue_l3_line2", "text": "かわいい ですね", "speaker": "B"},
-    {"id": "dialogue_l3_line3", "text": "なまえ は なに ですか", "speaker": "B"},
-    {"id": "dialogue_l3_line4", "text": "はな です", "speaker": "A"},
+    {"id": "dialogue_l3_line2", "text": "かわいい です ね", "speaker": "B"},
+    {"id": "dialogue_l3_line3", "text": "なまえ は はな です", "speaker": "A"},
+    {"id": "dialogue_l3_line4", "text": "いい なまえ です ね", "speaker": "B"},
 
     # Lecon 4 : A la Gare
-    {"id": "dialogue_l4_line1", "text": "とうきょう まで ください", "speaker": "Voyageur"},
-    {"id": "dialogue_l4_line2", "text": "はい、どうぞ", "speaker": "Employe"},
-    {"id": "dialogue_l4_line3", "text": "なんじ に つきますか", "speaker": "Voyageur"},
-    {"id": "dialogue_l4_line4", "text": "ごじ です", "speaker": "Employe"},
+    {"id": "dialogue_l4_line1", "text": "とうきょう まで ください", "speaker": "A"},
+    {"id": "dialogue_l4_line2", "text": "はい、ろくせん えん です", "speaker": "B"},
+    {"id": "dialogue_l4_line3", "text": "なんじ の でんしゃ です か", "speaker": "A"},
+    {"id": "dialogue_l4_line4", "text": "よじ です", "speaker": "B"},
 
     # Lecon 5 : Shopping
     {"id": "dialogue_l5_line1", "text": "りんご を ください", "speaker": "Client"},
-    {"id": "dialogue_l5_line2", "text": "はい、いくつ ですか", "speaker": "Vendeur"},
-    {"id": "dialogue_l5_line3", "text": "みっつ ください", "speaker": "Client"},
-    {"id": "dialogue_l5_line4", "text": "はい、どうぞ", "speaker": "Vendeur"},
+    {"id": "dialogue_l5_line2", "text": "はい、なんこ です か", "speaker": "Vendeur"},
+    {"id": "dialogue_l5_line3", "text": "さんこ を おねがいします", "speaker": "Client"},
+    {"id": "dialogue_l5_line4", "text": "わかりました", "speaker": "Vendeur"},
 
     # Lecon 6 : A l'Ecole
-    {"id": "dialogue_l6_line1", "text": "きょう の じゅぎょう は むずかしい ですね", "speaker": "A"},
-    {"id": "dialogue_l6_line2", "text": "そう ですね、でも おもしろい です", "speaker": "B"},
-    {"id": "dialogue_l6_line3", "text": "あとで べんきょう しませんか", "speaker": "A"},
-    {"id": "dialogue_l6_line4", "text": "いいですね、としょかん で あいましょう", "speaker": "B"},
+    {"id": "dialogue_l6_line1", "text": "がっこう は どう です か", "speaker": "A"},
+    {"id": "dialogue_l6_line2", "text": "たのしい です", "speaker": "B"},
+    {"id": "dialogue_l6_line3", "text": "えいご を べんきょう します か", "speaker": "A"},
+    {"id": "dialogue_l6_line4", "text": "はい、まいにち べんきょう します", "speaker": "B"},
 
     # Lecon 7 : La Meteo
-    {"id": "dialogue_l7_line1", "text": "きょう は いい てんき ですね", "speaker": "A"},
-    {"id": "dialogue_l7_line2", "text": "ええ、でも あした は あめ です", "speaker": "B"},
-    {"id": "dialogue_l7_line3", "text": "ざんねん ですね", "speaker": "A"},
-    {"id": "dialogue_l7_line4", "text": "かさ を もって いきましょう", "speaker": "B"},
+    {"id": "dialogue_l7_line1", "text": "きょう の てんき は どう です か", "speaker": "A"},
+    {"id": "dialogue_l7_line2", "text": "あめ が ふって います", "speaker": "B"},
+    {"id": "dialogue_l7_line3", "text": "ざんねん です ね", "speaker": "A"},
+    {"id": "dialogue_l7_line4", "text": "でも、あした は はれ です", "speaker": "B"},
 
     # Lecon 8 : Au Parc
-    {"id": "dialogue_l8_line1", "text": "こうえん で あそびませんか", "speaker": "A"},
-    {"id": "dialogue_l8_line2", "text": "いいですね、ピクニック を しましょう", "speaker": "B"},
-    {"id": "dialogue_l8_line3", "text": "なに を もって いきますか", "speaker": "A"},
-    {"id": "dialogue_l8_line4", "text": "おべんとう を つくります", "speaker": "B"},
+    {"id": "dialogue_l8_line1", "text": "こうえん に いきませんか", "speaker": "A"},
+    {"id": "dialogue_l8_line2", "text": "いいです ね！ピクニック しましょう", "speaker": "B"},
+    {"id": "dialogue_l8_line3", "text": "パン を かいましょう", "speaker": "A"},
+    {"id": "dialogue_l8_line4", "text": "はい、たのしみ です", "speaker": "B"},
 
     # Lecon 9 : Restaurant Japonais
-    {"id": "dialogue_l9_line1", "text": "いらっしゃいませ", "speaker": "Serveur"},
-    {"id": "dialogue_l9_line2", "text": "ラーメン を ください", "speaker": "Client"},
-    {"id": "dialogue_l9_line3", "text": "しょうゆ と みそ、どちら が いい ですか", "speaker": "Serveur"},
-    {"id": "dialogue_l9_line4", "text": "しょうゆ で おねがいします", "speaker": "Client"},
+    {"id": "dialogue_l9_line1", "text": "ちゅうもん を おねがいします", "speaker": "Client"},
+    {"id": "dialogue_l9_line2", "text": "はい、なに に しますか", "speaker": "Serveur"},
+    {"id": "dialogue_l9_line3", "text": "ぎゅうにゅう と ちゃ を ください", "speaker": "Client"},
+    {"id": "dialogue_l9_line4", "text": "りょうかい です", "speaker": "Serveur"},
 
     # Lecon 10 : Conversation Quotidienne
-    {"id": "dialogue_l10_line1", "text": "おげんき ですか", "speaker": "A"},
-    {"id": "dialogue_l10_line2", "text": "はい、げんき です。あなた は", "speaker": "B"},
-    {"id": "dialogue_l10_line3", "text": "わたし も げんき です", "speaker": "A"},
-    {"id": "dialogue_l10_line4", "text": "それは よかった ですね", "speaker": "B"},
+    {"id": "dialogue_l10_line1", "text": "おはよう ございます", "speaker": "Yuki"},
+    {"id": "dialogue_l10_line2", "text": "おはよう。きょう は いい てんき です ね", "speaker": "Hiro"},
+    {"id": "dialogue_l10_line3", "text": "そう です ね。どこ に いきます か", "speaker": "Yuki"},
+    {"id": "dialogue_l10_line4", "text": "としょかん に いきます。あなた は", "speaker": "Hiro"},
+    {"id": "dialogue_l10_line5", "text": "わたし も です。いっしょ に いきましょう", "speaker": "Yuki"},
 
     # Lecon 11 : Faire les courses
     {"id": "dialogue_l11_line1", "text": "りんご を ください", "speaker": "Client"},
