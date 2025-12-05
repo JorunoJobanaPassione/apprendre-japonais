@@ -483,7 +483,7 @@ const Navigation = {
     lessonsList.innerHTML = '';
 
     lessonsData.forEach((lesson, index) => {
-      const isLocked = index > 0 && !progress.lessons[lessonsData[index - 1].id]?.completed;
+      const isLocked = !lesson.free && (index > 0 && !progress.lessons[lessonsData[index - 1].id]?.completed);
       const lessonProgress = progress.lessons[lesson.id] || { completed: false, bestScore: 0 };
 
       const card = document.createElement('div');
