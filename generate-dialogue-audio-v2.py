@@ -78,6 +78,12 @@ dialogues = [
     {"id": "dialogue_l10_line2", "text": "はい、げんき です。あなた は", "speaker": "B"},
     {"id": "dialogue_l10_line3", "text": "わたし も げんき です", "speaker": "A"},
     {"id": "dialogue_l10_line4", "text": "それは よかった ですね", "speaker": "B"},
+
+    # Lecon 11 : Faire les courses
+    {"id": "dialogue_l11_line1", "text": "りんご を ください", "speaker": "Client"},
+    {"id": "dialogue_l11_line2", "text": "なんこ です か", "speaker": "Vendeur"},
+    {"id": "dialogue_l11_line3", "text": "ごこ ください", "speaker": "Client"},
+    {"id": "dialogue_l11_line4", "text": "ごひゃくえん です", "speaker": "Vendeur"},
 ]
 
 # Mapping speaker -> voix (alternance homme/femme)
