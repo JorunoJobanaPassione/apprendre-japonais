@@ -433,7 +433,7 @@ const lessonsData = [
     title: "Leçon 6 : Dakuten G + Z",
     description: "ga, gi, gu, ge, go, za, ji, zu, ze, zo",
     level: "intermediate",
-    free: false,
+    free: true,
     hiragana: [
       { char: 'が', romaji: 'ga' },
       { char: 'ぎ', romaji: 'gi' },
@@ -504,7 +504,7 @@ const lessonsData = [
     title: "Leçon 7 : Dakuten D + B",
     description: "da, ji, zu, de, do, ba, bi, bu, be, bo",
     level: "intermediate",
-    free: false,
+    free: true,
     hiragana: [
       { char: 'だ', romaji: 'da' },
       { char: 'ぢ', romaji: 'ji' },
@@ -574,7 +574,7 @@ const lessonsData = [
     title: "Leçon 8 : Handakuten P",
     description: "pa, pi, pu, pe, po",
     level: "advanced",
-    free: false,
+    free: true,
     hiragana: [
       { char: 'ぱ', romaji: 'pa' },
       { char: 'ぴ', romaji: 'pi' },
@@ -639,7 +639,7 @@ const lessonsData = [
     title: "Leçon 9 : Combinaisons",
     description: "kya, kyu, kyo, sha, shu, sho...",
     level: "advanced",
-    free: false,
+    free: true,
     hiragana: [
       { char: 'きゃ', romaji: 'kya' },
       { char: 'きゅ', romaji: 'kyu' },
@@ -708,7 +708,7 @@ const lessonsData = [
     title: "Leçon 10 : Révision",
     description: "Révision complète de tous les hiragana",
     level: "advanced",
-    free: false,
+    free: true,
     hiragana: [],
     steps: [
       {
