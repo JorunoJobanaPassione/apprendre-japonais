@@ -1,8 +1,8 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 4.7.0 🎉
+**Version** : 4.7.2 🎉
 **Dernière mise à jour** : 5 décembre 2025
-**Status** : ✅ Leçon Chiffres 1-100 + Dictée Interactive
+**Status** : ✅ Correction audios dialogues + système de déblocage
 **URL** : https://jorunojobanapassione.github.io/apprendre-japonais/
 
 **🎯 VISION** : L'app de référence pour apprendre à lire le japonais (échelle Duolingo)
@@ -15,9 +15,10 @@
 ### 🎓 Apprentissage
 - **11 leçons progressives** : 10 hiragana + 1 chiffres (71 caractères + chiffres 1-100)
 - **7 types d'exercices** : Présentation, QCM, Intrus, Transcription, Lecture, Input, **Dictée**
-- **11 mini-dialogues** authentiques avec audio 2 voix (homme/femme)
+- **11 mini-dialogues** authentiques avec audio 2 voix (homme/femme) ✅ **CORRIGÉS**
 - **Mode Express 90s** : Révision rapide addictive
 - **Mode Révision** : Ciblé sur les erreurs
+- **Déblocage progressif** : Les leçons 1-5 et 11 sont gratuites, 6-10 se débloquent progressivement
 
 ### 🎮 Gamification
 - **Leaderboard Global** : Top 50 mondial en temps réel (Supabase)
@@ -26,10 +27,10 @@
 - **Stats détaillées** : Progression, activité, erreurs
 
 ### 🎧 Audio
-- **224 fichiers MP3** total (~1.6 MB)
+- **225 fichiers MP3** total (~1.6 MB)
   - 71 hiragana (voix neutre)
   - 100 chiffres (voix Nanami ♀)
-  - 44 dialogues (2 voix : Nanami ♀ + Keita ♂)
+  - 45 dialogues (2 voix : Nanami ♀ + Keita ♂) ✅ **+1 fichier**
   - 9 phrases composées
 
 ### 🌐 PWA
@@ -50,7 +51,19 @@
 
 ## 🚀 Historique des Versions Récentes
 
-### V4.7.0 (5 déc 2025) - ✅ ACTUELLE
+### V4.7.2 (5 déc 2025) - ✅ ACTUELLE
+**Correction audios dialogues + système de déblocage**
+- **FIX MAJEUR** : Correction de 28 fichiers audio de dialogues (texte ≠ audio)
+  - Leçon 3 : "なまえ は はな です" (Son nom est Hana) ✅
+  - Leçon 4 : "ろくせん えん です" (6000 yens) ✅
+  - Leçon 5 : "さんこ を おねがいします" (Trois s'il vous plaît) ✅
+  - Leçons 6-10 : Tous les dialogues corrigés ✅
+- **FIX** : Système de déblocage prend maintenant en compte lesson.free
+- **NEW** : Ajout dialogue_l10_line5.mp3 (5ème ligne manquante)
+- Service Worker V4.7.1 : cache 225 MP3 (71+100+45+9)
+- Impact : 100% correspondance audio/texte, meilleure expérience utilisateur
+
+### V4.7.0 (5 déc 2025)
 **Leçon Chiffres 1-100 + Dictée Interactive**
 - Nouvelle leçon 11 : Chiffres japonais complets (1-100)
 - 100 fichiers audio chiffres (voix Nanami)
