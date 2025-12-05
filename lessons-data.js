@@ -763,6 +763,103 @@ const lessonsData = [
         ]
       }
     ]
+  },
+  {
+    id: "lesson11",
+    title: "Leçon 11 : Chiffres 1-100",
+    description: "Apprenez à compter en japonais",
+    level: "intermediate",
+    free: true,
+    hiragana: [
+      { char: '一 (いち)', romaji: 'ichi', meaning: '1' },
+      { char: '二 (に)', romaji: 'ni', meaning: '2' },
+      { char: '三 (さん)', romaji: 'san', meaning: '3' },
+      { char: '四 (よん)', romaji: 'yon', meaning: '4' },
+      { char: '五 (ご)', romaji: 'go', meaning: '5' },
+      { char: '六 (ろく)', romaji: 'roku', meaning: '6' },
+      { char: '七 (なな)', romaji: 'nana', meaning: '7' },
+      { char: '八 (はち)', romaji: 'hachi', meaning: '8' },
+      { char: '九 (きゅう)', romaji: 'kyuu', meaning: '9' },
+      { char: '十 (じゅう)', romaji: 'juu', meaning: '10' },
+      { char: '百 (ひゃく)', romaji: 'hyaku', meaning: '100' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des chiffres",
+        instruction: "Étudiez les chiffres de base en japonais"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Faire les courses",
+        instruction: "Lisez ce dialogue authentique (cliquez 🔊 pour écouter)",
+        context: "🛒 Acheter des fruits au marché",
+        dialogue: {
+          lines: [
+            { speaker: "Client", hiragana: "りんご を ください", romaji: "ringo wo kudasai", french: "Des pommes s'il vous plaît" },
+            { speaker: "Vendeur", hiragana: "なんこ です か", romaji: "nanko desu ka", french: "Combien ?" },
+            { speaker: "Client", hiragana: "ごこ ください", romaji: "goko kudasai", french: "Cinq s'il vous plaît" },
+            { speaker: "Vendeur", hiragana: "ごひゃくえん です", romaji: "gohyaku-en desu", french: "Ça fait 500 yens" }
+          ],
+          audioFile: "dialogue_lesson11.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Reconnaissance des chiffres",
+        instruction: "Quelle est la lecture de ce chiffre ?",
+        questions: [
+          { hiragana: 'いち', options: ['ichi (1)', 'ni (2)', 'san (3)', 'yon (4)'], correct: 'ichi (1)' },
+          { hiragana: 'に', options: ['ni (2)', 'ichi (1)', 'san (3)', 'go (5)'], correct: 'ni (2)' },
+          { hiragana: 'さん', options: ['san (3)', 'yon (4)', 'go (5)', 'roku (6)'], correct: 'san (3)' },
+          { hiragana: 'よん', options: ['yon (4)', 'san (3)', 'go (5)', 'roku (6)'], correct: 'yon (4)' },
+          { hiragana: 'ご', options: ['go (5)', 'roku (6)', 'nana (7)', 'hachi (8)'], correct: 'go (5)' },
+          { hiragana: 'ろく', options: ['roku (6)', 'go (5)', 'nana (7)', 'hachi (8)'], correct: 'roku (6)' },
+          { hiragana: 'なな', options: ['nana (7)', 'roku (6)', 'hachi (8)', 'kyuu (9)'], correct: 'nana (7)' },
+          { hiragana: 'はち', options: ['hachi (8)', 'nana (7)', 'kyuu (9)', 'juu (10)'], correct: 'hachi (8)' },
+          { hiragana: 'きゅう', options: ['kyuu (9)', 'hachi (8)', 'juu (10)', 'nana (7)'], correct: 'kyuu (9)' },
+          { hiragana: 'じゅう', options: ['juu (10)', 'kyuu (9)', 'hachi (8)', 'ichi (1)'], correct: 'juu (10)' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez le chiffre et écrivez-le en hiragana",
+        questions: [
+          { audio: 'num_1', correct: 'いち', alternatives: ['1', 'ichi'], meaning: '1' },
+          { audio: 'num_2', correct: 'に', alternatives: ['2', 'ni'], meaning: '2' },
+          { audio: 'num_3', correct: 'さん', alternatives: ['3', 'san'], meaning: '3' },
+          { audio: 'num_5', correct: 'ご', alternatives: ['5', 'go'], meaning: '5' },
+          { audio: 'num_7', correct: 'なな', alternatives: ['7', 'nana'], meaning: '7' },
+          { audio: 'num_10', correct: 'じゅう', alternatives: ['10', 'juu', 'じゅー'], meaning: '10' }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Nombres composés",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'じゅういち', correct: 'juuichi', alternatives: ['jyuuichi', '11'], meaning: '11' },
+          { hiragana: 'じゅうに', correct: 'juuni', alternatives: ['jyuuni', '12'], meaning: '12' },
+          { hiragana: 'にじゅう', correct: 'nijuu', alternatives: ['nijyuu', '20'], meaning: '20' },
+          { hiragana: 'さんじゅう', correct: 'sanjuu', alternatives: ['sanjyuu', '30'], meaning: '30' },
+          { hiragana: 'よんじゅう', correct: 'yonjuu', alternatives: ['yonjyuu', '40'], meaning: '40' },
+          { hiragana: 'ごじゅう', correct: 'gojuu', alternatives: ['gojyuu', '50'], meaning: '50' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Chiffres en contexte",
+        instruction: "Lisez ces expressions avec des chiffres",
+        questions: [
+          { hiragana: 'ひとつ', romaji: 'hitotsu', meaning: 'un (objet)' },
+          { hiragana: 'ふたつ', romaji: 'futatsu', meaning: 'deux (objets)' },
+          { hiragana: 'みっつ', romaji: 'mittsu', meaning: 'trois (objets)' },
+          { hiragana: 'いくつ', romaji: 'ikutsu', meaning: 'combien ?' },
+          { hiragana: 'ひゃく', romaji: 'hyaku', meaning: '100' }
+        ]
+      }
+    ]
   }
 ];
 

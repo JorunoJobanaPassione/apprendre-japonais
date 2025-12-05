@@ -3,7 +3,7 @@
  * Permet le fonctionnement hors ligne
  */
 
-const CACHE_NAME = 'japonais-app-v4.6.1';
+const CACHE_NAME = 'japonais-app-v4.7.0';
 
 // Liste des fichiers MP3 audio hiragana
 const audioFiles = [
@@ -27,11 +27,17 @@ const audioFiles = [
   'cha', 'chu', 'cho'
 ].map(file => `./audio/${file}.mp3`);
 
-// Liste des fichiers MP3 audio dialogues (40 lignes)
+// Liste des fichiers MP3 audio chiffres (1-100)
+const numberAudioFiles = [];
+for (let i = 1; i <= 100; i++) {
+  numberAudioFiles.push(`./audio/numbers/num_${i}.mp3`);
+}
+
+// Liste des fichiers MP3 audio dialogues (44 lignes)
 const dialogueAudioFiles = [];
-for (let i = 1; i <= 10; i++) {
+for (let i = 1; i <= 11; i++) {
   const lessonNum = `l${i}`;
-  const linesCount = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; // Nombre de lignes par dialogue
+  const linesCount = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; // Nombre de lignes par dialogue
   for (let j = 1; j <= linesCount[i-1]; j++) {
     dialogueAudioFiles.push(`./audio/dialogues/dialogue_${lessonNum}_line${j}.mp3`);
   }
@@ -46,8 +52,9 @@ const urlsToCache = [
   './supabase-config.js',
   './leaderboard.js',
   './manifest.json',
-  ...audioFiles, // Fichiers audio hiragana
-  ...dialogueAudioFiles // Fichiers audio dialogues
+  ...audioFiles, // Fichiers audio hiragana (71 fichiers)
+  ...numberAudioFiles, // Fichiers audio chiffres (100 fichiers)
+  ...dialogueAudioFiles // Fichiers audio dialogues (44 fichiers)
 ];
 
 // Installation du service worker

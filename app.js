@@ -866,6 +866,9 @@ const LessonController = {
       case 'sentence':
         this.renderSentence(container, question);
         break;
+      case 'dictation':
+        this.renderDictation(container, question);
+        break;
     }
   },
 
@@ -1152,6 +1155,78 @@ const LessonController = {
       // Enregistrer chaque hiragana du mot comme erreur
       const hiraganaChars = question.data.hiragana.split('');
       hiraganaChars.forEach(char => Storage.recordMistake(char));
+    }
+
+    setTimeout(() => LessonController.nextQuestion(), 1500);
+  },
+
+  renderDictation: function(container, question) {
+    // Créer le chemin audio pour la dictée
+    const audioPath = `audio/numbers/${question.data.audio}.mp3`;
+
+    container.innerHTML = `
+      <div class="exercise">
+        <h2 class="exercise-title">🎧 ${question.title}</h2>
+        <p class="exercise-instruction">${question.instruction}</p>
+        <div class="dictation-container">
+          <button class="audio-btn audio-btn-large" id="dictation-audio-btn" onclick="LessonController.playDictationAudio('${question.data.audio}')">
+            🔊 Écouter
+          </button>
+          <p class="dictation-hint">Signification : ${question.data.meaning}</p>
+        </div>
+        <div class="input-container">
+          <input type="text" class="transcription-input" id="dictation-input" placeholder="Écrivez le chiffre..." autocomplete="off">
+        </div>
+        <div id="feedback"></div>
+        <button class="primary-btn next-btn" onclick="LessonController.checkDictation()">
+          Valider
+        </button>
+      </div>
+    `;
+
+    // Focus sur l'input
+    const input = document.getElementById('dictation-input');
+    input.focus();
+
+    // Validation avec Enter
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        LessonController.checkDictation();
+      }
+    });
+
+    // Jouer l'audio automatiquement au chargement
+    setTimeout(() => this.playDictationAudio(question.data.audio), 500);
+  },
+
+  playDictationAudio: function(audioId) {
+    const audioPath = `audio/numbers/${audioId}.mp3`;
+    const audio = new Audio(audioPath);
+    audio.play().catch(error => {
+      console.error(`Erreur lecture audio ${audioId}:`, error);
+    });
+  },
+
+  checkDictation: function() {
+    const question = appState.selectedQuestions[appState.currentQuestion];
+    const input = document.getElementById('dictation-input');
+    const answer = input.value.toLowerCase().trim();
+    const correct = question.data.correct.toLowerCase();
+    const alternatives = question.data.alternatives || [];
+
+    const isCorrect = answer === correct || alternatives.some(alt => alt.toLowerCase() === answer);
+
+    input.classList.add(isCorrect ? 'correct' : 'incorrect');
+    input.disabled = true;
+
+    const feedback = document.getElementById('feedback');
+    feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
+    feedback.innerHTML = isCorrect
+      ? '✅ Bonne réponse !'
+      : `❌ La bonne réponse était : ${correct}${alternatives.length > 0 ? ' (ou ' + alternatives.join(', ') + ')' : ''}`;
+
+    if (isCorrect) {
+      appState.score++;
     }
 
     setTimeout(() => LessonController.nextQuestion(), 1500);
