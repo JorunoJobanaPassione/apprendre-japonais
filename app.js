@@ -591,6 +591,7 @@ const Navigation = {
 
       const card = document.createElement('div');
       card.className = 'lesson-card' + (isLocked ? ' locked' : '') + (lessonProgress.completed ? ' completed' : '');
+      card.setAttribute('data-lesson-id', lesson.id);
 
       card.innerHTML = `
         <div class="lesson-header-content">
