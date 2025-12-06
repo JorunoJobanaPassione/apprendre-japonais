@@ -302,8 +302,8 @@ document.head.appendChild(culturalPhraseStyle);
 // Initialiser immédiatement si le DOM est prêt, sinon attendre
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(initCulturalPhrase, 600);
+    setTimeout(initCulturalPhrase, 1500); // Augmenté de 600 → 1500ms
   });
 } else {
-  setTimeout(initCulturalPhrase, 600);
+  setTimeout(initCulturalPhrase, 1500); // Augmenté de 600 → 1500ms
 }

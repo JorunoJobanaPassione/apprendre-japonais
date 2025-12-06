@@ -511,8 +511,8 @@ window.updateStoryProgressDisplay = updateStoryProgressDisplay;
 // Initialiser immédiatement si le DOM est prêt, sinon attendre
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(initStoryMode, 500);
+    setTimeout(initStoryMode, 1500); // Augmenté de 500 → 1500ms pour s'assurer que storyData est chargé
   });
 } else {
-  setTimeout(initStoryMode, 500);
+  setTimeout(initStoryMode, 1500); // Augmenté de 500 → 1500ms
 }
