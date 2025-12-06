@@ -10,6 +10,12 @@ let currentChapter = null;
 function initStoryMode() {
   console.log('📖 Initialisation du Mode Histoire...');
 
+  // IMPORTANT : Vérifier que storyData existe
+  if (typeof storyData === 'undefined') {
+    console.error('❌ storyData n\'est pas défini ! Vérifier que story-mode.js est chargé.');
+    return;
+  }
+
   try {
     // Bouton "Explorer" dans l'accueil
     const storyBtn = document.getElementById('start-story-btn');
@@ -78,7 +84,17 @@ function hideScreen(screenId) {
 // Rendre la carte interactive
 function renderStoryMap() {
   const mapPointsContainer = document.getElementById('map-points');
+  if (!mapPointsContainer) {
+    console.error('❌ map-points container non trouvé');
+    return;
+  }
+
   mapPointsContainer.innerHTML = '';
+
+  if (!storyData || !storyData.chapters) {
+    console.error('❌ storyData.chapters non disponible');
+    return;
+  }
 
   storyData.chapters.forEach((chapter, index) => {
     const point = document.createElement('div');
@@ -111,7 +127,17 @@ function renderStoryMap() {
 // Rendre la liste des chapitres
 function renderChaptersList() {
   const chaptersContainer = document.getElementById('chapters-container');
+  if (!chaptersContainer) {
+    console.error('❌ chapters-container non trouvé');
+    return;
+  }
+
   chaptersContainer.innerHTML = '';
+
+  if (!storyData || !storyData.chapters) {
+    console.error('❌ storyData.chapters non disponible');
+    return;
+  }
 
   storyData.chapters.forEach((chapter, index) => {
     const card = document.createElement('div');
@@ -180,6 +206,12 @@ function renderChaptersList() {
 
 // Afficher le modal de détail d'un chapitre
 function showChapterModal(chapter) {
+  // Vérification de sécurité
+  if (!chapter) {
+    console.error('❌ Erreur: chapter est null dans showChapterModal');
+    return;
+  }
+
   currentChapter = chapter;
 
   // Remplir les données du modal
@@ -238,7 +270,12 @@ function hideChapterModal() {
 
 // Commencer la leçon du chapitre
 function startChapterLesson() {
-  if (!currentChapter) return;
+  if (!currentChapter) {
+    console.error('❌ currentChapter est null dans startChapterLesson');
+    return;
+  }
+
+  console.log('🎮 Démarrage de la leçon:', currentChapter.lessonId);
 
   // Fermer le modal
   hideChapterModal();
@@ -249,15 +286,21 @@ function startChapterLesson() {
   // Afficher l'histoire d'introduction en modal ou notification
   showChapterIntroNotification(currentChapter);
 
-  // Démarrer la leçon correspondante (on utilise la fonction existante du projet)
+  // Démarrer la leçon correspondante
   setTimeout(() => {
     // Trouver la leçon correspondante
     const lessonElement = document.querySelector(`[data-lesson-id="${currentChapter.lessonId}"]`);
+    console.log('🔍 Recherche leçon:', currentChapter.lessonId, 'Trouvé:', lessonElement);
+
     if (lessonElement) {
       lessonElement.click();
     } else {
-      // Fallback: naviguer vers l'écran d'accueil et afficher les leçons
+      // Fallback: naviguer vers l'écran d'accueil
+      console.warn('⚠️ Leçon non trouvée, retour à l\'accueil');
       showScreen('home-screen');
+
+      // Afficher une notification d'erreur
+      alert(`La leçon ${currentChapter.lessonId} n'a pas été trouvée. Vous pouvez la lancer depuis la page d'accueil.`);
     }
   }, 1500);
 }
