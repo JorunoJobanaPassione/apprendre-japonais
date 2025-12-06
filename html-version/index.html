@@ -21,25 +21,103 @@
             </div>
         </div>
 
+        <!-- Menu Hamburger -->
+        <div id="hamburger-menu" class="hamburger-menu">
+            <div class="menu-overlay" id="menu-overlay"></div>
+            <div class="menu-content">
+                <div class="menu-header">
+                    <div class="menu-user-profile">
+                        <div class="user-avatar">日</div>
+                        <div class="user-info">
+                            <p class="user-name" id="menu-username">Étudiant</p>
+                            <p class="user-level-text">Niveau <span id="menu-user-level">1</span></p>
+                        </div>
+                    </div>
+                    <button class="menu-close-btn" id="menu-close-btn">✕</button>
+                </div>
+
+                <div class="menu-stats-grid">
+                    <div class="menu-stat-card">
+                        <div class="menu-stat-icon">🔥</div>
+                        <div class="menu-stat-value" id="menu-streak">0</div>
+                        <div class="menu-stat-label">Jours de série</div>
+                    </div>
+                    <div class="menu-stat-card">
+                        <div class="menu-stat-icon">⭐</div>
+                        <div class="menu-stat-value" id="menu-points">0</div>
+                        <div class="menu-stat-label">Points XP</div>
+                    </div>
+                    <div class="menu-stat-card">
+                        <div class="menu-stat-icon">🏅</div>
+                        <div class="menu-stat-value" id="menu-badges">0</div>
+                        <div class="menu-stat-label">Badges</div>
+                    </div>
+                </div>
+
+                <nav class="menu-nav">
+                    <a href="#" class="menu-nav-item" id="menu-home">
+                        <span class="menu-nav-icon">🏠</span>
+                        <span class="menu-nav-label">Accueil</span>
+                    </a>
+                    <a href="#" class="menu-nav-item" id="menu-leaderboard">
+                        <span class="menu-nav-icon">🏆</span>
+                        <span class="menu-nav-label">Classement</span>
+                        <span class="menu-nav-badge">TOP 50</span>
+                    </a>
+                    <a href="#" class="menu-nav-item" id="menu-stats">
+                        <span class="menu-nav-icon">📊</span>
+                        <span class="menu-nav-label">Statistiques</span>
+                    </a>
+                    <a href="#" class="menu-nav-item" id="menu-badges">
+                        <span class="menu-nav-icon">🎖️</span>
+                        <span class="menu-nav-label">Badges</span>
+                        <span class="menu-nav-notification" id="new-badge-dot" style="display: none;"></span>
+                    </a>
+                    <div class="menu-divider"></div>
+                    <a href="#" class="menu-nav-item" id="menu-settings">
+                        <span class="menu-nav-icon">⚙️</span>
+                        <span class="menu-nav-label">Paramètres</span>
+                    </a>
+                </nav>
+
+                <div class="menu-footer">
+                    <p class="menu-version">Version 4.9.1</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Écran d'accueil -->
         <div id="home-screen" class="screen" style="display: none;">
-            <header class="app-header">
-                <h1 class="app-title">📚 Apprendre le Japonais</h1>
-                <div class="user-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">🏆</span>
-                        <span class="stat-value" id="user-level">1</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">⭐</span>
-                        <span class="stat-value" id="user-points">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">🔥</span>
-                        <span class="stat-value" id="user-streak">0</span>
+            <header class="app-header-new">
+                <button class="hamburger-btn" id="hamburger-btn">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+
+                <h1 class="app-title-new">日本語</h1>
+
+                <div class="header-streak">
+                    <div class="streak-flame-container">
+                        <span class="streak-flame">🔥</span>
+                        <span class="streak-number" id="header-streak">0</span>
                     </div>
                 </div>
             </header>
+
+            <!-- Barre de progression niveau avec XP -->
+            <div class="level-progress-bar">
+                <div class="level-info">
+                    <span class="level-badge">
+                        <span class="level-icon">🏆</span>
+                        <span class="level-text">Niveau <span id="header-level">1</span></span>
+                    </span>
+                    <span class="xp-text"><span id="header-xp">0</span> XP</span>
+                </div>
+                <div class="xp-bar-container">
+                    <div class="xp-bar" id="xp-bar" style="width: 0%"></div>
+                </div>
+            </div>
 
             <div class="content">
                 <section class="progress-section">
@@ -59,6 +137,43 @@
                             <p class="express-mode-description">5 questions · Chrono 90 secondes</p>
                         </div>
                         <button class="primary-btn express-btn" id="start-express-btn">GO!</button>
+                    </div>
+                </div>
+
+                <!-- Mode Histoire/Aventure -->
+                <div class="story-mode-section">
+                    <div class="story-mode-card">
+                        <div class="story-mode-icon">📖</div>
+                        <div class="story-mode-info">
+                            <h3 class="story-mode-title">Mode Histoire : Voyage au Japon</h3>
+                            <p class="story-mode-description">Une aventure à travers le Japon · <span id="story-progress-percent">9%</span> complété</p>
+                        </div>
+                        <button class="primary-btn story-btn" id="start-story-btn">Explorer 🗺️</button>
+                    </div>
+                </div>
+
+                <!-- Phrase Culturelle du Jour -->
+                <div class="cultural-phrase-section">
+                    <div class="cultural-phrase-card" id="cultural-phrase-card">
+                        <div class="cultural-phrase-header">
+                            <div class="cultural-phrase-date">
+                                <span class="cultural-phrase-icon">🌸</span>
+                                <span class="cultural-phrase-label">Phrase du jour</span>
+                            </div>
+                            <div class="cultural-phrase-collection">
+                                <span id="viewed-phrases-count">0</span>/30
+                            </div>
+                        </div>
+                        <div class="cultural-phrase-content">
+                            <div class="cultural-phrase-japanese">
+                                <div class="cultural-phrase-hiragana" id="today-phrase-hiragana">いただきます</div>
+                                <div class="cultural-phrase-romaji" id="today-phrase-romaji">Itadakimasu</div>
+                            </div>
+                            <div class="cultural-phrase-french" id="today-phrase-french">Bon appétit !</div>
+                            <button class="cultural-phrase-btn" id="view-phrase-detail-btn">
+                                Découvrir <span class="cultural-phrase-arrow">→</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -395,6 +510,87 @@
         </div>
     </div>
 
+        <!-- Écran Mode Histoire - Carte Interactive -->
+        <div id="story-map-screen" class="screen" style="display: none;">
+            <header class="app-header-new">
+                <button class="back-btn" id="story-back-btn">← Retour</button>
+                <h1 class="app-title-new">Voyage au Japon 🗾</h1>
+                <div class="story-progress-badge">
+                    <span id="story-chapters-completed">1</span>/11
+                </div>
+            </header>
+
+            <div class="content story-content">
+                <!-- Introduction de l'histoire -->
+                <div class="story-intro-card">
+                    <div class="story-intro-icon">🇯🇵</div>
+                    <h2 class="story-intro-title">L'aventure d'un voyageur sans mots</h2>
+                    <p class="story-intro-text">
+                        Vous venez d'arriver à Tokyo. Vous ne parlez pas un mot de japonais.
+                        Votre aventure commence maintenant... Explorez le Japon et débloquez
+                        chaque lieu en complétant les leçons !
+                    </p>
+                </div>
+
+                <!-- Carte interactive du Japon -->
+                <div class="japan-map-container">
+                    <h3 class="map-title">🗺️ Carte du Japon</h3>
+                    <div class="japan-map">
+                        <!-- Les points de la carte seront insérés ici par JavaScript -->
+                        <div id="map-points"></div>
+
+                        <!-- Illustration stylisée du Japon -->
+                        <div class="map-background">
+                            <div class="map-island"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Liste des chapitres -->
+                <div class="chapters-list">
+                    <h3 class="chapters-title">📚 Chapitres de votre voyage</h3>
+                    <div id="chapters-container">
+                        <!-- Les chapitres seront insérés ici par JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal détail chapitre -->
+        <div id="chapter-modal" class="modal" style="display: none;">
+            <div class="modal-overlay" id="chapter-modal-overlay"></div>
+            <div class="modal-content chapter-modal-content">
+                <button class="modal-close-btn" id="close-chapter-modal">✕</button>
+                <div class="chapter-detail">
+                    <div class="chapter-location" id="modal-chapter-location">🛬 Aéroport Narita</div>
+                    <h3 class="chapter-title" id="modal-chapter-title">Arrivée à Tokyo</h3>
+
+                    <div class="chapter-story">
+                        <p class="chapter-intro" id="modal-chapter-intro">Vous venez d'atterrir...</p>
+
+                        <div class="chapter-challenge">
+                            <strong>🎯 Votre mission :</strong>
+                            <p id="modal-chapter-challenge">Apprendre les bases...</p>
+                        </div>
+
+                        <div class="chapter-characters" id="modal-chapter-characters">
+                            <!-- Personnages du chapitre -->
+                        </div>
+
+                        <div class="chapter-reward">
+                            <strong>🎁 Récompense :</strong>
+                            <p id="modal-chapter-reward">Badge débloqué</p>
+                        </div>
+                    </div>
+
+                    <button class="primary-btn chapter-start-btn" id="modal-start-lesson">
+                        Commencer cette aventure
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal de badge débloqué -->
     <div id="badge-modal" class="modal" style="display: none;">
         <div class="modal-overlay"></div>
@@ -409,15 +605,96 @@
         </div>
     </div>
 
+    <!-- Modal Phrase Culturelle -->
+    <div id="phrase-modal" class="modal" style="display: none;">
+        <div class="modal-overlay" id="phrase-modal-overlay"></div>
+        <div class="modal-content phrase-modal-content">
+            <button class="modal-close-btn" id="close-phrase-modal">✕</button>
+
+            <div class="phrase-detail">
+                <!-- En-tête avec icône et catégorie -->
+                <div class="phrase-header-detail">
+                    <div class="phrase-icon-large" id="modal-phrase-icon">🍱</div>
+                    <div class="phrase-category-badge" id="modal-phrase-category">Nourriture</div>
+                </div>
+
+                <!-- Expression japonaise -->
+                <div class="phrase-japanese-detail">
+                    <div class="phrase-hiragana-large" id="modal-phrase-hiragana">いただきます</div>
+                    <div class="phrase-romaji-detail" id="modal-phrase-romaji">Itadakimasu</div>
+                </div>
+
+                <!-- Traduction et sens littéral -->
+                <div class="phrase-translations">
+                    <div class="phrase-french-detail" id="modal-phrase-french">Bon appétit !</div>
+                    <div class="phrase-literal" id="modal-phrase-literal">
+                        <strong>Sens littéral :</strong> Je reçois humblement
+                    </div>
+                </div>
+
+                <!-- Contexte d'utilisation -->
+                <div class="phrase-context-box">
+                    <div class="phrase-context-icon">💬</div>
+                    <div>
+                        <strong>Quand l'utiliser :</strong>
+                        <p id="modal-phrase-context">Avant de manger</p>
+                    </div>
+                </div>
+
+                <!-- Explication culturelle -->
+                <div class="phrase-cultural-box">
+                    <h4 class="phrase-section-title">🌸 Signification Culturelle</h4>
+                    <p id="modal-phrase-cultural">Cette phrase exprime...</p>
+                </div>
+
+                <!-- Origine historique -->
+                <div class="phrase-historical-box">
+                    <h4 class="phrase-section-title">📜 Origine Historique</h4>
+                    <p id="modal-phrase-historical">Du verbe 'itadaku'...</p>
+                </div>
+
+                <!-- Conseil d'usage -->
+                <div class="phrase-usage-box">
+                    <h4 class="phrase-section-title">💡 Conseil d'Usage</h4>
+                    <p id="modal-phrase-usage">Dire en joignant les mains...</p>
+                </div>
+
+                <!-- Bouton audio (à implémenter) -->
+                <button class="phrase-audio-btn" id="play-phrase-audio" disabled>
+                    <span>🔊</span>
+                    <span>Écouter la prononciation</span>
+                    <span class="phrase-audio-hint">(Bientôt disponible)</span>
+                </button>
+
+                <!-- Boutons de partage (à implémenter) -->
+                <div class="phrase-share-buttons">
+                    <button class="phrase-share-btn" id="share-twitter">
+                        <span>🐦</span> Twitter
+                    </button>
+                    <button class="phrase-share-btn" id="share-facebook">
+                        <span>📘</span> Facebook
+                    </button>
+                    <button class="phrase-share-btn" id="copy-phrase">
+                        <span>📋</span> Copier
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <!-- Supabase SDK (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- Scripts de l'application -->
-    <script src="lessons-data.js?v=4.6.0"></script>
-    <script src="supabase-config.js?v=4.6.0"></script>
-    <script src="leaderboard.js?v=4.6.0"></script>
-    <script src="app.js?v=4.6.0"></script>
+    <script src="lessons-data.js?v=4.9.1"></script>
+    <script src="story-mode.js?v=4.9.1"></script>
+    <script src="story-mode-ui.js?v=4.9.1"></script>
+    <script src="cultural-phrases.js?v=4.9.1"></script>
+    <script src="cultural-phrase-ui.js?v=4.9.1"></script>
+    <script src="supabase-config.js?v=4.9.1"></script>
+    <script src="leaderboard.js?v=4.9.1"></script>
+    <script src="app.js?v=4.9.1"></script>
 
     <!-- Service Worker Registration -->
     <script>

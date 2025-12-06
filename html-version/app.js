@@ -118,6 +118,77 @@ const AudioPlayer = {
   }
 };
 
+// ===== SONS DE FEEDBACK =====
+const FeedbackSound = {
+  audioContext: null,
+
+  init: function() {
+    // Créer le contexte audio une seule fois
+    if (!this.audioContext) {
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+  },
+
+  playSuccess: function() {
+    this.init();
+    const ctx = this.audioContext;
+    const now = ctx.currentTime;
+
+    // Créer un oscillateur pour un son joyeux (deux notes ascendantes)
+    const osc1 = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    osc1.connect(gainNode);
+    osc2.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    // Première note (Do)
+    osc1.frequency.setValueAtTime(523.25, now);
+    osc1.type = 'sine';
+
+    // Deuxième note (Mi)
+    osc2.frequency.setValueAtTime(659.25, now + 0.1);
+    osc2.type = 'sine';
+
+    // Envelope
+    gainNode.gain.setValueAtTime(0, now);
+    gainNode.gain.linearRampToValueAtTime(0.3, now + 0.01);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+
+    osc1.start(now);
+    osc1.stop(now + 0.15);
+    osc2.start(now + 0.1);
+    osc2.stop(now + 0.3);
+  },
+
+  playError: function() {
+    this.init();
+    const ctx = this.audioContext;
+    const now = ctx.currentTime;
+
+    // Créer un oscillateur pour un son d'erreur (note descendante)
+    const osc = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+
+    osc.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    // Note descendante
+    osc.frequency.setValueAtTime(400, now);
+    osc.frequency.exponentialRampToValueAtTime(200, now + 0.2);
+    osc.type = 'square';
+
+    // Envelope
+    gainNode.gain.setValueAtTime(0, now);
+    gainNode.gain.linearRampToValueAtTime(0.2, now + 0.01);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+
+    osc.start(now);
+    osc.stop(now + 0.2);
+  }
+};
+
 // ===== GESTION DU LOCALSTORAGE =====
 const Storage = {
   // Récupérer la progression
@@ -454,13 +525,45 @@ const Navigation = {
     return options;
   },
 
+  updateMenuAndHeaderStats: function() {
+    const progress = Storage.getProgress();
+    const badgesCount = progress.badges.length;
+
+    // Mettre à jour le menu
+    document.getElementById('menu-user-level').textContent = progress.level;
+    document.getElementById('menu-streak').textContent = progress.streak;
+    document.getElementById('menu-points').textContent = progress.totalPoints;
+    document.getElementById('menu-badges').textContent = badgesCount;
+
+    // Mettre à jour le header
+    document.getElementById('header-streak').textContent = progress.streak;
+    document.getElementById('header-level').textContent = progress.level;
+    document.getElementById('header-xp').textContent = progress.totalPoints;
+
+    // Calculer la progression XP vers le prochain niveau
+    const xpForNextLevel = progress.level * 100; // 100 XP par niveau
+    const currentLevelXP = (progress.level - 1) * 100;
+    const xpInCurrentLevel = progress.totalPoints - currentLevelXP;
+    const xpPercentage = (xpInCurrentLevel / 100) * 100;
+    document.getElementById('xp-bar').style.width = Math.min(xpPercentage, 100) + '%';
+  },
+
   renderHome: function() {
     const progress = Storage.getProgress();
 
-    // Mettre à jour les stats utilisateur
-    document.getElementById('user-level').textContent = progress.level;
-    document.getElementById('user-points').textContent = progress.totalPoints;
-    document.getElementById('user-streak').textContent = progress.streak;
+    // Mettre à jour le menu et le header
+    this.updateMenuAndHeaderStats();
+
+    // Mettre à jour les stats utilisateur (ancienne version - peut être supprimée si pas utilisée)
+    if (document.getElementById('user-level')) {
+      document.getElementById('user-level').textContent = progress.level;
+    }
+    if (document.getElementById('user-points')) {
+      document.getElementById('user-points').textContent = progress.totalPoints;
+    }
+    if (document.getElementById('user-streak')) {
+      document.getElementById('user-streak').textContent = progress.streak;
+    }
 
     // Mettre à jour la progression globale
     const completedLessons = progress.stats.lessonsCompleted;
@@ -975,6 +1078,13 @@ const LessonController = {
         feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
         feedback.innerHTML = isCorrect ? '✅ Bonne réponse !' : `❌ La bonne réponse était : ${correct}`;
 
+        // Jouer le son de feedback
+        if (isCorrect) {
+          FeedbackSound.playSuccess();
+        } else {
+          FeedbackSound.playError();
+        }
+
         // Mettre à jour le score et enregistrer les erreurs
         if (isCorrect) {
           appState.score++;
@@ -1021,6 +1131,13 @@ const LessonController = {
         const feedback = document.getElementById('feedback');
         feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
         feedback.innerHTML = (isCorrect ? '✅ Bonne réponse ! ' : '❌ ') + question.data.explanation;
+
+        // Jouer le son de feedback
+        if (isCorrect) {
+          FeedbackSound.playSuccess();
+        } else {
+          FeedbackSound.playError();
+        }
 
         if (isCorrect) {
           appState.score++;
@@ -1083,6 +1200,13 @@ const LessonController = {
     feedback.innerHTML = isCorrect
       ? '✅ Bonne réponse !'
       : `❌ La bonne réponse était : ${correct}${alternatives.length > 0 ? ' (ou ' + alternatives.join(', ') + ')' : ''}`;
+
+    // Jouer le son de feedback
+    if (isCorrect) {
+      FeedbackSound.playSuccess();
+    } else {
+      FeedbackSound.playError();
+    }
 
     if (isCorrect) {
       appState.score++;
@@ -1149,6 +1273,13 @@ const LessonController = {
       ? '✅ Bonne réponse !'
       : `❌ La bonne réponse était : ${question.data.romaji}`;
 
+    // Jouer le son de feedback
+    if (isCorrect) {
+      FeedbackSound.playSuccess();
+    } else {
+      FeedbackSound.playError();
+    }
+
     if (isCorrect) {
       appState.score++;
     } else {
@@ -1161,8 +1292,9 @@ const LessonController = {
   },
 
   renderDictation: function(container, question) {
-    // Créer le chemin audio pour la dictée
-    const audioPath = `audio/numbers/${question.data.audio}.mp3`;
+    // Déterminer le type de dictée (chiffre ou hiragana)
+    const isDictationNumber = question.data.audio && question.data.audio.startsWith('num_');
+    const placeholder = isDictationNumber ? "Écrivez le chiffre..." : "Écrivez l'hiragana...";
 
     container.innerHTML = `
       <div class="exercise">
@@ -1172,10 +1304,10 @@ const LessonController = {
           <button class="audio-btn audio-btn-large" id="dictation-audio-btn" onclick="LessonController.playDictationAudio('${question.data.audio}')">
             🔊 Écouter
           </button>
-          <p class="dictation-hint">Signification : ${question.data.meaning}</p>
+          ${question.data.meaning ? `<p class="dictation-hint">Signification : ${question.data.meaning}</p>` : ''}
         </div>
         <div class="input-container">
-          <input type="text" class="transcription-input" id="dictation-input" placeholder="Écrivez le chiffre..." autocomplete="off">
+          <input type="text" class="transcription-input" id="dictation-input" placeholder="${placeholder}" autocomplete="off">
         </div>
         <div id="feedback"></div>
         <button class="primary-btn next-btn" onclick="LessonController.checkDictation()">
@@ -1200,7 +1332,11 @@ const LessonController = {
   },
 
   playDictationAudio: function(audioId) {
-    const audioPath = `audio/numbers/${audioId}.mp3`;
+    // Déterminer le chemin audio selon le type
+    // Si commence par "num_", c'est un chiffre, sinon c'est un hiragana
+    const isNumber = audioId.startsWith('num_');
+    const audioPath = isNumber ? `audio/numbers/${audioId}.mp3` : `audio/${audioId}.mp3`;
+
     const audio = new Audio(audioPath);
     audio.play().catch(error => {
       console.error(`Erreur lecture audio ${audioId}:`, error);
@@ -1224,6 +1360,13 @@ const LessonController = {
     feedback.innerHTML = isCorrect
       ? '✅ Bonne réponse !'
       : `❌ La bonne réponse était : ${correct}${alternatives.length > 0 ? ' (ou ' + alternatives.join(', ') + ')' : ''}`;
+
+    // Jouer le son de feedback
+    if (isCorrect) {
+      FeedbackSound.playSuccess();
+    } else {
+      FeedbackSound.playError();
+    }
 
     if (isCorrect) {
       appState.score++;
@@ -1390,9 +1533,12 @@ const ExpressMode = {
     const question = this.questions[this.currentQuestion];
     const isCorrect = answer === question.correct;
 
+    // Jouer le son de feedback
     if (isCorrect) {
+      FeedbackSound.playSuccess();
       this.score++;
     } else {
+      FeedbackSound.playError();
       // Enregistrer l'erreur dans Storage
       Storage.recordMistake(question.hiragana);
     }
@@ -1544,6 +1690,60 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('stats-back-btn')?.addEventListener('click', () => Navigation.goToHome());
   document.getElementById('start-review-btn')?.addEventListener('click', () => Navigation.goToReview());
   document.getElementById('close-badge-modal')?.addEventListener('click', closeBadgeModal);
+
+  // Menu Hamburger
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const hamburgerMenu = document.getElementById('hamburger-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const menuCloseBtn = document.getElementById('menu-close-btn');
+
+  function openMenu() {
+    hamburgerMenu.classList.add('active');
+    hamburgerBtn.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    hamburgerMenu.classList.remove('active');
+    hamburgerBtn.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  hamburgerBtn?.addEventListener('click', openMenu);
+  menuCloseBtn?.addEventListener('click', closeMenu);
+  menuOverlay?.addEventListener('click', closeMenu);
+
+  // Navigation du menu
+  document.getElementById('menu-home')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMenu();
+    Navigation.goToHome();
+  });
+
+  document.getElementById('menu-leaderboard')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMenu();
+    Navigation.goToLeaderboard();
+  });
+
+  document.getElementById('menu-stats')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMenu();
+    Navigation.goToStats();
+  });
+
+  document.getElementById('menu-badges')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMenu();
+    Navigation.goToBadges();
+  });
+
+  document.getElementById('menu-settings')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeMenu();
+    // TODO: Implémenter la page des paramètres
+    alert('Page de paramètres à venir !');
+  });
 
   // Leaderboard
   document.getElementById('leaderboard-btn')?.addEventListener('click', () => Navigation.goToLeaderboard());
