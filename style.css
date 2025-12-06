@@ -2413,6 +2413,7 @@ body {
 
 .story-content {
     background: #f0f4f8;
+    min-height: calc(100vh - 80px); /* Assurer une hauteur minimale */
 }
 
 .story-intro-card {
@@ -2422,6 +2423,7 @@ body {
     text-align: center;
     color: white;
     margin-bottom: var(--spacing-lg);
+    margin-top: var(--spacing-lg); /* Petit espacement en haut */
     box-shadow: var(--shadow-lg);
 }
 
