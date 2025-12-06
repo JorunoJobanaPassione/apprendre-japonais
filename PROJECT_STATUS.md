@@ -1,8 +1,8 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 4.9.0 🎉
+**Version** : 4.9.2 🎉
 **Dernière mise à jour** : 6 décembre 2025
-**Status** : ✅ Prêt à DÉTRÔNER Duolingo
+**Status** : ✅ Mode Histoire STABLE · Prêt à DÉTRÔNER Duolingo
 **URL** : https://jorunojobanapassione.github.io/apprendre-japonais/
 
 **🎯 VISION** : L'app #1 mondiale pour apprendre le japonais - **Devenir le leader du marché**
@@ -419,9 +419,26 @@
 
 ---
 
-## 🏆 Historique des Versions (Top 3 Récentes)
+## 🏆 Historique des Versions (Top 4 Récentes)
 
-### V4.9.0 (6 déc 2025) - ✅ ACTUELLE
+### V4.9.2 (6 déc 2025) - ✅ ACTUELLE
+**Corrections critiques Mode Histoire + Stabilité**
+- **FIX CRITIQUE** : Mode Histoire 100% fonctionnel
+  - Ajout vérifications sécurité (chapter null, storyData undefined)
+  - Ajout data-lesson-id aux cartes de leçons
+  - Amélioration gestion d'erreurs avec logs console
+  - Fallback intelligent si leçon non trouvée
+- **Résolution bugs :**
+  - ✅ Erreur "chapter is null" corrigée
+  - ✅ Écran blanc après "Commencer" résolu
+  - ✅ Bouton "Commencer cette aventure" fonctionnel
+  - ✅ Cache navigateur forcé (v4.9.2)
+- **Documentation** :
+  - Analyse concurrentielle complète (15 fonctionnalités)
+  - Matrice de priorisation (Katakana = CRITIQUE)
+- Impact : Mode Histoire stable et utilisable
+
+### V4.9.0 (6 déc 2025)
 **Mode Histoire/Aventure + UX améliorée**
 - **MODE HISTOIRE COMPLET** : 11 chapitres narratifs à travers le Japon (NOUVEAU !)
   - Carte interactive avec 11 lieux emblématiques
@@ -471,6 +488,37 @@
 
 **Dernière mise à jour** : 6 décembre 2025
 **Prochaine revue** : 15 décembre 2025 (après Phase 1 Quick Wins)
+
+---
+
+## 📝 Changelog V4.9.2 (6 décembre 2025)
+
+### 🐛 Corrections de Bugs Critiques
+- **Fix Mode Histoire** :
+  - Ajout vérification `typeof storyData === 'undefined'` dans initStoryMode()
+  - Ajout vérification `chapter !== null` dans showChapterModal()
+  - Ajout vérification `storyData.chapters` dans renderStoryMap() et renderChaptersList()
+  - Amélioration logs console pour débogage (🔍, ✅, ❌)
+- **Fix Navigation Leçons** :
+  - Ajout `data-lesson-id` aux cartes de leçons dans app.js
+  - Amélioration startChapterLesson() avec fallback vers home-screen
+  - Ajout alert() si leçon non trouvée
+- **Fix Cache** :
+  - Versions scripts : v4.9.1 → v4.9.2
+  - Service Worker cache : v4.9.1 → v4.9.2
+  - Force rechargement navigateur
+
+### 📚 Documentation
+- **ANALYSE_CONCURRENTIELLE.md** créé (15 fonctionnalités manquantes)
+  - Matrice de priorisation (Impact vs Effort)
+  - Katakana identifié comme CRITIQUE
+  - Kanji N5 comme HAUTE PRIORITÉ
+  - Recommandations stratégiques par phase
+
+### 🎯 Impact
+- Mode Histoire 100% fonctionnel et stable
+- Expérience utilisateur sans bugs bloquants
+- Roadmap claire pour les 6 prochains mois
 
 ---
 
