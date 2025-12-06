@@ -100,6 +100,19 @@ const lessonsData = [
           { hiragana: 'うお', romaji: 'uo', meaning: 'poisson' },
           { hiragana: 'あか', romaji: 'aka', meaning: 'rouge' }
         ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez l'hiragana et écrivez-le",
+        questions: [
+          { audio: 'a', correct: 'あ', alternatives: ['a'], meaning: '' },
+          { audio: 'i', correct: 'い', alternatives: ['i'], meaning: '' },
+          { audio: 'u', correct: 'う', alternatives: ['u'], meaning: '' },
+          { audio: 'ka', correct: 'か', alternatives: ['ka'], meaning: '' },
+          { audio: 'ki', correct: 'き', alternatives: ['ki'], meaning: '' },
+          { audio: 'ko', correct: 'こ', alternatives: ['ko'], meaning: '' }
+        ]
       }
     ]
   },
@@ -187,6 +200,19 @@ const lessonsData = [
           { hiragana: 'いす', romaji: 'isu', meaning: 'chaise' },
           { hiragana: 'て', romaji: 'te', meaning: 'main' }
         ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez l'hiragana et écrivez-le",
+        questions: [
+          { audio: 'sa', correct: 'さ', alternatives: ['sa'], meaning: '' },
+          { audio: 'shi', correct: 'し', alternatives: ['shi'], meaning: '' },
+          { audio: 'su', correct: 'す', alternatives: ['su'], meaning: '' },
+          { audio: 'ta', correct: 'た', alternatives: ['ta'], meaning: '' },
+          { audio: 'chi', correct: 'ち', alternatives: ['chi'], meaning: '' },
+          { audio: 'tsu', correct: 'つ', alternatives: ['tsu'], meaning: '' }
+        ]
       }
     ]
   },
@@ -272,6 +298,19 @@ const lessonsData = [
           { hiragana: 'いぬ', romaji: 'inu', meaning: 'chien' },
           { hiragana: 'ほん', romaji: 'hon', meaning: 'livre' },
           { hiragana: 'なつ', romaji: 'natsu', meaning: 'été' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez l'hiragana et écrivez-le",
+        questions: [
+          { audio: 'na', correct: 'な', alternatives: ['na'], meaning: '' },
+          { audio: 'ni', correct: 'に', alternatives: ['ni'], meaning: '' },
+          { audio: 'nu', correct: 'ぬ', alternatives: ['nu'], meaning: '' },
+          { audio: 'ha', correct: 'は', alternatives: ['ha'], meaning: '' },
+          { audio: 'hi', correct: 'ひ', alternatives: ['hi'], meaning: '' },
+          { audio: 'fu', correct: 'ふ', alternatives: ['fu', 'hu'], meaning: '' }
         ]
       }
     ]
@@ -361,6 +400,19 @@ const lessonsData = [
           { hiragana: 'よる', romaji: 'yoru', meaning: 'nuit' },
           { hiragana: 'さくら', romaji: 'sakura', meaning: 'cerisier' }
         ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez l'hiragana et écrivez-le",
+        questions: [
+          { audio: 'ma', correct: 'ま', alternatives: ['ma'], meaning: '' },
+          { audio: 'mi', correct: 'み', alternatives: ['mi'], meaning: '' },
+          { audio: 'ya', correct: 'や', alternatives: ['ya'], meaning: '' },
+          { audio: 'yu', correct: 'ゆ', alternatives: ['yu'], meaning: '' },
+          { audio: 'ra', correct: 'ら', alternatives: ['ra'], meaning: '' },
+          { audio: 'ri', correct: 'り', alternatives: ['ri'], meaning: '' }
+        ]
       }
     ]
   },
@@ -424,6 +476,16 @@ const lessonsData = [
           { hiragana: 'かわ', romaji: 'kawa', meaning: 'rivière' },
           { hiragana: 'みかん', romaji: 'mikan', meaning: 'mandarine' },
           { hiragana: 'でんわ', romaji: 'denwa', meaning: 'téléphone' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez l'hiragana et écrivez-le",
+        questions: [
+          { audio: 'wa', correct: 'わ', alternatives: ['wa'], meaning: '' },
+          { audio: 'wo', correct: 'を', alternatives: ['wo', 'o'], meaning: '' },
+          { audio: 'n', correct: 'ん', alternatives: ['n'], meaning: '' }
         ]
       }
     ]
