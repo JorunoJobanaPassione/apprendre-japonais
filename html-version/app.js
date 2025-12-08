@@ -14,7 +14,8 @@ let appState = {
   selectedQuestions: [],
   answers: [],
   userProgress: null,
-  startTime: null
+  startTime: null,
+  currentScript: 'hiragana' // 'hiragana' ou 'katakana'
 };
 
 // ===== SYSTÈME AUDIO =====
@@ -22,10 +23,11 @@ const AudioPlayer = {
   // Cache des objets Audio pour éviter de les recréer
   audioCache: {},
 
-  // Mapper un hiragana vers le nom de fichier correspondant
-  getAudioFilename: function(hiragana) {
-    // Map special cases (combinaisons, etc.)
+  // Mapper un hiragana/katakana vers le nom de fichier correspondant
+  getAudioFilename: function(character) {
+    // Map pour hiragana, katakana et combinaisons
     const romajiMap = {
+      // Hiragana de base
       'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
       'か': 'ka', 'き': 'ki', 'く': 'ku', 'け': 'ke', 'こ': 'ko',
       'さ': 'sa', 'し': 'shi', 'す': 'su', 'せ': 'se', 'そ': 'so',
@@ -36,17 +38,57 @@ const AudioPlayer = {
       'や': 'ya', 'ゆ': 'yu', 'よ': 'yo',
       'ら': 'ra', 'り': 'ri', 'る': 'ru', 'れ': 're', 'ろ': 'ro',
       'わ': 'wa', 'を': 'wo', 'ん': 'n',
+      // Hiragana voisés
       'が': 'ga', 'ぎ': 'gi', 'ぐ': 'gu', 'げ': 'ge', 'ご': 'go',
       'ざ': 'za', 'じ': 'ji', 'ず': 'zu', 'ぜ': 'ze', 'ぞ': 'zo',
       'だ': 'da', 'ぢ': 'ji2', 'づ': 'zu2', 'で': 'de', 'ど': 'do',
       'ば': 'ba', 'び': 'bi', 'ぶ': 'bu', 'べ': 'be', 'ぼ': 'bo',
       'ぱ': 'pa', 'ぴ': 'pi', 'ぷ': 'pu', 'ぺ': 'pe', 'ぽ': 'po',
+      // Hiragana combinaisons
       'きゃ': 'kya', 'きゅ': 'kyu', 'きょ': 'kyo',
       'しゃ': 'sha', 'しゅ': 'shu', 'しょ': 'sho',
-      'ちゃ': 'cha', 'ちゅ': 'chu', 'ちょ': 'cho'
+      'ちゃ': 'cha', 'ちゅ': 'chu', 'ちょ': 'cho',
+      'にゃ': 'nya', 'にゅ': 'nyu', 'にょ': 'nyo',
+      'ひゃ': 'hya', 'ひゅ': 'hyu', 'ひょ': 'hyo',
+      'みゃ': 'mya', 'みゅ': 'myu', 'みょ': 'myo',
+      'りゃ': 'rya', 'りゅ': 'ryu', 'りょ': 'ryo',
+      'ぎゃ': 'gya', 'ぎゅ': 'gyu', 'ぎょ': 'gyo',
+      'じゃ': 'ja', 'じゅ': 'ju', 'じょ': 'jo',
+      'びゃ': 'bya', 'びゅ': 'byu', 'びょ': 'byo',
+      'ぴゃ': 'pya', 'ぴゅ': 'pyu', 'ぴょ': 'pyo',
+
+      // Katakana de base (même prononciation que hiragana)
+      'ア': 'a', 'イ': 'i', 'ウ': 'u', 'エ': 'e', 'オ': 'o',
+      'カ': 'ka', 'キ': 'ki', 'ク': 'ku', 'ケ': 'ke', 'コ': 'ko',
+      'サ': 'sa', 'シ': 'shi', 'ス': 'su', 'セ': 'se', 'ソ': 'so',
+      'タ': 'ta', 'チ': 'chi', 'ツ': 'tsu', 'テ': 'te', 'ト': 'to',
+      'ナ': 'na', 'ニ': 'ni', 'ヌ': 'nu', 'ネ': 'ne', 'ノ': 'no',
+      'ハ': 'ha', 'ヒ': 'hi', 'フ': 'fu', 'ヘ': 'he', 'ホ': 'ho',
+      'マ': 'ma', 'ミ': 'mi', 'ム': 'mu', 'メ': 'me', 'モ': 'mo',
+      'ヤ': 'ya', 'ユ': 'yu', 'ヨ': 'yo',
+      'ラ': 'ra', 'リ': 'ri', 'ル': 'ru', 'レ': 're', 'ロ': 'ro',
+      'ワ': 'wa', 'ヲ': 'wo', 'ン': 'n',
+      // Katakana voisés
+      'ガ': 'ga', 'ギ': 'gi', 'グ': 'gu', 'ゲ': 'ge', 'ゴ': 'go',
+      'ザ': 'za', 'ジ': 'ji', 'ズ': 'zu', 'ゼ': 'ze', 'ゾ': 'zo',
+      'ダ': 'da', 'ヂ': 'ji2', 'ヅ': 'zu2', 'デ': 'de', 'ド': 'do',
+      'バ': 'ba', 'ビ': 'bi', 'ブ': 'bu', 'ベ': 'be', 'ボ': 'bo',
+      'パ': 'pa', 'ピ': 'pi', 'プ': 'pu', 'ペ': 'pe', 'ポ': 'po',
+      // Katakana combinaisons
+      'キャ': 'kya', 'キュ': 'kyu', 'キョ': 'kyo',
+      'シャ': 'sha', 'シュ': 'shu', 'ショ': 'sho',
+      'チャ': 'cha', 'チュ': 'chu', 'チョ': 'cho',
+      'ニャ': 'nya', 'ニュ': 'nyu', 'ニョ': 'nyo',
+      'ヒャ': 'hya', 'ヒュ': 'hyu', 'ヒョ': 'hyo',
+      'ミャ': 'mya', 'ミュ': 'myu', 'ミョ': 'myo',
+      'リャ': 'rya', 'リュ': 'ryu', 'リョ': 'ryo',
+      'ギャ': 'gya', 'ギュ': 'gyu', 'ギョ': 'gyo',
+      'ジャ': 'ja', 'ジュ': 'ju', 'ジョ': 'jo',
+      'ビャ': 'bya', 'ビュ': 'byu', 'ビョ': 'byo',
+      'ピャ': 'pya', 'ピュ': 'pyu', 'ピョ': 'pyo'
     };
 
-    return romajiMap[hiragana] || null;
+    return romajiMap[character] || null;
   },
 
   // Jouer l'audio d'un hiragana OU d'une phrase de dialogue
@@ -529,23 +571,23 @@ const Navigation = {
     const progress = Storage.getProgress();
     const badgesCount = progress.badges.length;
 
-    // Mettre à jour le menu
-    document.getElementById('menu-user-level').textContent = progress.level;
-    document.getElementById('menu-streak').textContent = progress.streak;
-    document.getElementById('menu-points').textContent = progress.totalPoints;
-    document.getElementById('menu-badges').textContent = badgesCount;
+    // Mettre à jour le menu - DÉSACTIVÉ (menu hamburger supprimé)
+    // document.getElementById('menu-user-level').textContent = progress.level;
+    // document.getElementById('menu-streak').textContent = progress.streak;
+    // document.getElementById('menu-points').textContent = progress.totalPoints;
+    // document.getElementById('menu-badges').textContent = badgesCount;
 
-    // Mettre à jour le header
-    document.getElementById('header-streak').textContent = progress.streak;
-    document.getElementById('header-level').textContent = progress.level;
-    document.getElementById('header-xp').textContent = progress.totalPoints;
+    // Mettre à jour le header (design classique)
+    document.getElementById('user-level').textContent = progress.level;
+    document.getElementById('user-xp').textContent = progress.totalPoints;
+    document.getElementById('user-streak').textContent = progress.streak;
 
-    // Calculer la progression XP vers le prochain niveau
-    const xpForNextLevel = progress.level * 100; // 100 XP par niveau
-    const currentLevelXP = (progress.level - 1) * 100;
-    const xpInCurrentLevel = progress.totalPoints - currentLevelXP;
-    const xpPercentage = (xpInCurrentLevel / 100) * 100;
-    document.getElementById('xp-bar').style.width = Math.min(xpPercentage, 100) + '%';
+    // Calculer la progression XP vers le prochain niveau - DÉSACTIVÉ (barre XP supprimée)
+    // const xpForNextLevel = progress.level * 100; // 100 XP par niveau
+    // const currentLevelXP = (progress.level - 1) * 100;
+    // const xpInCurrentLevel = progress.totalPoints - currentLevelXP;
+    // const xpPercentage = (xpInCurrentLevel / 100) * 100;
+    // document.getElementById('xp-bar').style.width = Math.min(xpPercentage, 100) + '%';
   },
 
   renderHome: function() {
@@ -581,12 +623,39 @@ const Navigation = {
       reviewSection.style.display = 'none';
     }
 
+    // Filtrer les leçons selon le script sélectionné (hiragana, katakana ou kanji)
+    const filteredLessons = lessonsData.filter(lesson => {
+      // Si la leçon a la propriété hiragana, c'est une leçon hiragana
+      // Si la leçon a la propriété katakana, c'est une leçon katakana
+      // Si la leçon a la propriété kanji, c'est une leçon kanji
+      if (appState.currentScript === 'hiragana') {
+        return lesson.hiragana !== undefined;
+      } else if (appState.currentScript === 'katakana') {
+        return lesson.katakana !== undefined;
+      } else if (appState.currentScript === 'kanji') {
+        return lesson.kanji !== undefined;
+      }
+      return false;
+    });
+
+    // Mettre à jour le titre des leçons
+    const lessonsTitle = document.getElementById('lessons-title');
+    if (lessonsTitle) {
+      let title = 'Leçons Hiragana';
+      if (appState.currentScript === 'katakana') {
+        title = 'Leçons Katakana';
+      } else if (appState.currentScript === 'kanji') {
+        title = 'Leçons Kanji N5';
+      }
+      lessonsTitle.textContent = title;
+    }
+
     // Afficher les leçons
     const lessonsList = document.getElementById('lessons-list');
     lessonsList.innerHTML = '';
 
-    lessonsData.forEach((lesson, index) => {
-      const isLocked = !lesson.free && (index > 0 && !progress.lessons[lessonsData[index - 1].id]?.completed);
+    filteredLessons.forEach((lesson, index) => {
+      const isLocked = !lesson.free && (index > 0 && !progress.lessons[filteredLessons[index - 1].id]?.completed);
       const lessonProgress = progress.lessons[lesson.id] || { completed: false, bestScore: 0 };
 
       const card = document.createElement('div');
@@ -973,23 +1042,53 @@ const LessonController = {
       case 'dictation':
         this.renderDictation(container, question);
         break;
+      case 'reading-mcq':
+        this.renderReadingMCQ(container, question);
+        break;
+      case 'vocabulary':
+        this.renderVocabulary(container, question);
+        break;
     }
   },
 
   renderPresentation: function(container, question) {
     const lesson = appState.currentLesson;
+    // Supporter hiragana, katakana ET kanji
+    const characters = lesson.hiragana || lesson.katakana || lesson.kanjis || [];
+
+    // Vérifier si c'est une leçon de kanji
+    const isKanjiLesson = lesson.kanji !== undefined;
+
     container.innerHTML = `
       <div class="exercise">
         <h2 class="exercise-title">📚 ${question.data.title}</h2>
         <p class="exercise-instruction">${question.data.instruction}</p>
         <div class="hiragana-table">
-          ${lesson.hiragana.map(h => `
-            <div class="hiragana-card">
-              ${AudioPlayer.createButton(h.char, 'small')}
-              <div class="hiragana-char">${h.char}</div>
-              <div class="hiragana-romaji">${h.romaji}</div>
-            </div>
-          `).join('')}
+          ${characters.map(h => {
+            if (isKanjiLesson) {
+              // Affichage pour les kanji
+              return `
+                <div class="kanji-presentation-card">
+                  <div class="kanji-char">${h.kanji}</div>
+                  <div class="kanji-meaning">${h.meaning}</div>
+                  <div class="kanji-readings">
+                    <div><strong>ON:</strong> ${h.onyomi.join(', ')}</div>
+                    <div><strong>KUN:</strong> ${h.kunyomi.length > 0 ? h.kunyomi.join(', ') : '-'}</div>
+                  </div>
+                  <div class="kanji-mnemonic">${h.mnemonic}</div>
+                </div>
+              `;
+            } else {
+              // Affichage pour hiragana/katakana
+              return `
+                <div class="hiragana-card">
+                  ${AudioPlayer.createButton(h.char, 'small')}
+                  <div class="hiragana-char">${h.char}</div>
+                  <div class="hiragana-romaji">${h.romaji}</div>
+                </div>
+              `;
+            }
+          }).join('')}
         </div>
         <button class="primary-btn next-btn" onclick="LessonController.nextQuestion()">
           Suivant →
@@ -1017,14 +1116,14 @@ const LessonController = {
 
             return `
               <div class="dialogue-line">
-                <div class="dialogue-speaker">${line.speaker}</div>
-                <div class="dialogue-content">
-                  <div class="dialogue-hiragana">
-                    ${AudioPlayer.createButton(line.hiragana, 'small', dialogueId)}
-                    <span>${line.hiragana}</span>
+                <div class="dialogue-speaker-label">${line.speaker}</div>
+                <div class="dialogue-content-wrapper">
+                  ${AudioPlayer.createButton(line.hiragana, 'small', dialogueId)}
+                  <div class="dialogue-text-wrapper">
+                    <div class="dialogue-hiragana-text">${line.hiragana}</div>
+                    <div class="dialogue-romaji">${line.romaji}</div>
+                    <div class="dialogue-french">${line.french}</div>
                   </div>
-                  <div class="dialogue-romaji">${line.romaji}</div>
-                  <div class="dialogue-french">${line.french}</div>
                 </div>
               </div>
             `;
@@ -1041,13 +1140,17 @@ const LessonController = {
     // Mélanger les options pour chaque affichage
     const shuffledOptions = this.shuffleArray([...question.data.options]);
 
+    // Supporter à la fois hiragana/katakana ET kanji
+    const character = question.data.kanji || question.data.hiragana || question.data.katakana;
+    const isKanji = question.data.kanji !== undefined;
+
     container.innerHTML = `
       <div class="exercise">
         <h2 class="exercise-title">❓ ${question.title}</h2>
         <p class="exercise-instruction">${question.instruction}</p>
         <div class="question-hiragana-container">
-          ${AudioPlayer.createButton(question.data.hiragana, 'medium')}
-          <div class="question-hiragana">${question.data.hiragana}</div>
+          ${!isKanji ? AudioPlayer.createButton(character, 'medium') : ''}
+          <div class="question-hiragana">${character}</div>
         </div>
         <div class="options-grid">
           ${shuffledOptions.map(option => `
@@ -1090,8 +1193,8 @@ const LessonController = {
         if (isCorrect) {
           appState.score++;
         } else {
-          // Enregistrer l'erreur pour ce hiragana
-          Storage.recordMistake(question.data.hiragana);
+          // Enregistrer l'erreur pour ce caractère (hiragana, katakana ou kanji)
+          Storage.recordMistake(character);
         }
 
         // Passer à la question suivante après un délai
@@ -1290,6 +1393,107 @@ const LessonController = {
     }
 
     setTimeout(() => LessonController.nextQuestion(), 1500);
+  },
+
+  // ===== EXERCICES KANJI =====
+  renderReadingMCQ: function(container, question) {
+    // MCQ pour tester la lecture d'un mot en kanji
+    const shuffledOptions = this.shuffleArray([...question.data.options]);
+
+    container.innerHTML = `
+      <div class="exercise">
+        <h2 class="exercise-title">📖 ${question.title}</h2>
+        <p class="exercise-instruction">${question.instruction}</p>
+        <div class="kanji-word-container">
+          <div class="kanji-word">${question.data.kanji}</div>
+          <p class="kanji-meaning">${question.data.meaning}</p>
+        </div>
+        <div class="options-grid">
+          ${shuffledOptions.map(option => `
+            <button class="option-btn" data-answer="${option}">${option}</button>
+          `).join('')}
+        </div>
+        <div id="feedback"></div>
+      </div>
+    `;
+
+    // Ajouter les event listeners
+    document.querySelectorAll('.option-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const selected = this.dataset.answer;
+        const correct = question.data.correct;
+        const isCorrect = selected === correct;
+
+        // Désactiver tous les boutons
+        document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+        // Colorer la réponse
+        this.classList.add(isCorrect ? 'correct' : 'incorrect');
+        if (!isCorrect) {
+          document.querySelector(`[data-answer="${correct}"]`).classList.add('correct');
+        }
+
+        // Afficher le feedback
+        const feedback = document.getElementById('feedback');
+        feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
+        feedback.innerHTML = isCorrect ? '✅ Bonne réponse !' : `❌ La bonne réponse était : ${correct}`;
+
+        // Enregistrer la réponse
+        appState.answers.push({
+          questionIndex: appState.currentQuestion,
+          isCorrect: isCorrect,
+          selected: selected,
+          correct: correct
+        });
+
+        // Si incorrect, ajouter aux erreurs
+        if (!isCorrect) {
+          Storage.addMistakeToReview({
+            kanji: question.data.kanji,
+            correctReading: correct,
+            userAnswer: selected,
+            lesson: appState.currentLesson.title
+          });
+        }
+
+        // Mettre à jour le score
+        if (isCorrect) {
+          appState.score++;
+          document.getElementById('current-score').textContent = appState.score;
+          AudioPlayer.playSuccessSound();
+        } else {
+          AudioPlayer.playErrorSound();
+        }
+
+        // Passer à la question suivante après un délai
+        setTimeout(() => LessonController.nextQuestion(), 1500);
+      });
+    });
+  },
+
+  renderVocabulary: function(container, question) {
+    // Affichage du vocabulaire avec kanji, lecture et signification
+    container.innerHTML = `
+      <div class="exercise">
+        <h2 class="exercise-title">📚 ${question.title}</h2>
+        <p class="exercise-instruction">${question.instruction}</p>
+        <div class="vocabulary-card">
+          <div class="vocabulary-word">${question.data.word}</div>
+          <div class="vocabulary-reading">${question.data.reading}</div>
+          <div class="vocabulary-meaning">${question.data.meaning}</div>
+        </div>
+        <button class="primary-btn next-btn" onclick="LessonController.nextQuestion()">
+          Suivant →
+        </button>
+      </div>
+    `;
+
+    // Marquer automatiquement comme correct (c'est juste pour apprendre)
+    appState.answers.push({
+      questionIndex: appState.currentQuestion,
+      isCorrect: true
+    });
+    appState.score++;
   },
 
   renderDictation: function(container, question) {
@@ -1692,7 +1896,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('start-review-btn')?.addEventListener('click', () => Navigation.goToReview());
   document.getElementById('close-badge-modal')?.addEventListener('click', closeBadgeModal);
 
-  // Menu Hamburger
+  // Menu Hamburger - DÉSACTIVÉ (retour au design classique avec footer fixe)
+  /*
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const hamburgerMenu = document.getElementById('hamburger-menu');
   const menuOverlay = document.getElementById('menu-overlay');
@@ -1745,6 +1950,77 @@ document.addEventListener('DOMContentLoaded', function() {
     // TODO: Implémenter la page des paramètres
     alert('Page de paramètres à venir !');
   });
+  */
+
+  // ===== MENU HAMBURGER - DÉSACTIVÉ (v5.0.0 - Retour au design classique) =====
+  /*
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const hamburgerMenu = document.getElementById('hamburger-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const menuClose = document.getElementById('menu-close');
+
+  // Fonction pour ouvrir le menu
+  function openHamburgerMenu() {
+    hamburgerMenu?.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Empêcher le scroll
+
+    // Mettre à jour les stats du menu
+    const progress = AppStorage.getProgress();
+    document.getElementById('menu-level').textContent = progress.level;
+    document.getElementById('menu-xp').textContent = progress.totalPoints;
+    document.getElementById('menu-streak').textContent = progress.streak;
+  }
+
+  // Fonction pour fermer le menu
+  function closeHamburgerMenu() {
+    hamburgerMenu?.classList.remove('active');
+    document.body.style.overflow = ''; // Réactiver le scroll
+  }
+
+  // Event listeners
+  hamburgerBtn?.addEventListener('click', openHamburgerMenu);
+  menuClose?.addEventListener('click', closeHamburgerMenu);
+  menuOverlay?.addEventListener('click', closeHamburgerMenu);
+
+  // Navigation depuis le menu hamburger
+  document.getElementById('menu-home')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeHamburgerMenu();
+    Navigation.goToHome();
+  });
+
+  document.getElementById('menu-stats')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeHamburgerMenu();
+    Navigation.goToStats();
+  });
+
+  document.getElementById('menu-badges')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeHamburgerMenu();
+    Navigation.goToBadges();
+  });
+
+  document.getElementById('menu-settings')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeHamburgerMenu();
+    alert('Page de paramètres à venir !');
+  });
+
+  // Fermer le menu avec la touche Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && hamburgerMenu?.classList.contains('active')) {
+      closeHamburgerMenu();
+    }
+  });
+  */
+
+  // ===== NAVIGATION DU FOOTER (Design classique v5.0.0) =====
+  document.getElementById('stats-btn')?.addEventListener('click', () => Navigation.goToStats());
+  document.getElementById('badges-btn')?.addEventListener('click', () => Navigation.goToBadges());
+  document.getElementById('settings-btn')?.addEventListener('click', () => {
+    alert('Page de paramètres à venir !');
+  });
 
   // Leaderboard
   document.getElementById('leaderboard-btn')?.addEventListener('click', () => Navigation.goToLeaderboard());
@@ -1755,6 +2031,43 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('express-quit-btn')?.addEventListener('click', () => ExpressMode.quit());
   document.getElementById('express-retry-btn')?.addEventListener('click', () => ExpressMode.start());
   document.getElementById('express-home-btn')?.addEventListener('click', () => Navigation.goToHome());
+
+  // Toggle Hiragana/Katakana
+  document.getElementById('hiragana-tab')?.addEventListener('click', function() {
+    // Mettre à jour l'état
+    appState.currentScript = 'hiragana';
+
+    // Mettre à jour les styles du toggle
+    document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+    this.classList.add('active');
+
+    // Re-render les leçons
+    Navigation.renderHome();
+  });
+
+  document.getElementById('katakana-tab')?.addEventListener('click', function() {
+    // Mettre à jour l'état
+    appState.currentScript = 'katakana';
+
+    // Mettre à jour les styles du toggle
+    document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+    this.classList.add('active');
+
+    // Re-render les leçons
+    Navigation.renderHome();
+  });
+
+  document.getElementById('kanji-tab')?.addEventListener('click', function() {
+    // Mettre à jour l'état
+    appState.currentScript = 'kanji';
+
+    // Mettre à jour les styles du toggle
+    document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+    this.classList.add('active');
+
+    // Re-render les leçons
+    Navigation.renderHome();
+  });
 
   // Initialisation
   setTimeout(() => {

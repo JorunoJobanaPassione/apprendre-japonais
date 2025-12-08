@@ -922,8 +922,1183 @@ const lessonsData = [
         ]
       }
     ]
-  }
+  },
+  {
+    id: "lesson12",
+    title: "Katakana 1 : Voyelles + K",
+    description: "ア, イ, ウ, エ, オ, カ, キ, ク, ケ, コ",
+    level: "beginner",
+    free: true,
+    katakana: [
+      { char: 'ア', romaji: 'a' },
+      { char: 'イ', romaji: 'i' },
+      { char: 'ウ', romaji: 'u' },
+      { char: 'エ', romaji: 'e' },
+      { char: 'オ', romaji: 'o' },
+      { char: 'カ', romaji: 'ka' },
+      { char: 'キ', romaji: 'ki' },
+      { char: 'ク', romaji: 'ku' },
+      { char: 'ケ', romaji: 'ke' },
+      { char: 'コ', romaji: 'ko' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des katakana",
+        instruction: "Étudiez ces caractères et leur prononciation (utilisés pour les mots étrangers)"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Au Café",
+        instruction: "Lisez ce dialogue avec des mots étrangers (cliquez 🔊 pour écouter)",
+        context: "☕ Commander au café",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "コーヒー ください", romaji: "koohii kudasai", french: "Un café, s'il vous plaît" },
+            { speaker: "B", hiragana: "アイス ですか", romaji: "aisu desu ka", french: "Glacé ?" },
+            { speaker: "A", hiragana: "いいえ、ホット です", romaji: "iie, hotto desu", french: "Non, chaud" },
+            { speaker: "B", hiragana: "ケーキ も いかがですか", romaji: "keeki mo ikaga desu ka", french: "Un gâteau aussi ?" }
+          ],
+          audioFile: "dialogue_katakana1.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Exercice de reconnaissance",
+        instruction: "Quelle est la lecture de ce katakana ?",
+        questions: [
+          { hiragana: 'ア', options: ['a', 'i', 'u', 'e'], correct: 'a' },
+          { hiragana: 'イ', options: ['i', 'a', 'e', 'o'], correct: 'i' },
+          { hiragana: 'ウ', options: ['u', 'o', 'a', 'i'], correct: 'u' },
+          { hiragana: 'エ', options: ['e', 'i', 'a', 'o'], correct: 'e' },
+          { hiragana: 'オ', options: ['o', 'u', 'a', 'e'], correct: 'o' },
+          { hiragana: 'カ', options: ['ka', 'ki', 'ku', 'ke'], correct: 'ka' },
+          { hiragana: 'キ', options: ['ki', 'ka', 'ku', 'ke'], correct: 'ki' },
+          { hiragana: 'ク', options: ['ku', 'ka', 'ki', 'ko'], correct: 'ku' },
+          { hiragana: 'ケ', options: ['ke', 'ka', 'ki', 'ko'], correct: 'ke' },
+          { hiragana: 'コ', options: ['ko', 'ku', 'ka', 'ke'], correct: 'ko' }
+        ]
+      },
+      {
+        type: "intruder",
+        title: "Trouvez l'intrus",
+        instruction: "Quel katakana n'appartient pas au groupe ?",
+        questions: [
+          {
+            options: ['ア', 'イ', 'カ', 'オ'],
+            intruder: 'カ',
+            explanation: "'カ' (ka) est une consonne, les autres sont des voyelles"
+          },
+          {
+            options: ['カ', 'キ', 'ス', 'コ'],
+            intruder: 'ス',
+            explanation: "'ス' (su) n'appartient pas à la série K"
+          }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Transcription de mots étrangers",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'アイス', correct: 'aisu', alternatives: ['ice'], meaning: 'glace/ice cream' },
+          { hiragana: 'ケーキ', correct: 'keeki', alternatives: ['cake', 'ke-ki'], meaning: 'gâteau' },
+          { hiragana: 'コーヒー', correct: 'koohii', alternatives: ['coffee', 'ko-hi-'], meaning: 'café' },
+          { hiragana: 'カー', correct: 'kaa', alternatives: ['car', 'ka-'], meaning: 'voiture' },
+          { hiragana: 'オーケー', correct: 'ookee', alternatives: ['ok', 'okay'], meaning: 'OK' },
+          { hiragana: 'エアコン', correct: 'eakon', alternatives: ['aircon'], meaning: 'climatisation' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Lecture en contexte",
+        instruction: "Lisez ces mots étrangers courants",
+        questions: [
+          { hiragana: 'コーラ', romaji: 'koora', meaning: 'Coca-Cola' },
+          { hiragana: 'カメラ', romaji: 'kamera', meaning: 'caméra' },
+          { hiragana: 'ゲーム', romaji: 'geemu', meaning: 'jeu vidéo' },
+          { hiragana: 'ノート', romaji: 'nooto', meaning: 'cahier/notebook' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez le katakana et écrivez-le",
+        questions: [
+          { audio: 'a', correct: 'ア', alternatives: ['a'], meaning: '' },
+          { audio: 'i', correct: 'イ', alternatives: ['i'], meaning: '' },
+          { audio: 'u', correct: 'ウ', alternatives: ['u'], meaning: '' },
+          { audio: 'ka', correct: 'カ', alternatives: ['ka'], meaning: '' },
+          { audio: 'ki', correct: 'キ', alternatives: ['ki'], meaning: '' },
+          { audio: 'ko', correct: 'コ', alternatives: ['ko'], meaning: '' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 2 : S + T =====
+  {
+    id: "lesson13",
+    title: "Katakana 2 : S + T",
+    description: "サ, シ, ス, セ, ソ, タ, チ, ツ, テ, ト",
+    level: "beginner",
+    free: true,
+    katakana: [
+      { char: 'サ', romaji: 'sa' },
+      { char: 'シ', romaji: 'shi' },
+      { char: 'ス', romaji: 'su' },
+      { char: 'セ', romaji: 'se' },
+      { char: 'ソ', romaji: 'so' },
+      { char: 'タ', romaji: 'ta' },
+      { char: 'チ', romaji: 'chi' },
+      { char: 'ツ', romaji: 'tsu' },
+      { char: 'テ', romaji: 'te' },
+      { char: 'ト', romaji: 'to' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des katakana S et T",
+        instruction: "Étudiez ces caractères et leur prononciation"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Au Magasin de Vêtements",
+        instruction: "Lisez ce dialogue avec des mots étrangers (cliquez 🔊 pour écouter)",
+        context: "👔 Faire du shopping",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "このスーツはいくらですか", romaji: "kono suutsu wa ikura desu ka", french: "Combien coûte ce costume ?" },
+            { speaker: "B", hiragana: "三千円です", romaji: "sanzen en desu", french: "3000 yens" },
+            { speaker: "A", hiragana: "シャツもありますか", romaji: "shatsu mo arimasu ka", french: "Vous avez aussi des chemises ?" },
+            { speaker: "B", hiragana: "はい、あちらにあります", romaji: "hai, achira ni arimasu", french: "Oui, elles sont là-bas" }
+          ],
+          audioFile: "dialogue_katakana2.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Exercice de reconnaissance",
+        instruction: "Quelle est la lecture de ce katakana ?",
+        questions: [
+          { hiragana: 'サ', options: ['sa', 'shi', 'su', 'se'], correct: 'sa' },
+          { hiragana: 'シ', options: ['shi', 'sa', 'chi', 'se'], correct: 'shi' },
+          { hiragana: 'ス', options: ['su', 'sa', 'shi', 'se'], correct: 'su' },
+          { hiragana: 'セ', options: ['se', 'sa', 'shi', 'so'], correct: 'se' },
+          { hiragana: 'ソ', options: ['so', 'su', 'sa', 'se'], correct: 'so' },
+          { hiragana: 'タ', options: ['ta', 'chi', 'tsu', 'te'], correct: 'ta' },
+          { hiragana: 'チ', options: ['chi', 'ta', 'shi', 'tsu'], correct: 'chi' },
+          { hiragana: 'ツ', options: ['tsu', 'ta', 'chi', 'to'], correct: 'tsu' },
+          { hiragana: 'テ', options: ['te', 'ta', 'chi', 'to'], correct: 'te' },
+          { hiragana: 'ト', options: ['to', 'tsu', 'ta', 'te'], correct: 'to' }
+        ]
+      },
+      {
+        type: "intruder",
+        title: "Trouvez l'intrus",
+        instruction: "Quel katakana n'appartient pas au groupe ?",
+        questions: [
+          {
+            options: ['サ', 'シ', 'ス', 'タ'],
+            intruder: 'タ',
+            explanation: "'タ' (ta) appartient à la série T, les autres à la série S"
+          },
+          {
+            options: ['タ', 'チ', 'ツ', 'セ'],
+            intruder: 'セ',
+            explanation: "'セ' (se) appartient à la série S, les autres à la série T"
+          },
+          {
+            options: ['シ', 'チ', 'ツ', 'ス'],
+            intruder: 'ス',
+            explanation: "'ス' (su) ne se prononce pas avec 'i', contrairement aux autres"
+          }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Transcription de mots étrangers",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'スーツ', correct: 'suutsu', alternatives: ['suit'], meaning: 'costume' },
+          { hiragana: 'シャツ', correct: 'shatsu', alternatives: ['shirt'], meaning: 'chemise' },
+          { hiragana: 'ソース', correct: 'soosu', alternatives: ['sauce'], meaning: 'sauce' },
+          { hiragana: 'チーズ', correct: 'chiizu', alternatives: ['cheese'], meaning: 'fromage' },
+          { hiragana: 'タクシー', correct: 'takushii', alternatives: ['taxi'], meaning: 'taxi' },
+          { hiragana: 'テスト', correct: 'tesuto', alternatives: ['test'], meaning: 'test' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Lecture en contexte",
+        instruction: "Lisez ces mots étrangers courants",
+        questions: [
+          { hiragana: 'スター', romaji: 'sutaa', meaning: 'star/vedette' },
+          { hiragana: 'テーブル', romaji: 'teeburu', meaning: 'table' },
+          { hiragana: 'トイレ', romaji: 'toire', meaning: 'toilettes' },
+          { hiragana: 'サイト', romaji: 'saito', meaning: 'site web' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez le katakana et écrivez-le",
+        questions: [
+          { audio: 'sa', correct: 'サ', alternatives: ['sa'], meaning: '' },
+          { audio: 'shi', correct: 'シ', alternatives: ['shi'], meaning: '' },
+          { audio: 'su', correct: 'ス', alternatives: ['su'], meaning: '' },
+          { audio: 'ta', correct: 'タ', alternatives: ['ta'], meaning: '' },
+          { audio: 'chi', correct: 'チ', alternatives: ['chi'], meaning: '' },
+          { audio: 'tsu', correct: 'ツ', alternatives: ['tsu'], meaning: '' },
+          { audio: 'to', correct: 'ト', alternatives: ['to'], meaning: '' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 3 : N + H =====
+  {
+    id: "lesson14",
+    title: "Katakana 3 : N + H",
+    description: "ナ, ニ, ヌ, ネ, ノ, ハ, ヒ, フ, ヘ, ホ",
+    level: "beginner",
+    free: true,
+    katakana: [
+      { char: 'ナ', romaji: 'na' },
+      { char: 'ニ', romaji: 'ni' },
+      { char: 'ヌ', romaji: 'nu' },
+      { char: 'ネ', romaji: 'ne' },
+      { char: 'ノ', romaji: 'no' },
+      { char: 'ハ', romaji: 'ha' },
+      { char: 'ヒ', romaji: 'hi' },
+      { char: 'フ', romaji: 'fu' },
+      { char: 'ヘ', romaji: 'he' },
+      { char: 'ホ', romaji: 'ho' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des katakana N et H",
+        instruction: "Étudiez ces caractères et leur prononciation"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Au Restaurant",
+        instruction: "Lisez ce dialogue avec des mots étrangers (cliquez 🔊 pour écouter)",
+        context: "🍔 Commander au restaurant",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "ハンバーガーとフォーク ください", romaji: "hanbaagaa to fooku kudasai", french: "Un hamburger et une fourchette, s'il vous plaît" },
+            { speaker: "B", hiragana: "ナイフも いりますか", romaji: "naifu mo irimasu ka", french: "Voulez-vous aussi un couteau ?" },
+            { speaker: "A", hiragana: "はい、おねがいします", romaji: "hai, onegai shimasu", french: "Oui, s'il vous plaît" },
+            { speaker: "B", hiragana: "ホット ですか", romaji: "hotto desu ka", french: "Chaud ?" }
+          ],
+          audioFile: "dialogue_katakana3.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Exercice de reconnaissance",
+        instruction: "Quelle est la lecture de ce katakana ?",
+        questions: [
+          { hiragana: 'ナ', options: ['na', 'ni', 'nu', 'ne'], correct: 'na' },
+          { hiragana: 'ニ', options: ['ni', 'na', 'ne', 'no'], correct: 'ni' },
+          { hiragana: 'ヌ', options: ['nu', 'na', 'ni', 'ne'], correct: 'nu' },
+          { hiragana: 'ネ', options: ['ne', 'na', 'ni', 'no'], correct: 'ne' },
+          { hiragana: 'ノ', options: ['no', 'nu', 'na', 'ne'], correct: 'no' },
+          { hiragana: 'ハ', options: ['ha', 'hi', 'fu', 'he'], correct: 'ha' },
+          { hiragana: 'ヒ', options: ['hi', 'ha', 'fu', 'he'], correct: 'hi' },
+          { hiragana: 'フ', options: ['fu', 'ha', 'hi', 'ho'], correct: 'fu' },
+          { hiragana: 'ヘ', options: ['he', 'ha', 'hi', 'ho'], correct: 'he' },
+          { hiragana: 'ホ', options: ['ho', 'fu', 'ha', 'he'], correct: 'ho' }
+        ]
+      },
+      {
+        type: "intruder",
+        title: "Trouvez l'intrus",
+        instruction: "Quel katakana n'appartient pas au groupe ?",
+        questions: [
+          {
+            options: ['ナ', 'ニ', 'ヌ', 'ハ'],
+            intruder: 'ハ',
+            explanation: "'ハ' (ha) appartient à la série H, les autres à la série N"
+          },
+          {
+            options: ['ハ', 'ヒ', 'フ', 'ノ'],
+            intruder: 'ノ',
+            explanation: "'ノ' (no) appartient à la série N, les autres à la série H"
+          },
+          {
+            options: ['ニ', 'ヒ', 'フ', 'ホ'],
+            intruder: 'ニ',
+            explanation: "'ニ' (ni) appartient à la série N, les autres à la série H"
+          }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Transcription de mots étrangers",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'ナイフ', correct: 'naifu', alternatives: ['knife'], meaning: 'couteau' },
+          { hiragana: 'ノート', correct: 'nooto', alternatives: ['note'], meaning: 'cahier' },
+          { hiragana: 'ハンバーガー', correct: 'hanbaagaa', alternatives: ['hamburger'], meaning: 'hamburger' },
+          { hiragana: 'ホテル', correct: 'hoteru', alternatives: ['hotel'], meaning: 'hôtel' },
+          { hiragana: 'フォーク', correct: 'fooku', alternatives: ['fork'], meaning: 'fourchette' },
+          { hiragana: 'ヒーター', correct: 'hiitaa', alternatives: ['heater'], meaning: 'chauffage' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Lecture en contexte",
+        instruction: "Lisez ces mots étrangers courants",
+        questions: [
+          { hiragana: 'ニュース', romaji: 'nyuusu', meaning: 'news/informations' },
+          { hiragana: 'ネット', romaji: 'netto', meaning: 'internet' },
+          { hiragana: 'ホーム', romaji: 'hoomu', meaning: 'quai/domicile' },
+          { hiragana: 'ファイル', romaji: 'fairu', meaning: 'fichier' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez le katakana et écrivez-le",
+        questions: [
+          { audio: 'na', correct: 'ナ', alternatives: ['na'], meaning: '' },
+          { audio: 'ni', correct: 'ニ', alternatives: ['ni'], meaning: '' },
+          { audio: 'nu', correct: 'ヌ', alternatives: ['nu'], meaning: '' },
+          { audio: 'ha', correct: 'ハ', alternatives: ['ha'], meaning: '' },
+          { audio: 'hi', correct: 'ヒ', alternatives: ['hi'], meaning: '' },
+          { audio: 'fu', correct: 'フ', alternatives: ['fu'], meaning: '' },
+          { audio: 'ho', correct: 'ホ', alternatives: ['ho'], meaning: '' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 4 : M + Y =====
+  {
+    id: "lesson15",
+    title: "Katakana 4 : M + Y",
+    description: "マ, ミ, ム, メ, モ, ヤ, ユ, ヨ",
+    level: "beginner",
+    free: true,
+    katakana: [
+      { char: 'マ', romaji: 'ma' },
+      { char: 'ミ', romaji: 'mi' },
+      { char: 'ム', romaji: 'mu' },
+      { char: 'メ', romaji: 'me' },
+      { char: 'モ', romaji: 'mo' },
+      { char: 'ヤ', romaji: 'ya' },
+      { char: 'ユ', romaji: 'yu' },
+      { char: 'ヨ', romaji: 'yo' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des katakana M et Y",
+        instruction: "Étudiez ces caractères et leur prononciation"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Au Supermarché",
+        instruction: "Lisez ce dialogue avec des mots étrangers (cliquez 🔊 pour écouter)",
+        context: "🛒 Faire les courses",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "ミルクはありますか", romaji: "miruku wa arimasu ka", french: "Avez-vous du lait ?" },
+            { speaker: "B", hiragana: "はい、ヨーグルトもあります", romaji: "hai, yooguruto mo arimasu", french: "Oui, nous avons aussi du yaourt" },
+            { speaker: "A", hiragana: "メロンもください", romaji: "meron mo kudasai", french: "Je voudrais aussi un melon" },
+            { speaker: "B", hiragana: "マンゴーもいかがですか", romaji: "mangoo mo ikaga desu ka", french: "Que diriez-vous aussi d'une mangue ?" }
+          ],
+          audioFile: "dialogue_katakana4.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Exercice de reconnaissance",
+        instruction: "Quelle est la lecture de ce katakana ?",
+        questions: [
+          { hiragana: 'マ', options: ['ma', 'mi', 'mu', 'me'], correct: 'ma' },
+          { hiragana: 'ミ', options: ['mi', 'ma', 'me', 'mo'], correct: 'mi' },
+          { hiragana: 'ム', options: ['mu', 'ma', 'mi', 'me'], correct: 'mu' },
+          { hiragana: 'メ', options: ['me', 'ma', 'mi', 'mo'], correct: 'me' },
+          { hiragana: 'モ', options: ['mo', 'mu', 'ma', 'me'], correct: 'mo' },
+          { hiragana: 'ヤ', options: ['ya', 'yu', 'yo', 'ma'], correct: 'ya' },
+          { hiragana: 'ユ', options: ['yu', 'ya', 'yo', 'mu'], correct: 'yu' },
+          { hiragana: 'ヨ', options: ['yo', 'ya', 'yu', 'mo'], correct: 'yo' }
+        ]
+      },
+      {
+        type: "intruder",
+        title: "Trouvez l'intrus",
+        instruction: "Quel katakana n'appartient pas au groupe ?",
+        questions: [
+          {
+            options: ['マ', 'ミ', 'ム', 'ヤ'],
+            intruder: 'ヤ',
+            explanation: "'ヤ' (ya) appartient à la série Y, les autres à la série M"
+          },
+          {
+            options: ['ヤ', 'ユ', 'ヨ', 'メ'],
+            intruder: 'メ',
+            explanation: "'メ' (me) appartient à la série M, les autres à la série Y"
+          },
+          {
+            options: ['マ', 'メ', 'モ', 'ム'],
+            intruder: 'ム',
+            explanation: "'ム' (mu) ne se termine pas par un son de voyelle 'a', 'e' ou 'o', contrairement aux autres"
+          }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Transcription de mots étrangers",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'メール', correct: 'meeru', alternatives: ['mail'], meaning: 'email' },
+          { hiragana: 'マウス', correct: 'mausu', alternatives: ['mouse'], meaning: 'souris' },
+          { hiragana: 'ミルク', correct: 'miruku', alternatives: ['milk'], meaning: 'lait' },
+          { hiragana: 'ヨーグルト', correct: 'yooguruto', alternatives: ['yogurt'], meaning: 'yaourt' },
+          { hiragana: 'メニュー', correct: 'menyuu', alternatives: ['menu'], meaning: 'menu' },
+          { hiragana: 'ムービー', correct: 'muubii', alternatives: ['movie'], meaning: 'film' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Lecture en contexte",
+        instruction: "Lisez ces mots étrangers courants",
+        questions: [
+          { hiragana: 'マスク', romaji: 'masuku', meaning: 'masque' },
+          { hiragana: 'モデル', romaji: 'moderu', meaning: 'modèle' },
+          { hiragana: 'ユーザー', romaji: 'yuuzaa', meaning: 'utilisateur' },
+          { hiragana: 'メモ', romaji: 'memo', meaning: 'mémo' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez le katakana et écrivez-le",
+        questions: [
+          { audio: 'ma', correct: 'マ', alternatives: ['ma'], meaning: '' },
+          { audio: 'mi', correct: 'ミ', alternatives: ['mi'], meaning: '' },
+          { audio: 'mu', correct: 'ム', alternatives: ['mu'], meaning: '' },
+          { audio: 'me', correct: 'メ', alternatives: ['me'], meaning: '' },
+          { audio: 'mo', correct: 'モ', alternatives: ['mo'], meaning: '' },
+          { audio: 'ya', correct: 'ヤ', alternatives: ['ya'], meaning: '' },
+          { audio: 'yu', correct: 'ユ', alternatives: ['yu'], meaning: '' },
+          { audio: 'yo', correct: 'ヨ', alternatives: ['yo'], meaning: '' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 5 : R + W + N =====
+  {
+    id: "lesson16",
+    title: "Katakana 5 : R + W + N",
+    description: "ラ, リ, ル, レ, ロ, ワ, ヲ, ン",
+    level: "beginner",
+    free: true,
+    katakana: [
+      { char: 'ラ', romaji: 'ra' },
+      { char: 'リ', romaji: 'ri' },
+      { char: 'ル', romaji: 'ru' },
+      { char: 'レ', romaji: 're' },
+      { char: 'ロ', romaji: 'ro' },
+      { char: 'ワ', romaji: 'wa' },
+      { char: 'ヲ', romaji: 'wo' },
+      { char: 'ン', romaji: 'n' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des katakana R, W et N",
+        instruction: "Étudiez ces caractères et leur prononciation"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Au Restaurant Ramen",
+        instruction: "Lisez ce dialogue avec des mots étrangers (cliquez 🔊 pour écouter)",
+        context: "🍜 Commander des ramen",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "ラーメンをください", romaji: "raamen wo kudasai", french: "Des ramen, s'il vous plaît" },
+            { speaker: "B", hiragana: "ワインも いりますか", romaji: "wain mo irimasu ka", french: "Voulez-vous aussi du vin ?" },
+            { speaker: "A", hiragana: "いいえ、レモンウォーター おねがいします", romaji: "iie, remon wootaa onegai shimasu", french: "Non, de l'eau citronnée s'il vous plaît" },
+            { speaker: "B", hiragana: "わかりました", romaji: "wakarimashita", french: "Compris" }
+          ],
+          audioFile: "dialogue_katakana5.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Exercice de reconnaissance",
+        instruction: "Quelle est la lecture de ce katakana ?",
+        questions: [
+          { hiragana: 'ラ', options: ['ra', 'ri', 'ru', 're'], correct: 'ra' },
+          { hiragana: 'リ', options: ['ri', 'ra', 're', 'ro'], correct: 'ri' },
+          { hiragana: 'ル', options: ['ru', 'ra', 'ri', 're'], correct: 'ru' },
+          { hiragana: 'レ', options: ['re', 'ra', 'ri', 'ro'], correct: 're' },
+          { hiragana: 'ロ', options: ['ro', 'ru', 'ra', 're'], correct: 'ro' },
+          { hiragana: 'ワ', options: ['wa', 'ra', 'wo', 'n'], correct: 'wa' },
+          { hiragana: 'ヲ', options: ['wo', 'wa', 'ro', 'n'], correct: 'wo' },
+          { hiragana: 'ン', options: ['n', 'wa', 'wo', 'no'], correct: 'n' }
+        ]
+      },
+      {
+        type: "intruder",
+        title: "Trouvez l'intrus",
+        instruction: "Quel katakana n'appartient pas au groupe ?",
+        questions: [
+          {
+            options: ['ラ', 'リ', 'ル', 'ワ'],
+            intruder: 'ワ',
+            explanation: "'ワ' (wa) appartient à la série W, les autres à la série R"
+          },
+          {
+            options: ['ワ', 'ヲ', 'ン', 'レ'],
+            intruder: 'レ',
+            explanation: "'レ' (re) appartient à la série R, les autres sont des caractères spéciaux"
+          },
+          {
+            options: ['ラ', 'レ', 'ロ', 'リ'],
+            intruder: 'リ',
+            explanation: "'リ' (ri) se prononce avec 'i', les autres se terminent par 'a', 'e' ou 'o'"
+          }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Transcription de mots étrangers",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'ラーメン', correct: 'raamen', alternatives: ['ramen'], meaning: 'ramen' },
+          { hiragana: 'リスト', correct: 'risuto', alternatives: ['list'], meaning: 'liste' },
+          { hiragana: 'ルール', correct: 'ruuru', alternatives: ['rule'], meaning: 'règle' },
+          { hiragana: 'レストラン', correct: 'resutoran', alternatives: ['restaurant'], meaning: 'restaurant' },
+          { hiragana: 'ロボット', correct: 'robotto', alternatives: ['robot'], meaning: 'robot' },
+          { hiragana: 'ワイン', correct: 'wain', alternatives: ['wine'], meaning: 'vin' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Lecture en contexte",
+        instruction: "Lisez ces mots étrangers courants",
+        questions: [
+          { hiragana: 'ラジオ', romaji: 'rajio', meaning: 'radio' },
+          { hiragana: 'リモコン', romaji: 'rimokon', meaning: 'télécommande' },
+          { hiragana: 'レモン', romaji: 'remon', meaning: 'citron' },
+          { hiragana: 'ワンピース', romaji: 'wanpiisu', meaning: 'robe' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez le katakana et écrivez-le",
+        questions: [
+          { audio: 'ra', correct: 'ラ', alternatives: ['ra'], meaning: '' },
+          { audio: 'ri', correct: 'リ', alternatives: ['ri'], meaning: '' },
+          { audio: 'ru', correct: 'ル', alternatives: ['ru'], meaning: '' },
+          { audio: 're', correct: 'レ', alternatives: ['re'], meaning: '' },
+          { audio: 'ro', correct: 'ロ', alternatives: ['ro'], meaning: '' },
+          { audio: 'wa', correct: 'ワ', alternatives: ['wa'], meaning: '' },
+          { audio: 'n', correct: 'ン', alternatives: ['n'], meaning: '' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 6 : G + Z =====
+  {
+    id: "lesson17",
+    title: "Katakana 6 : G + Z (Voisées)",
+    description: "ガ, ギ, グ, ゲ, ゴ, ザ, ジ, ズ, ゼ, ゾ",
+    level: "intermediate",
+    free: true,
+    katakana: [
+      { char: 'ガ', romaji: 'ga' },
+      { char: 'ギ', romaji: 'gi' },
+      { char: 'グ', romaji: 'gu' },
+      { char: 'ゲ', romaji: 'ge' },
+      { char: 'ゴ', romaji: 'go' },
+      { char: 'ザ', romaji: 'za' },
+      { char: 'ジ', romaji: 'ji' },
+      { char: 'ズ', romaji: 'zu' },
+      { char: 'ゼ', romaji: 'ze' },
+      { char: 'ゾ', romaji: 'zo' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des katakana voisés G et Z",
+        instruction: "Étudiez ces caractères avec dakuten (゛)"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Magasin de Jeux Vidéo",
+        instruction: "Lisez ce dialogue avec des mots étrangers (cliquez 🔊 pour écouter)",
+        context: "🎮 Acheter un jeu vidéo",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "ゲームが ほしいです", romaji: "geemu ga hoshii desu", french: "Je voudrais un jeu vidéo" },
+            { speaker: "B", hiragana: "ガイド つきですか", romaji: "gaido tsuki desu ka", french: "Avec un guide ?" },
+            { speaker: "A", hiragana: "はい、ジャズのゲームが ありますか", romaji: "hai, jazu no geemu ga arimasu ka", french: "Oui, avez-vous des jeux de jazz ?" },
+            { speaker: "B", hiragana: "ゴルフゲーム しか ありません", romaji: "gorufu geemu shika arimasen", french: "Nous avons seulement des jeux de golf" }
+          ],
+          audioFile: "dialogue_katakana6.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Exercice de reconnaissance",
+        instruction: "Quelle est la lecture de ce katakana ?",
+        questions: [
+          { hiragana: 'ガ', options: ['ga', 'gi', 'gu', 'ka'], correct: 'ga' },
+          { hiragana: 'ギ', options: ['gi', 'ga', 'ge', 'ki'], correct: 'gi' },
+          { hiragana: 'グ', options: ['gu', 'ga', 'gi', 'ku'], correct: 'gu' },
+          { hiragana: 'ゲ', options: ['ge', 'ga', 'gi', 'ke'], correct: 'ge' },
+          { hiragana: 'ゴ', options: ['go', 'gu', 'ga', 'ko'], correct: 'go' },
+          { hiragana: 'ザ', options: ['za', 'ji', 'zu', 'sa'], correct: 'za' },
+          { hiragana: 'ジ', options: ['ji', 'za', 'zu', 'shi'], correct: 'ji' },
+          { hiragana: 'ズ', options: ['zu', 'za', 'ji', 'su'], correct: 'zu' },
+          { hiragana: 'ゼ', options: ['ze', 'za', 'ji', 'se'], correct: 'ze' },
+          { hiragana: 'ゾ', options: ['zo', 'zu', 'za', 'so'], correct: 'zo' }
+        ]
+      },
+      {
+        type: "intruder",
+        title: "Trouvez l'intrus",
+        instruction: "Quel katakana n'appartient pas au groupe ?",
+        questions: [
+          {
+            options: ['ガ', 'ギ', 'グ', 'ザ'],
+            intruder: 'ザ',
+            explanation: "'ザ' (za) appartient à la série Z, les autres à la série G"
+          },
+          {
+            options: ['ザ', 'ジ', 'ズ', 'ゲ'],
+            intruder: 'ゲ',
+            explanation: "'ゲ' (ge) appartient à la série G, les autres à la série Z"
+          },
+          {
+            options: ['ガ', 'ゴ', 'ゲ', 'ギ'],
+            intruder: 'ギ',
+            explanation: "'ギ' (gi) se prononce avec 'i', les autres se terminent par 'a', 'e' ou 'o'"
+          }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Transcription de mots étrangers",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'ガス', correct: 'gasu', alternatives: ['gas'], meaning: 'gaz' },
+          { hiragana: 'ギター', correct: 'gitaa', alternatives: ['guitar'], meaning: 'guitare' },
+          { hiragana: 'ゲーム', correct: 'geemu', alternatives: ['game'], meaning: 'jeu' },
+          { hiragana: 'ジュース', correct: 'juusu', alternatives: ['juice'], meaning: 'jus' },
+          { hiragana: 'ゼロ', correct: 'zero', alternatives: [], meaning: 'zéro' },
+          { hiragana: 'ゴール', correct: 'gooru', alternatives: ['goal'], meaning: 'but' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Lecture en contexte",
+        instruction: "Lisez ces mots étrangers courants",
+        questions: [
+          { hiragana: 'ガイド', romaji: 'gaido', meaning: 'guide' },
+          { hiragana: 'ゴルフ', romaji: 'gorufu', meaning: 'golf' },
+          { hiragana: 'ジャズ', romaji: 'jazu', meaning: 'jazz' },
+          { hiragana: 'ゼリー', romaji: 'zerii', meaning: 'gelée' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez le katakana et écrivez-le",
+        questions: [
+          { audio: 'ga', correct: 'ガ', alternatives: ['ga'], meaning: '' },
+          { audio: 'gi', correct: 'ギ', alternatives: ['gi'], meaning: '' },
+          { audio: 'gu', correct: 'グ', alternatives: ['gu'], meaning: '' },
+          { audio: 'ge', correct: 'ゲ', alternatives: ['ge'], meaning: '' },
+          { audio: 'go', correct: 'ゴ', alternatives: ['go'], meaning: '' },
+          { audio: 'za', correct: 'ザ', alternatives: ['za'], meaning: '' },
+          { audio: 'ji', correct: 'ジ', alternatives: ['ji'], meaning: '' },
+          { audio: 'zu', correct: 'ズ', alternatives: ['zu'], meaning: '' },
+          { audio: 'ze', correct: 'ゼ', alternatives: ['ze'], meaning: '' },
+          { audio: 'zo', correct: 'ゾ', alternatives: ['zo'], meaning: '' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 7 : D + B =====
+  {
+    id: "lesson18",
+    title: "Katakana 7 : D + B (Voisées)",
+    description: "ダ, ヂ, ヅ, デ, ド, バ, ビ, ブ, ベ, ボ",
+    level: "intermediate",
+    free: true,
+    katakana: [
+      { char: 'ダ', romaji: 'da' },
+      { char: 'ヂ', romaji: 'ji' },
+      { char: 'ヅ', romaji: 'zu' },
+      { char: 'デ', romaji: 'de' },
+      { char: 'ド', romaji: 'do' },
+      { char: 'バ', romaji: 'ba' },
+      { char: 'ビ', romaji: 'bi' },
+      { char: 'ブ', romaji: 'bu' },
+      { char: 'ベ', romaji: 'be' },
+      { char: 'ボ', romaji: 'bo' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des katakana voisés D et B",
+        instruction: "Étudiez ces caractères avec dakuten (゛)"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : À l'Hôtel",
+        instruction: "Lisez ce dialogue avec des mots étrangers (cliquez 🔊 pour écouter)",
+        context: "🏨 Réserver une chambre d'hôtel",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "ダブルベッドの へや ありますか", romaji: "daburu beddo no heya arimasu ka", french: "Avez-vous une chambre avec lit double ?" },
+            { speaker: "B", hiragana: "はい、バスつきです", romaji: "hai, basu tsuki desu", french: "Oui, avec salle de bain" },
+            { speaker: "A", hiragana: "ビールも ありますか", romaji: "biiru mo arimasu ka", french: "Y a-t-il aussi de la bière ?" },
+            { speaker: "B", hiragana: "はい、バーが あります", romaji: "hai, baa ga arimasu", french: "Oui, il y a un bar" }
+          ],
+          audioFile: "dialogue_katakana7.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Exercice de reconnaissance",
+        instruction: "Quelle est la lecture de ce katakana ?",
+        questions: [
+          { hiragana: 'ダ', options: ['da', 'de', 'do', 'ta'], correct: 'da' },
+          { hiragana: 'デ', options: ['de', 'da', 'do', 'te'], correct: 'de' },
+          { hiragana: 'ド', options: ['do', 'da', 'de', 'to'], correct: 'do' },
+          { hiragana: 'バ', options: ['ba', 'bi', 'bu', 'ha'], correct: 'ba' },
+          { hiragana: 'ビ', options: ['bi', 'ba', 'be', 'hi'], correct: 'bi' },
+          { hiragana: 'ブ', options: ['bu', 'ba', 'bi', 'fu'], correct: 'bu' },
+          { hiragana: 'ベ', options: ['be', 'ba', 'bi', 'he'], correct: 'be' },
+          { hiragana: 'ボ', options: ['bo', 'bu', 'ba', 'ho'], correct: 'bo' }
+        ]
+      },
+      {
+        type: "intruder",
+        title: "Trouvez l'intrus",
+        instruction: "Quel katakana n'appartient pas au groupe ?",
+        questions: [
+          {
+            options: ['ダ', 'デ', 'ド', 'バ'],
+            intruder: 'バ',
+            explanation: "'バ' (ba) appartient à la série B, les autres à la série D"
+          },
+          {
+            options: ['バ', 'ビ', 'ブ', 'デ'],
+            intruder: 'デ',
+            explanation: "'デ' (de) appartient à la série D, les autres à la série B"
+          },
+          {
+            options: ['ダ', 'ド', 'デ', 'ヂ'],
+            intruder: 'ヂ',
+            explanation: "'ヂ' (ji) se prononce 'ji', les autres se prononcent avec 'd'"
+          }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Transcription de mots étrangers",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'ドア', correct: 'doa', alternatives: ['door'], meaning: 'porte' },
+          { hiragana: 'データ', correct: 'deeta', alternatives: ['data'], meaning: 'données' },
+          { hiragana: 'バス', correct: 'basu', alternatives: ['bus'], meaning: 'bus' },
+          { hiragana: 'ビール', correct: 'biiru', alternatives: ['beer'], meaning: 'bière' },
+          { hiragana: 'ブログ', correct: 'burogu', alternatives: ['blog'], meaning: 'blog' },
+          { hiragana: 'ベッド', correct: 'beddo', alternatives: ['bed'], meaning: 'lit' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Lecture en contexte",
+        instruction: "Lisez ces mots étrangers courants",
+        questions: [
+          { hiragana: 'ドラマ', romaji: 'dorama', meaning: 'série TV' },
+          { hiragana: 'ボール', romaji: 'booru', meaning: 'ballon/bol' },
+          { hiragana: 'バナナ', romaji: 'banana', meaning: 'banane' },
+          { hiragana: 'デザート', romaji: 'dezaato', meaning: 'dessert' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez le katakana et écrivez-le",
+        questions: [
+          { audio: 'da', correct: 'ダ', alternatives: ['da'], meaning: '' },
+          { audio: 'de', correct: 'デ', alternatives: ['de'], meaning: '' },
+          { audio: 'do', correct: 'ド', alternatives: ['do'], meaning: '' },
+          { audio: 'ba', correct: 'バ', alternatives: ['ba'], meaning: '' },
+          { audio: 'bi', correct: 'ビ', alternatives: ['bi'], meaning: '' },
+          { audio: 'bu', correct: 'ブ', alternatives: ['bu'], meaning: '' },
+          { audio: 'be', correct: 'ベ', alternatives: ['be'], meaning: '' },
+          { audio: 'bo', correct: 'ボ', alternatives: ['bo'], meaning: '' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 8 : P =====
+  {
+    id: "lesson19",
+    title: "Katakana 8 : P (Semi-voisées)",
+    description: "パ, ピ, プ, ペ, ポ",
+    level: "intermediate",
+    free: true,
+    katakana: [
+      { char: 'パ', romaji: 'pa' },
+      { char: 'ピ', romaji: 'pi' },
+      { char: 'プ', romaji: 'pu' },
+      { char: 'ペ', romaji: 'pe' },
+      { char: 'ポ', romaji: 'po' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des katakana P",
+        instruction: "Étudiez ces caractères avec handakuten (゜)"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : À la Pizzeria",
+        instruction: "Lisez ce dialogue avec des mots étrangers (cliquez 🔊 pour écouter)",
+        context: "🍕 Commander une pizza",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "ピザを おねがいします", romaji: "piza wo onegai shimasu", french: "Une pizza s'il vous plaît" },
+            { speaker: "B", hiragana: "パンも いりますか", romaji: "pan mo irimasu ka", french: "Voulez-vous aussi du pain ?" },
+            { speaker: "A", hiragana: "はい、プレゼントですか", romaji: "hai, purezento desu ka", french: "Oui, est-ce un cadeau ?" },
+            { speaker: "B", hiragana: "いいえ、ページを みてください", romaji: "iie, peeji wo mite kudasai", french: "Non, regardez la page" }
+          ],
+          audioFile: "dialogue_katakana8.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Exercice de reconnaissance",
+        instruction: "Quelle est la lecture de ce katakana ?",
+        questions: [
+          { hiragana: 'パ', options: ['pa', 'pi', 'pu', 'ba'], correct: 'pa' },
+          { hiragana: 'ピ', options: ['pi', 'pa', 'pe', 'bi'], correct: 'pi' },
+          { hiragana: 'プ', options: ['pu', 'pa', 'pi', 'bu'], correct: 'pu' },
+          { hiragana: 'ペ', options: ['pe', 'pa', 'pi', 'be'], correct: 'pe' },
+          { hiragana: 'ポ', options: ['po', 'pu', 'pa', 'bo'], correct: 'po' }
+        ]
+      },
+      {
+        type: "intruder",
+        title: "Trouvez l'intrus",
+        instruction: "Quel katakana n'appartient pas au groupe ?",
+        questions: [
+          {
+            options: ['パ', 'ピ', 'プ', 'バ'],
+            intruder: 'バ',
+            explanation: "'バ' (ba) a un dakuten (゛), les autres ont un handakuten (゜)"
+          },
+          {
+            options: ['パ', 'ペ', 'ポ', 'ピ'],
+            intruder: 'ピ',
+            explanation: "'ピ' (pi) se prononce avec 'i', les autres se terminent par 'a', 'e' ou 'o'"
+          },
+          {
+            options: ['プ', 'ブ', 'フ', 'パ'],
+            intruder: 'パ',
+            explanation: "'パ' (pa) se termine par 'a', les autres par 'u'"
+          }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Transcription de mots étrangers",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'パン', correct: 'pan', alternatives: ['pain'], meaning: 'pain' },
+          { hiragana: 'ピザ', correct: 'piza', alternatives: ['pizza'], meaning: 'pizza' },
+          { hiragana: 'プール', correct: 'puuru', alternatives: ['pool'], meaning: 'piscine' },
+          { hiragana: 'ペン', correct: 'pen', alternatives: [], meaning: 'stylo' },
+          { hiragana: 'ポスト', correct: 'posuto', alternatives: ['post'], meaning: 'poste/boîte aux lettres' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Lecture en contexte",
+        instruction: "Lisez ces mots étrangers courants",
+        questions: [
+          { hiragana: 'パソコン', romaji: 'pasokon', meaning: 'ordinateur' },
+          { hiragana: 'ピンク', romaji: 'pinku', meaning: 'rose' },
+          { hiragana: 'プレゼント', romaji: 'purezento', meaning: 'cadeau' },
+          { hiragana: 'ページ', romaji: 'peeji', meaning: 'page' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez le katakana et écrivez-le",
+        questions: [
+          { audio: 'pa', correct: 'パ', alternatives: ['pa'], meaning: '' },
+          { audio: 'pi', correct: 'ピ', alternatives: ['pi'], meaning: '' },
+          { audio: 'pu', correct: 'プ', alternatives: ['pu'], meaning: '' },
+          { audio: 'pe', correct: 'ペ', alternatives: ['pe'], meaning: '' },
+          { audio: 'po', correct: 'ポ', alternatives: ['po'], meaning: '' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 9 : Combinaisons =====
+  {
+    id: "lesson20",
+    title: "Katakana 9 : Combinaisons",
+    description: "キャ, シャ, チャ, ニャ, ヒャ, ミャ, リャ, ギャ, ジャ, ビャ, ピャ",
+    level: "intermediate",
+    free: true,
+    katakana: [
+      { char: 'キャ', romaji: 'kya' },
+      { char: 'シャ', romaji: 'sha' },
+      { char: 'チャ', romaji: 'cha' },
+      { char: 'ニャ', romaji: 'nya' },
+      { char: 'ヒャ', romaji: 'hya' },
+      { char: 'ミャ', romaji: 'mya' },
+      { char: 'リャ', romaji: 'rya' },
+      { char: 'ギャ', romaji: 'gya' },
+      { char: 'ジャ', romaji: 'ja' },
+      { char: 'ビャ', romaji: 'bya' },
+      { char: 'ピャ', romaji: 'pya' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Présentation des combinaisons katakana",
+        instruction: "Étudiez ces combinaisons de caractères"
+      },
+      {
+        type: "dialogue",
+        title: "Mini-Dialogue : Au Camping",
+        instruction: "Lisez ce dialogue avec des mots étrangers (cliquez 🔊 pour écouter)",
+        context: "⛺ Partir en camping",
+        dialogue: {
+          lines: [
+            { speaker: "A", hiragana: "キャンプに いきますか", romaji: "kyanpu ni ikimasu ka", french: "Allez-vous au camping ?" },
+            { speaker: "B", hiragana: "はい、シャワーが ありますか", romaji: "hai, shawaa ga arimasu ka", french: "Oui, y a-t-il une douche ?" },
+            { speaker: "A", hiragana: "チャンスです。ジャケットを もってください", romaji: "chansu desu. jaketto wo motte kudasai", french: "C'est une opportunité. Apportez une veste" },
+            { speaker: "B", hiragana: "リュックも いりますね", romaji: "ryukku mo irimasu ne", french: "J'ai aussi besoin d'un sac à dos" }
+          ],
+          audioFile: "dialogue_katakana9.mp3"
+        }
+      },
+      {
+        type: "mcq",
+        title: "Exercice de reconnaissance",
+        instruction: "Quelle est la lecture de cette combinaison ?",
+        questions: [
+          { hiragana: 'キャ', options: ['kya', 'kiya', 'kia', 'ka'], correct: 'kya' },
+          { hiragana: 'シャ', options: ['sha', 'shiya', 'sia', 'sa'], correct: 'sha' },
+          { hiragana: 'チャ', options: ['cha', 'chiya', 'tia', 'ta'], correct: 'cha' },
+          { hiragana: 'ニャ', options: ['nya', 'niya', 'nia', 'na'], correct: 'nya' },
+          { hiragana: 'ヒャ', options: ['hya', 'hiya', 'hia', 'ha'], correct: 'hya' },
+          { hiragana: 'ミャ', options: ['mya', 'miya', 'mia', 'ma'], correct: 'mya' },
+          { hiragana: 'リャ', options: ['rya', 'riya', 'ria', 'ra'], correct: 'rya' },
+          { hiragana: 'ギャ', options: ['gya', 'giya', 'gia', 'ga'], correct: 'gya' },
+          { hiragana: 'ジャ', options: ['ja', 'jiya', 'zia', 'za'], correct: 'ja' },
+          { hiragana: 'ビャ', options: ['bya', 'biya', 'bia', 'ba'], correct: 'bya' }
+        ]
+      },
+      {
+        type: "intruder",
+        title: "Trouvez l'intrus",
+        instruction: "Quelle combinaison n'appartient pas au groupe ?",
+        questions: [
+          {
+            options: ['キャ', 'シャ', 'チャ', 'ギャ'],
+            intruder: 'ギャ',
+            explanation: "'ギャ' (gya) est une combinaison voisée avec dakuten, les autres sont non-voisées"
+          },
+          {
+            options: ['ジャ', 'ビャ', 'ギャ', 'チャ'],
+            intruder: 'チャ',
+            explanation: "'チャ' (cha) est une combinaison non-voisée, les autres sont voisées"
+          },
+          {
+            options: ['シャ', 'チャ', 'ジャ', 'リャ'],
+            intruder: 'リャ',
+            explanation: "'リャ' (rya) utilise la série R, les autres utilisent des sibilantes (sh/ch/j)"
+          }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Transcription de mots étrangers",
+        instruction: "Écrivez la transcription en romaji",
+        questions: [
+          { hiragana: 'キャンプ', correct: 'kyanpu', alternatives: ['camp'], meaning: 'camping' },
+          { hiragana: 'シャワー', correct: 'shawaa', alternatives: ['shower'], meaning: 'douche' },
+          { hiragana: 'チャンス', correct: 'chansu', alternatives: ['chance'], meaning: 'chance' },
+          { hiragana: 'ジャケット', correct: 'jaketto', alternatives: ['jacket'], meaning: 'veste' },
+          { hiragana: 'リュック', correct: 'ryukku', alternatives: [], meaning: 'sac à dos' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Lecture en contexte",
+        instruction: "Lisez ces mots avec combinaisons",
+        questions: [
+          { hiragana: 'チャット', romaji: 'chatto', meaning: 'chat' },
+          { hiragana: 'ギャラリー', romaji: 'gyararii', meaning: 'galerie' },
+          { hiragana: 'ピュア', romaji: 'pyua', meaning: 'pur' },
+          { hiragana: 'ミュージック', romaji: 'myuujikku', meaning: 'musique' }
+        ]
+      },
+      {
+        type: "dictation",
+        title: "Dictée interactive",
+        instruction: "Écoutez la combinaison et écrivez-la",
+        questions: [
+          { audio: 'kya', correct: 'キャ', alternatives: ['kya'], meaning: '' },
+          { audio: 'sha', correct: 'シャ', alternatives: ['sha'], meaning: '' },
+          { audio: 'cha', correct: 'チャ', alternatives: ['cha'], meaning: '' },
+          { audio: 'nya', correct: 'ニャ', alternatives: ['nya'], meaning: '' },
+          { audio: 'hya', correct: 'ヒャ', alternatives: ['hya'], meaning: '' },
+          { audio: 'mya', correct: 'ミャ', alternatives: ['mya'], meaning: '' },
+          { audio: 'rya', correct: 'リャ', alternatives: ['rya'], meaning: '' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 10 : Révision complète =====
+  {
+    id: "lesson21",
+    title: "Katakana 10 : Révision Générale",
+    description: "Révision de tous les katakana",
+    level: "intermediate",
+    free: true,
+    katakana: [
+      { char: 'ア', romaji: 'a' },
+      { char: 'カ', romaji: 'ka' },
+      { char: 'サ', romaji: 'sa' },
+      { char: 'タ', romaji: 'ta' },
+      { char: 'ナ', romaji: 'na' },
+      { char: 'ハ', romaji: 'ha' },
+      { char: 'マ', romaji: 'ma' },
+      { char: 'ヤ', romaji: 'ya' },
+      { char: 'ラ', romaji: 'ra' },
+      { char: 'ワ', romaji: 'wa' },
+      { char: 'ン', romaji: 'n' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Révision des katakana",
+        instruction: "Révisez les 11 premières lettres de chaque série"
+      },
+      {
+        type: "mcq",
+        title: "Test de révision",
+        instruction: "Quelle est la lecture de ce katakana ?",
+        questions: [
+          { hiragana: 'ア', options: ['a', 'i', 'u', 'e'], correct: 'a' },
+          { hiragana: 'カ', options: ['ka', 'sa', 'ta', 'na'], correct: 'ka' },
+          { hiragana: 'サ', options: ['sa', 'ka', 'ta', 'ha'], correct: 'sa' },
+          { hiragana: 'タ', options: ['ta', 'sa', 'ka', 'na'], correct: 'ta' },
+          { hiragana: 'ナ', options: ['na', 'ma', 'ha', 'ya'], correct: 'na' },
+          { hiragana: 'ハ', options: ['ha', 'na', 'ma', 'ya'], correct: 'ha' },
+          { hiragana: 'マ', options: ['ma', 'na', 'ha', 'ra'], correct: 'ma' },
+          { hiragana: 'ヤ', options: ['ya', 'ma', 'ra', 'wa'], correct: 'ya' },
+          { hiragana: 'ラ', options: ['ra', 'ya', 'ma', 'wa'], correct: 'ra' },
+          { hiragana: 'ワ', options: ['wa', 'ra', 'ya', 'n'], correct: 'wa' },
+          { hiragana: 'ン', options: ['n', 'wa', 'wo', 'no'], correct: 'n' }
+        ]
+      },
+      {
+        type: "transcription",
+        title: "Mots composés",
+        instruction: "Transcrivez ces mots en romaji",
+        questions: [
+          { hiragana: 'アニメ', correct: 'anime', alternatives: [], meaning: 'anime/dessin animé' },
+          { hiragana: 'カラオケ', correct: 'karaoke', alternatives: [], meaning: 'karaoké' },
+          { hiragana: 'ラーメン', correct: 'raamen', alternatives: ['ramen'], meaning: 'ramen' },
+          { hiragana: 'マンガ', correct: 'manga', alternatives: [], meaning: 'manga' },
+          { hiragana: 'サムライ', correct: 'samurai', alternatives: [], meaning: 'samouraï' },
+          { hiragana: 'ニンジャ', correct: 'ninja', alternatives: [], meaning: 'ninja' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KATAKANA LESSON 11 : Mots courants =====
+  {
+    id: "lesson22",
+    title: "Katakana 11 : Mots Courants",
+    description: "Vocabulaire quotidien en katakana",
+    level: "intermediate",
+    free: true,
+    katakana: [
+      { char: 'スマホ', romaji: 'sumaho' },
+      { char: 'パソコン', romaji: 'pasokon' },
+      { char: 'インターネット', romaji: 'intaanetto' },
+      { char: 'テレビ', romaji: 'terebi' },
+      { char: 'エアコン', romaji: 'eakon' }
+    ],
+    steps: [
+      {
+        type: "presentation",
+        title: "Mots courants en katakana",
+        instruction: "Découvrez le vocabulaire quotidien japonais"
+      },
+      {
+        type: "transcription",
+        title: "Technologie",
+        instruction: "Transcrivez ces mots technologiques",
+        questions: [
+          { hiragana: 'スマホ', correct: 'sumaho', alternatives: ['smartphone'], meaning: 'smartphone' },
+          { hiragana: 'パソコン', correct: 'pasokon', alternatives: ['pc'], meaning: 'ordinateur' },
+          { hiragana: 'インターネット', correct: 'intaanetto', alternatives: ['internet'], meaning: 'internet' },
+          { hiragana: 'テレビ', correct: 'terebi', alternatives: ['tv'], meaning: 'télévision' },
+          { hiragana: 'カメラ', correct: 'kamera', alternatives: ['camera'], meaning: 'caméra' },
+          { hiragana: 'ゲーム', correct: 'geemu', alternatives: ['game'], meaning: 'jeu vidéo' }
+        ]
+      },
+      {
+        type: "sentence",
+        title: "Vie quotidienne",
+        instruction: "Lisez ces mots du quotidien",
+        questions: [
+          { hiragana: 'レストラン', romaji: 'resutoran', meaning: 'restaurant' },
+          { hiragana: 'スーパー', romaji: 'suupaa', meaning: 'supermarché' },
+          { hiragana: 'ホテル', romaji: 'hoteru', meaning: 'hôtel' },
+          { hiragana: 'タクシー', romaji: 'takushii', meaning: 'taxi' },
+          { hiragana: 'バス', romaji: 'basu', meaning: 'bus' },
+          { hiragana: 'エレベーター', romaji: 'erebeetaa', meaning: 'ascenseur' }
+        ]
+      }
+    ]
+  },
+
+  // ===== KANJI LESSONS (Imported from kanji-data.js) =====
+  // Note: Les leçons de Kanji sont définies dans kanji-data.js
+  // et seront fusionnées dans le tableau lessonsData lors du chargement
 ];
+
+// Si kanji-data.js est chargé, fusionner les leçons de kanji
+if (typeof kanjiN5Data !== 'undefined') {
+  // Ajouter les 8 leçons de kanji au tableau lessonsData
+  Object.values(kanjiN5Data).forEach(kanjiLesson => {
+    lessonsData.push(kanjiLesson);
+  });
+}
 
 // Badges système
 const badgesData = [
