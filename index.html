@@ -6,8 +6,425 @@
     <meta name="description" content="Apprenez le japonais : hiragana, katakana et vocabulaire">
     <meta name="theme-color" content="#667eea">
     <title>Apprendre le Japonais - Hiragana</title>
-    <link rel="stylesheet" href="style.css?v=4.9.3.1765050615">
+    <link rel="stylesheet" href="style.css?v=5.0.0">
     <link rel="manifest" href="manifest.json">
+    <style>
+        /* ===== DÉFIS QUOTIDIENS ===== */
+        .daily-challenge-section {
+            margin-bottom: 24px;
+        }
+
+        .daily-challenge-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .challenge-icon {
+            font-size: 48px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .challenge-info {
+            flex: 1;
+        }
+
+        .challenge-title {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+        }
+
+        .challenge-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .challenge-stats {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .challenge-btn {
+            background: white !important;
+            color: #f5576c !important;
+            padding: 12px 24px;
+            font-weight: 700;
+        }
+
+        .challenge-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal */
+        .challenge-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .challenge-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        .challenge-modal-container {
+            position: relative;
+            background: white;
+            border-radius: 24px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .challenge-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #f3f4f6;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            color: #6b7280;
+            transition: all 0.2s ease;
+        }
+
+        .challenge-modal-close:hover {
+            background: #e5e7eb;
+            transform: rotate(90deg);
+        }
+
+        .challenge-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .challenge-header h2 {
+            font-size: 28px;
+            margin: 0 0 8px 0;
+            color: #1f2937;
+        }
+
+        .challenge-difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .difficulty-easy {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .difficulty-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .difficulty-hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Proverbe */
+        .proverb-container {
+            text-align: center;
+        }
+
+        .proverb-japanese {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .proverb-hiragana {
+            font-size: 24px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .proverb-romaji {
+            font-size: 18px;
+            color: #9ca3af;
+            font-style: italic;
+            margin-bottom: 32px;
+        }
+
+        .proverb-challenge {
+            text-align: left;
+            margin-top: 32px;
+        }
+
+        .proverb-challenge.hidden {
+            filter: blur(8px);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .proverb-challenge.revealed {
+            animation: revealFade 0.5s ease;
+        }
+
+        @keyframes revealFade {
+            from {
+                opacity: 0;
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        .challenge-separator {
+            border-top: 2px solid #e5e7eb;
+            margin: 24px 0 16px 0;
+            padding-top: 16px;
+            text-align: center;
+        }
+
+        .challenge-separator span {
+            background: white;
+            padding: 0 12px;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .proverb-translation {
+            font-size: 22px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 16px;
+        }
+
+        .proverb-meaning,
+        .proverb-cultural {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4b5563;
+        }
+
+        .proverb-category {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #ede9fe;
+            color: #6d28d9;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Menu */
+        .restaurant-name {
+            font-size: 20px;
+            color: #6b7280;
+        }
+
+        .menu-container {
+            padding: 16px 0;
+        }
+
+        .menu-items {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .menu-item {
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .menu-item.hidden .menu-item-details {
+            filter: blur(8px);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .menu-item.revealed {
+            animation: revealFade 0.5s ease;
+        }
+
+        .menu-item-japanese {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .menu-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+
+        .menu-item-hiragana {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .menu-item-romaji {
+            font-size: 14px;
+            color: #9ca3af;
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .menu-item-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .menu-item-french {
+            font-size: 16px;
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .menu-item-price {
+            font-size: 18px;
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .menu-cultural-note {
+            background: #fef3c7;
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid #f59e0b;
+            margin-bottom: 24px;
+        }
+
+        .menu-cultural-note strong {
+            color: #92400e;
+        }
+
+        .menu-cultural-note p {
+            margin: 8px 0 0 0;
+            color: #78350f;
+            line-height: 1.6;
+        }
+
+        /* Boutons */
+        .reveal-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reveal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .reveal-btn:active {
+            transform: translateY(0);
+        }
+
+        .completed-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 24px;
+            animation: completionPop 0.5s ease;
+        }
+
+        @keyframes completionPop {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Container principal -->
@@ -21,103 +438,25 @@
             </div>
         </div>
 
-        <!-- Menu Hamburger -->
-        <div id="hamburger-menu" class="hamburger-menu">
-            <div class="menu-overlay" id="menu-overlay"></div>
-            <div class="menu-content">
-                <div class="menu-header">
-                    <div class="menu-user-profile">
-                        <div class="user-avatar">日</div>
-                        <div class="user-info">
-                            <p class="user-name" id="menu-username">Étudiant</p>
-                            <p class="user-level-text">Niveau <span id="menu-user-level">1</span></p>
-                        </div>
-                    </div>
-                    <button class="menu-close-btn" id="menu-close-btn">✕</button>
-                </div>
-
-                <div class="menu-stats-grid">
-                    <div class="menu-stat-card">
-                        <div class="menu-stat-icon">🔥</div>
-                        <div class="menu-stat-value" id="menu-streak">0</div>
-                        <div class="menu-stat-label">Jours de série</div>
-                    </div>
-                    <div class="menu-stat-card">
-                        <div class="menu-stat-icon">⭐</div>
-                        <div class="menu-stat-value" id="menu-points">0</div>
-                        <div class="menu-stat-label">Points XP</div>
-                    </div>
-                    <div class="menu-stat-card">
-                        <div class="menu-stat-icon">🏅</div>
-                        <div class="menu-stat-value" id="menu-badges">0</div>
-                        <div class="menu-stat-label">Badges</div>
-                    </div>
-                </div>
-
-                <nav class="menu-nav">
-                    <a href="#" class="menu-nav-item" id="menu-home">
-                        <span class="menu-nav-icon">🏠</span>
-                        <span class="menu-nav-label">Accueil</span>
-                    </a>
-                    <a href="#" class="menu-nav-item" id="menu-leaderboard">
-                        <span class="menu-nav-icon">🏆</span>
-                        <span class="menu-nav-label">Classement</span>
-                        <span class="menu-nav-badge">TOP 50</span>
-                    </a>
-                    <a href="#" class="menu-nav-item" id="menu-stats">
-                        <span class="menu-nav-icon">📊</span>
-                        <span class="menu-nav-label">Statistiques</span>
-                    </a>
-                    <a href="#" class="menu-nav-item" id="menu-badges">
-                        <span class="menu-nav-icon">🎖️</span>
-                        <span class="menu-nav-label">Badges</span>
-                        <span class="menu-nav-notification" id="new-badge-dot" style="display: none;"></span>
-                    </a>
-                    <div class="menu-divider"></div>
-                    <a href="#" class="menu-nav-item" id="menu-settings">
-                        <span class="menu-nav-icon">⚙️</span>
-                        <span class="menu-nav-label">Paramètres</span>
-                    </a>
-                </nav>
-
-                <div class="menu-footer">
-                    <p class="menu-version">Version 4.9.3</p>
-                </div>
-            </div>
-        </div>
-
         <!-- Écran d'accueil -->
         <div id="home-screen" class="screen" style="display: none;">
-            <header class="app-header-new">
-                <button class="hamburger-btn" id="hamburger-btn">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
-
-                <h1 class="app-title-new">日本語</h1>
-
-                <div class="header-streak">
-                    <div class="streak-flame-container">
-                        <span class="streak-flame">🔥</span>
-                        <span class="streak-number" id="header-streak">0</span>
+            <header class="app-header">
+                <h1 class="app-title">📚 Apprendre le Japonais</h1>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">🏆</span>
+                        <span class="stat-value" id="user-level">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⭐</span>
+                        <span class="stat-value" id="user-xp">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🔥</span>
+                        <span class="stat-value" id="user-streak">0</span>
                     </div>
                 </div>
             </header>
-
-            <!-- Barre de progression niveau avec XP -->
-            <div class="level-progress-bar">
-                <div class="level-info">
-                    <span class="level-badge">
-                        <span class="level-icon">🏆</span>
-                        <span class="level-text">Niveau <span id="header-level">1</span></span>
-                    </span>
-                    <span class="xp-text"><span id="header-xp">0</span> XP</span>
-                </div>
-                <div class="xp-bar-container">
-                    <div class="xp-bar" id="xp-bar" style="width: 0%"></div>
-                </div>
-            </div>
 
             <div class="content">
                 <section class="progress-section">
@@ -140,15 +479,18 @@
                     </div>
                 </div>
 
-                <!-- Mode Histoire/Aventure -->
-                <div class="story-mode-section">
-                    <div class="story-mode-card">
-                        <div class="story-mode-icon">📖</div>
-                        <div class="story-mode-info">
-                            <h3 class="story-mode-title">Mode Histoire : Voyage au Japon</h3>
-                            <p class="story-mode-description">Une aventure à travers le Japon · <span id="story-progress-percent">9%</span> complété</p>
+                <!-- Défi Quotidien -->
+                <div class="daily-challenge-section">
+                    <div class="daily-challenge-card">
+                        <div class="challenge-icon" id="challenge-icon">🎋</div>
+                        <div class="challenge-info">
+                            <h3 class="challenge-title" id="challenge-title">Défi du Jour</h3>
+                            <p class="challenge-description" id="challenge-description">Découvre le proverbe japonais du jour</p>
                         </div>
-                        <button class="primary-btn story-btn" id="start-story-btn">Explorer 🗺️</button>
+                        <div class="challenge-stats">
+                            <span id="challenges-completed">0</span> complétés
+                        </div>
+                        <button class="primary-btn challenge-btn" id="start-challenge-btn">Découvrir 🎯</button>
                     </div>
                 </div>
 
@@ -158,7 +500,7 @@
                         <div class="cultural-phrase-header">
                             <div class="cultural-phrase-date">
                                 <span class="cultural-phrase-icon">🌸</span>
-                                <span class="cultural-phrase-label">Phrase du jour</span>
+                                <span class="cultural-phrase-label">PHRASE DU JOUR</span>
                             </div>
                             <div class="cultural-phrase-collection">
                                 <span id="viewed-phrases-count">0</span>/30
@@ -190,7 +532,14 @@
                 </div>
 
                 <section class="lessons-section">
-                    <h2 class="section-title">Leçons d'hiragana</h2>
+                    <div class="lessons-header">
+                        <h2 class="section-title" id="lessons-title">Leçons d'hiragana</h2>
+                        <div class="script-toggle">
+                            <button class="toggle-btn active" id="hiragana-tab" data-script="hiragana">Hiragana</button>
+                            <button class="toggle-btn" id="katakana-tab" data-script="katakana">Katakana</button>
+                            <button class="toggle-btn" id="kanji-tab" data-script="kanji">Kanji <span class="new-badge">NEW</span></button>
+                        </div>
+                    </div>
                     <div id="lessons-list" class="lessons-grid">
                         <!-- Les leçons seront insérées ici par JavaScript -->
                     </div>
@@ -510,85 +859,6 @@
         </div>
     </div>
 
-        <!-- Écran Mode Histoire - Carte Interactive -->
-        <div id="story-map-screen" class="screen" style="display: none;">
-            <header class="app-header-new">
-                <button class="back-btn" id="story-back-btn">← Retour</button>
-                <h1 class="app-title-new">Voyage au Japon 🗾</h1>
-                <div class="story-progress-badge">
-                    <span id="story-chapters-completed">1</span>/11
-                </div>
-            </header>
-
-            <div class="content story-content">
-                <!-- Introduction de l'histoire -->
-                <div class="story-intro-card">
-                    <div class="story-intro-icon">🇯🇵</div>
-                    <h2 class="story-intro-title">L'aventure d'un voyageur sans mots</h2>
-                    <p class="story-intro-text">
-                        Vous venez d'arriver à Tokyo. Vous ne parlez pas un mot de japonais.
-                        Votre aventure commence maintenant... Explorez le Japon et débloquez
-                        chaque lieu en complétant les leçons !
-                    </p>
-                </div>
-
-                <!-- Carte interactive du Japon -->
-                <div class="japan-map-container">
-                    <h3 class="map-title">🗺️ Carte du Japon</h3>
-                    <div class="japan-map">
-                        <!-- Les points de la carte seront insérés ici par JavaScript -->
-                        <div id="map-points"></div>
-
-                        <!-- Illustration stylisée du Japon -->
-                        <div class="map-background">
-                            <div class="map-island"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Liste des chapitres -->
-                <div class="chapters-list">
-                    <h3 class="chapters-title">📚 Chapitres de votre voyage</h3>
-                    <div id="chapters-container">
-                        <!-- Les chapitres seront insérés ici par JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal détail chapitre -->
-        <div id="chapter-modal" class="modal" style="display: none;">
-            <div class="modal-overlay" id="chapter-modal-overlay"></div>
-            <div class="modal-content chapter-modal-content">
-                <button class="modal-close-btn" id="close-chapter-modal">✕</button>
-                <div class="chapter-detail">
-                    <div class="chapter-location" id="modal-chapter-location">🛬 Aéroport Narita</div>
-                    <h3 class="chapter-title" id="modal-chapter-title">Arrivée à Tokyo</h3>
-
-                    <div class="chapter-story">
-                        <p class="chapter-intro" id="modal-chapter-intro">Vous venez d'atterrir...</p>
-
-                        <div class="chapter-challenge">
-                            <strong>🎯 Votre mission :</strong>
-                            <p id="modal-chapter-challenge">Apprendre les bases...</p>
-                        </div>
-
-                        <div class="chapter-characters" id="modal-chapter-characters">
-                            <!-- Personnages du chapitre -->
-                        </div>
-
-                        <div class="chapter-reward">
-                            <strong>🎁 Récompense :</strong>
-                            <p id="modal-chapter-reward">Badge débloqué</p>
-                        </div>
-                    </div>
-
-                    <button class="primary-btn chapter-start-btn" id="modal-start-lesson">
-                        Commencer cette aventure
-                    </button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Modal de badge débloqué -->
@@ -683,18 +953,26 @@
     </div>
 
     <!-- Scripts -->
-    <!-- Supabase SDK (CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase SDK (CDN) - DÉSACTIVÉ TEMPORAIREMENT -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> -->
 
     <!-- Scripts de l'application -->
-    <script src="lessons-data.js?v=4.9.3.1765050615"></script>
-    <script src="story-mode.js?v=4.9.3.1765050615"></script>
-    <script src="story-mode-ui.js?v=4.9.3.1765050615"></script>
-    <script src="cultural-phrases.js?v=4.9.3.1765050615"></script>
-    <script src="cultural-phrase-ui.js?v=4.9.3.1765050615"></script>
-    <script src="supabase-config.js?v=4.9.3.1765050615"></script>
-    <script src="leaderboard.js?v=4.9.3.1765050615"></script>
-    <script src="app.js?v=4.9.3.1765050615"></script>
+    <script src="kanji-data.js?v=5.0.0"></script>
+    <script src="lessons-data.js?v=5.0.0"></script>
+    <script src="cultural-phrases.js?v=4.9.5"></script>
+    <script src="cultural-phrase-ui.js?v=4.9.5"></script>
+    <script src="daily-challenges.js?v=5.3.0"></script>
+    <script src="daily-challenges-ui.js?v=5.3.0"></script>
+    <script src="app.js?v=4.9.5"></script>
+
+    <!-- Modal Défi Quotidien -->
+    <div id="challenge-modal" class="challenge-modal" style="display: none; opacity: 0;">
+        <div class="challenge-modal-overlay" onclick="closeChallengeModal()"></div>
+        <div class="challenge-modal-container">
+            <button class="challenge-modal-close" onclick="closeChallengeModal()">✕</button>
+            <div id="challenge-modal-content"></div>
+        </div>
+    </div>
 
     <!-- Service Worker Registration -->
     <script>
