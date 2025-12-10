@@ -231,6 +231,166 @@ const FeedbackSound = {
   }
 };
 
+// ===== HELPER D'ANIMATIONS =====
+const AnimationHelper = {
+  /**
+   * Applique une animation de feedback pour une réponse correcte
+   * @param {HTMLElement} element - L'élément à animer
+   */
+  animateCorrect: function(element) {
+    // Retirer toutes les classes d'animation précédentes
+    element.classList.remove('animate-shake', 'animate-errorFlash', 'animate-bounce', 'animate-successFlash');
+
+    // Ajouter les classes de réponse correcte
+    element.classList.add('answer-correct', 'animate-successFlash', 'animate-bounce');
+
+    // Retirer les classes après l'animation
+    setTimeout(() => {
+      element.classList.remove('animate-successFlash', 'animate-bounce');
+    }, 600);
+  },
+
+  /**
+   * Applique une animation de feedback pour une réponse incorrecte
+   * @param {HTMLElement} element - L'élément à animer
+   */
+  animateIncorrect: function(element) {
+    // Retirer toutes les classes d'animation précédentes
+    element.classList.remove('animate-successFlash', 'animate-bounce', 'animate-shake', 'animate-errorFlash');
+
+    // Ajouter les classes de réponse incorrecte
+    element.classList.add('answer-wrong', 'animate-errorFlash', 'animate-shake');
+
+    // Retirer les classes après l'animation
+    setTimeout(() => {
+      element.classList.remove('animate-errorFlash', 'animate-shake');
+    }, 600);
+  },
+
+  /**
+   * Anime la transition entre deux questions
+   * @param {HTMLElement} oldElement - L'élément de l'ancienne question
+   * @param {Function} callback - Fonction à appeler après la transition
+   */
+  transitionQuestion: function(oldElement, callback) {
+    if (!oldElement) {
+      callback();
+      return;
+    }
+
+    // Ajouter l'animation de sortie
+    oldElement.classList.add('question-exit');
+
+    // Attendre la fin de l'animation avant de continuer
+    setTimeout(() => {
+      callback();
+
+      // Animer l'entrée de la nouvelle question
+      setTimeout(() => {
+        const newElement = document.querySelector('.exercise');
+        if (newElement) {
+          newElement.classList.add('question-enter');
+
+          // Retirer la classe après l'animation
+          setTimeout(() => {
+            newElement.classList.remove('question-enter');
+          }, 400);
+        }
+      }, 50);
+    }, 400);
+  },
+
+  /**
+   * Anime le feedback visuel (message de succès/erreur)
+   * @param {HTMLElement} element - L'élément feedback à animer
+   * @param {boolean} isSuccess - true pour succès, false pour erreur
+   */
+  animateFeedback: function(element, isSuccess) {
+    // Retirer toutes les animations précédentes
+    element.classList.remove('animate-slideInUp', 'animate-slideInDown', 'animate-zoomIn');
+
+    // Ajouter l'animation d'entrée
+    element.classList.add('animate-slideInUp');
+
+    // Retirer après l'animation
+    setTimeout(() => {
+      element.classList.remove('animate-slideInUp');
+    }, 400);
+  },
+
+  /**
+   * Anime la perte d'une vie
+   * @param {HTMLElement} heartElement - L'élément coeur à animer
+   */
+  animateLifeLost: function(heartElement) {
+    if (!heartElement) return;
+
+    heartElement.classList.add('animate-lifeLost');
+
+    // L'animation a forwards, pas besoin de retirer
+  },
+
+  /**
+   * Anime le gain d'une vie
+   * @param {HTMLElement} heartElement - L'élément coeur à animer
+   */
+  animateLifeGained: function(heartElement) {
+    if (!heartElement) return;
+
+    // Retirer l'animation de perte si présente
+    heartElement.classList.remove('animate-lifeLost');
+
+    // Ajouter l'animation de gain
+    heartElement.classList.add('animate-lifeGained');
+
+    setTimeout(() => {
+      heartElement.classList.remove('animate-lifeGained');
+    }, 600);
+  },
+
+  /**
+   * Anime un badge débloqué
+   * @param {HTMLElement} badgeElement - L'élément badge à animer
+   */
+  animateBadgeUnlock: function(badgeElement) {
+    if (!badgeElement) return;
+
+    badgeElement.classList.add('animate-badgeUnlock');
+
+    setTimeout(() => {
+      badgeElement.classList.remove('animate-badgeUnlock');
+    }, 800);
+  },
+
+  /**
+   * Anime un bouton au clic
+   * @param {HTMLElement} button - Le bouton à animer
+   */
+  animateButtonPress: function(button) {
+    if (!button) return;
+
+    button.classList.add('animate-buttonPress');
+
+    setTimeout(() => {
+      button.classList.remove('animate-buttonPress');
+    }, 200);
+  },
+
+  /**
+   * Ajoute une animation de chargement staggerée aux éléments d'une liste
+   * @param {NodeList} elements - Les éléments à animer
+   * @param {string} animationClass - La classe d'animation à appliquer
+   * @param {number} delay - Délai entre chaque élément (ms)
+   */
+  staggerAnimation: function(elements, animationClass = 'animate-slideInUp', delay = 100) {
+    elements.forEach((element, index) => {
+      setTimeout(() => {
+        element.classList.add(animationClass);
+      }, index * delay);
+    });
+  }
+};
+
 // ===== GESTION DU LOCALSTORAGE =====
 const Storage = {
   // Récupérer la progression
@@ -486,6 +646,20 @@ const Navigation = {
     this.goToConfig(null);
   },
 
+  goToSRS: function() {
+    // Initialiser le SRS et afficher l'écran principal
+    SRSStorage.initialize();
+    const dueCards = SRSStorage.getDueCards();
+
+    if (dueCards.length === 0) {
+      // Aucune carte due, afficher quand même l'écran SRS
+      SRSScreen.render();
+    } else {
+      // Afficher l'écran SRS avec les cartes dues
+      SRSScreen.render();
+    }
+  },
+
   generateReviewLesson: function(mistakes) {
     // Récupérer les données de caractères hiragana de toutes les leçons
     const allHiragana = [];
@@ -623,6 +797,18 @@ const Navigation = {
       reviewSection.style.display = 'none';
     }
 
+    // Afficher le nombre de cartes SRS dues
+    try {
+      SRSStorage.initialize();
+      const dueCards = SRSStorage.getDueCards();
+      const srsDueCount = document.getElementById('srs-due-count');
+      if (srsDueCount) {
+        srsDueCount.textContent = dueCards.length;
+      }
+    } catch (e) {
+      console.error('Erreur lors du chargement des cartes SRS:', e);
+    }
+
     // Filtrer les leçons selon le script sélectionné (hiragana, katakana ou kanji)
     const filteredLessons = lessonsData.filter(lesson => {
       // Si la leçon a la propriété hiragana, c'est une leçon hiragana
@@ -682,6 +868,10 @@ const Navigation = {
 
       lessonsList.appendChild(card);
     });
+
+    // ✨ ANIMATION: Animations staggerées pour les cartes de leçons
+    const allCards = document.querySelectorAll('.lesson-card');
+    AnimationHelper.staggerAnimation(allCards, 'animate-slideInUp', 80);
   },
 
   renderConfig: function() {
@@ -964,6 +1154,9 @@ const Navigation = {
   }
 };
 
+// Exposer Navigation globalement pour srs-ui-v2.js
+window.Navigation = Navigation;
+
 // ===== CONTRÔLEUR DE LEÇON =====
 const LessonController = {
   start: function() {
@@ -1171,16 +1364,28 @@ const LessonController = {
         // Désactiver tous les boutons
         document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
 
-        // Colorer la réponse
-        this.classList.add(isCorrect ? 'correct' : 'incorrect');
-        if (!isCorrect) {
-          document.querySelector(`[data-answer="${correct}"]`).classList.add('correct');
+        // ✨ ANIMATION: Feedback animé avec AnimationHelper
+        if (isCorrect) {
+          AnimationHelper.animateCorrect(this);
+          this.classList.add('correct');
+        } else {
+          AnimationHelper.animateIncorrect(this);
+          this.classList.add('incorrect');
+          // Montrer la bonne réponse avec animation
+          const correctBtn = document.querySelector(`[data-answer="${correct}"]`);
+          if (correctBtn) {
+            setTimeout(() => {
+              AnimationHelper.animateCorrect(correctBtn);
+              correctBtn.classList.add('correct');
+            }, 300);
+          }
         }
 
-        // Afficher le feedback
+        // Afficher le feedback avec animation
         const feedback = document.getElementById('feedback');
         feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
         feedback.innerHTML = isCorrect ? '✅ Bonne réponse !' : `❌ La bonne réponse était : ${correct}`;
+        AnimationHelper.animateFeedback(feedback, isCorrect);
 
         // Jouer le son de feedback
         if (isCorrect) {
@@ -1227,14 +1432,28 @@ const LessonController = {
         const isCorrect = selected === correct;
 
         document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
-        this.classList.add(isCorrect ? 'correct' : 'incorrect');
-        if (!isCorrect) {
-          document.querySelector(`[data-answer="${correct}"]`).classList.add('correct');
+
+        // ✨ ANIMATION: Feedback animé pour exercice Intruder
+        if (isCorrect) {
+          AnimationHelper.animateCorrect(this);
+          this.classList.add('correct');
+        } else {
+          AnimationHelper.animateIncorrect(this);
+          this.classList.add('incorrect');
+          // Montrer la bonne réponse avec animation
+          const correctBtn = document.querySelector(`[data-answer="${correct}"]`);
+          if (correctBtn) {
+            setTimeout(() => {
+              AnimationHelper.animateCorrect(correctBtn);
+              correctBtn.classList.add('correct');
+            }, 300);
+          }
         }
 
         const feedback = document.getElementById('feedback');
         feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
         feedback.innerHTML = (isCorrect ? '✅ Bonne réponse ! ' : '❌ ') + question.data.explanation;
+        AnimationHelper.animateFeedback(feedback, isCorrect);
 
         // Jouer le son de feedback
         if (isCorrect) {
@@ -1296,7 +1515,14 @@ const LessonController = {
 
     const isCorrect = answer === correct || alternatives.some(alt => alt.toLowerCase() === answer);
 
-    input.classList.add(isCorrect ? 'correct' : 'incorrect');
+    // ✨ ANIMATION: Feedback animé pour transcription
+    if (isCorrect) {
+      AnimationHelper.animateCorrect(input);
+      input.classList.add('correct');
+    } else {
+      AnimationHelper.animateIncorrect(input);
+      input.classList.add('incorrect');
+    }
     input.disabled = true;
 
     const feedback = document.getElementById('feedback');
@@ -1304,6 +1530,7 @@ const LessonController = {
     feedback.innerHTML = isCorrect
       ? '✅ Bonne réponse !'
       : `❌ La bonne réponse était : ${correct}${alternatives.length > 0 ? ' (ou ' + alternatives.join(', ') + ')' : ''}`;
+    AnimationHelper.animateFeedback(feedback, isCorrect);
 
     // Jouer le son de feedback
     if (isCorrect) {
@@ -1368,7 +1595,14 @@ const LessonController = {
 
     const isCorrect = answer === correct;
 
-    input.classList.add(isCorrect ? 'correct' : 'incorrect');
+    // ✨ ANIMATION: Feedback animé pour phrase
+    if (isCorrect) {
+      AnimationHelper.animateCorrect(input);
+      input.classList.add('correct');
+    } else {
+      AnimationHelper.animateIncorrect(input);
+      input.classList.add('incorrect');
+    }
     input.disabled = true;
 
     const feedback = document.getElementById('feedback');
@@ -1376,6 +1610,7 @@ const LessonController = {
     feedback.innerHTML = isCorrect
       ? '✅ Bonne réponse !'
       : `❌ La bonne réponse était : ${question.data.romaji}`;
+    AnimationHelper.animateFeedback(feedback, isCorrect);
 
     // Jouer le son de feedback
     if (isCorrect) {
@@ -1427,16 +1662,28 @@ const LessonController = {
         // Désactiver tous les boutons
         document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
 
-        // Colorer la réponse
-        this.classList.add(isCorrect ? 'correct' : 'incorrect');
-        if (!isCorrect) {
-          document.querySelector(`[data-answer="${correct}"]`).classList.add('correct');
+        // ✨ ANIMATION: Feedback animé pour Kanji MCQ
+        if (isCorrect) {
+          AnimationHelper.animateCorrect(this);
+          this.classList.add('correct');
+        } else {
+          AnimationHelper.animateIncorrect(this);
+          this.classList.add('incorrect');
+          // Montrer la bonne réponse avec animation
+          const correctBtn = document.querySelector(`[data-answer="${correct}"]`);
+          if (correctBtn) {
+            setTimeout(() => {
+              AnimationHelper.animateCorrect(correctBtn);
+              correctBtn.classList.add('correct');
+            }, 300);
+          }
         }
 
-        // Afficher le feedback
+        // Afficher le feedback avec animation
         const feedback = document.getElementById('feedback');
         feedback.className = 'feedback ' + (isCorrect ? 'success' : 'error');
         feedback.innerHTML = isCorrect ? '✅ Bonne réponse !' : `❌ La bonne réponse était : ${correct}`;
+        AnimationHelper.animateFeedback(feedback, isCorrect);
 
         // Enregistrer la réponse
         appState.answers.push({
@@ -1557,7 +1804,14 @@ const LessonController = {
 
     const isCorrect = answer === correct || alternatives.some(alt => alt.toLowerCase() === answer);
 
-    input.classList.add(isCorrect ? 'correct' : 'incorrect');
+    // ✨ ANIMATION: Feedback animé pour transcription
+    if (isCorrect) {
+      AnimationHelper.animateCorrect(input);
+      input.classList.add('correct');
+    } else {
+      AnimationHelper.animateIncorrect(input);
+      input.classList.add('incorrect');
+    }
     input.disabled = true;
 
     const feedback = document.getElementById('feedback');
@@ -1565,6 +1819,7 @@ const LessonController = {
     feedback.innerHTML = isCorrect
       ? '✅ Bonne réponse !'
       : `❌ La bonne réponse était : ${correct}${alternatives.length > 0 ? ' (ou ' + alternatives.join(', ') + ')' : ''}`;
+    AnimationHelper.animateFeedback(feedback, isCorrect);
 
     // Jouer le son de feedback
     if (isCorrect) {
@@ -1894,6 +2149,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('stats-btn')?.addEventListener('click', () => Navigation.goToStats());
   document.getElementById('stats-back-btn')?.addEventListener('click', () => Navigation.goToHome());
   document.getElementById('start-review-btn')?.addEventListener('click', () => Navigation.goToReview());
+  document.getElementById('start-srs-btn')?.addEventListener('click', () => Navigation.goToSRS());
   document.getElementById('close-badge-modal')?.addEventListener('click', closeBadgeModal);
 
   // Menu Hamburger - DÉSACTIVÉ (retour au design classique avec footer fixe)
@@ -2068,6 +2324,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Re-render les leçons
     Navigation.renderHome();
   });
+
+  // Initialisation Lives System
+  if (window.LivesUI && window.LivesSystem) {
+    const livesContainer = document.getElementById('lives-container-header');
+    if (livesContainer) {
+      livesContainer.innerHTML = LivesUI.createLivesIndicator();
+      console.log('✅ Lives system initialized:', LivesSystem.getStats());
+    } else {
+      console.error('❌ Lives container not found!');
+    }
+  } else {
+    console.error('❌ LivesUI or LivesSystem not loaded!', {
+      LivesUI: !!window.LivesUI,
+      LivesSystem: !!window.LivesSystem
+    });
+  }
 
   // Initialisation
   setTimeout(() => {

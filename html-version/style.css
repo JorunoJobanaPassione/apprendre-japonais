@@ -698,6 +698,12 @@ body {
 .option-btn:hover {
     border-color: var(--primary);
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(102, 126, 234, 0.2);
+}
+
+.option-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
 }
 
 .option-btn.correct {
@@ -811,6 +817,12 @@ body {
 .primary-btn:hover {
     background: var(--primary-dark);
     transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
+}
+
+.primary-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
 }
 
 .secondary-btn {
@@ -822,6 +834,13 @@ body {
 .secondary-btn:hover {
     border-color: var(--primary);
     color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.secondary-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .next-btn {

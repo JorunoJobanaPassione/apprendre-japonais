@@ -6,7 +6,10 @@
     <meta name="description" content="Apprenez le japonais : hiragana, katakana et vocabulaire">
     <meta name="theme-color" content="#667eea">
     <title>Apprendre le Japonais - Hiragana</title>
-    <link rel="stylesheet" href="style.css?v=5.0.0">
+    <link rel="stylesheet" href="style.css?v=5.4.0">
+    <link rel="stylesheet" href="srs-styles.css?v=5.5.3">
+    <link rel="stylesheet" href="lives-styles.css?v=5.5.1">
+    <link rel="stylesheet" href="animations.css?v=1.0">
     <link rel="manifest" href="manifest.json">
     <style>
         /* ===== DÉFIS QUOTIDIENS ===== */
@@ -455,6 +458,10 @@
                         <span class="stat-icon">🔥</span>
                         <span class="stat-value" id="user-streak">0</span>
                     </div>
+                    <!-- Lives indicator -->
+                    <div class="stat-item" id="lives-container-header">
+                        <!-- Injecté par lives-ui.js -->
+                    </div>
                 </div>
             </header>
 
@@ -528,6 +535,18 @@
                             <p class="review-mode-description"><span id="mistakes-count">0</span> caractère(s) à réviser</p>
                         </div>
                         <button class="primary-btn" id="start-review-btn">Commencer</button>
+                    </div>
+                </div>
+
+                <!-- Système de Répétition Espacée (SRS) -->
+                <div id="srs-mode-section" class="review-mode-section">
+                    <div class="review-mode-card srs-card">
+                        <div class="review-mode-icon">🧠</div>
+                        <div class="review-mode-info">
+                            <h3 class="review-mode-title">Révisions SRS</h3>
+                            <p class="review-mode-description"><span id="srs-due-count">0</span> carte(s) à réviser • Système de répétition optimisé</p>
+                        </div>
+                        <button class="primary-btn" id="start-srs-btn">Réviser</button>
                     </div>
                 </div>
 
@@ -957,13 +976,21 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> -->
 
     <!-- Scripts de l'application -->
-    <script src="kanji-data.js?v=5.0.0"></script>
-    <script src="lessons-data.js?v=5.0.0"></script>
-    <script src="cultural-phrases.js?v=4.9.5"></script>
-    <script src="cultural-phrase-ui.js?v=4.9.5"></script>
-    <script src="daily-challenges.js?v=5.3.0"></script>
-    <script src="daily-challenges-ui.js?v=5.3.0"></script>
-    <script src="app.js?v=4.9.5"></script>
+    <script src="kanji-data.js?v=5.4.0"></script>
+    <script src="lessons-data.js?v=5.4.0"></script>
+    <script src="cultural-phrases.js?v=5.4.0"></script>
+    <script src="cultural-phrase-ui.js?v=5.4.0"></script>
+    <script src="daily-challenges.js?v=5.4.0"></script>
+    <script src="daily-challenges-ui.js?v=5.4.0"></script>
+    <!-- SRS (Spaced Repetition System) -->
+    <script src="srs.js?v=5.4.0"></script>
+    <script src="srs-storage.js?v=5.4.0"></script>
+    <!-- Lives System (Gamification) -->
+    <script src="lives-system.js?v=5.5.3"></script>
+    <script src="lives-ui.js?v=5.5.3"></script>
+    <script src="srs-ui-v2.js?v=5.5.2"></script>
+    <script src="srs-screen.js?v=5.4.0"></script>
+    <script src="app.js?v=5.5.2"></script>
 
     <!-- Modal Défi Quotidien -->
     <div id="challenge-modal" class="challenge-modal" style="display: none; opacity: 0;">

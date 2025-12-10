@@ -1,0 +1,323 @@
+/**
+ * 💖 Lives System Styles
+ * Version: 1.0.0
+ */
+
+/* ===== Container des vies ===== */
+.lives-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* ===== Coeurs ===== */
+.lives-hearts {
+  display: flex;
+  gap: 4px;
+  font-size: 20px;
+}
+
+.heart {
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.heart.full {
+  animation: heartbeat 1s ease-in-out infinite;
+}
+
+.heart.empty {
+  opacity: 0.4;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ===== Timer de recharge ===== */
+.lives-timer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.timer-icon {
+  font-size: 16px;
+}
+
+.timer-text {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== Animations ===== */
+@keyframes lives-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.lives-shake {
+  animation: lives-shake 0.5s ease;
+}
+
+@keyframes lives-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.lives-pulse {
+  animation: lives-pulse 0.5s ease;
+}
+
+/* ===== Modal Plus de Vies ===== */
+.lives-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lives-modal.show {
+  opacity: 1;
+}
+
+.lives-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.lives-modal-content {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.lives-modal.show .lives-modal-content {
+  transform: scale(1);
+}
+
+/* Close button */
+.lives-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 24px;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 1;
+}
+
+.lives-modal-close:hover {
+  background: #e5e7eb;
+  transform: scale(1.1);
+}
+
+/* Header */
+.lives-modal-header {
+  text-align: center;
+  padding: 40px 30px 30px;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border-radius: 20px 20px 0 0;
+}
+
+.lives-modal-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.lives-modal-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #991b1b;
+  margin: 0 0 8px 0;
+}
+
+.lives-modal-header p {
+  font-size: 16px;
+  color: #7f1d1d;
+  margin: 0;
+}
+
+/* Body */
+.lives-modal-body {
+  padding: 30px;
+}
+
+/* Recharge Info */
+.lives-recharge-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #f9fafb;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.recharge-icon {
+  font-size: 48px;
+}
+
+.recharge-text {
+  flex: 1;
+}
+
+.recharge-text strong {
+  display: block;
+  font-size: 16px;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.recharge-timer {
+  font-size: 32px;
+  font-weight: 700;
+  color: #667eea;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Info Box */
+.lives-info-box {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.lives-info-box p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #1e40af;
+  line-height: 1.5;
+}
+
+.lives-info-box strong {
+  color: #1e3a8a;
+}
+
+/* Actions */
+.lives-modal-actions {
+  display: flex;
+  gap: 12px;
+  padding: 0 30px 30px;
+}
+
+.lives-modal-actions button {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.lock-icon {
+  font-size: 18px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .lives-modal-content {
+    width: 95%;
+  }
+
+  .lives-modal-header {
+    padding: 30px 20px 20px;
+  }
+
+  .lives-modal-header h2 {
+    font-size: 24px;
+  }
+
+  .lives-modal-body {
+    padding: 20px;
+  }
+
+  .lives-recharge-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .recharge-timer {
+    font-size: 28px;
+  }
+
+  .lives-modal-actions {
+    flex-direction: column;
+    padding: 0 20px 20px;
+  }
+}
