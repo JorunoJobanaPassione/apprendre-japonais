@@ -8,8 +8,11 @@
     <title>Apprendre le Japonais - Hiragana</title>
     <link rel="stylesheet" href="style.css?v=5.4.0">
     <link rel="stylesheet" href="srs-styles.css?v=5.5.3">
+    <link rel="stylesheet" href="srs-stats-styles.css?v=1.0">
     <link rel="stylesheet" href="lives-styles.css?v=5.5.1">
     <link rel="stylesheet" href="animations.css?v=1.0">
+    <link rel="stylesheet" href="quests-styles.css?v=1.0">
+    <link rel="stylesheet" href="leaderboard-styles.css?v=2.0">
     <link rel="manifest" href="manifest.json">
     <style>
         /* ===== DÉFIS QUOTIDIENS ===== */
@@ -546,7 +549,12 @@
                             <h3 class="review-mode-title">Révisions SRS</h3>
                             <p class="review-mode-description"><span id="srs-due-count">0</span> carte(s) à réviser • Système de répétition optimisé</p>
                         </div>
-                        <button class="primary-btn" id="start-srs-btn">Réviser</button>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="primary-btn" id="start-srs-btn">Réviser</button>
+                            <button class="secondary-btn" id="srs-stats-btn" onclick="SRSStatsScreen.show()" style="background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.5); color: #fff; padding: 0.8rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                                📊 Stats
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -975,6 +983,9 @@
     <!-- Supabase SDK (CDN) - DÉSACTIVÉ TEMPORAIREMENT -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> -->
 
+    <!-- Chart.js pour les statistiques avancées -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
     <!-- Scripts de l'application -->
     <script src="kanji-data.js?v=5.4.0"></script>
     <script src="lessons-data.js?v=5.4.0"></script>
@@ -990,6 +1001,17 @@
     <script src="lives-ui.js?v=5.5.3"></script>
     <script src="srs-ui-v2.js?v=5.5.2"></script>
     <script src="srs-screen.js?v=5.4.0"></script>
+    <!-- SRS Stats Advanced System -->
+    <script src="srs-stats-advanced.js?v=1.0"></script>
+    <script src="srs-charts.js?v=1.0"></script>
+    <script src="srs-stats-screen.js?v=1.0"></script>
+    <!-- Quests System (Daily Engagement) -->
+    <script src="quests-data.js?v=1.0"></script>
+    <script src="quests-system.js?v=1.0"></script>
+    <script src="quests-ui.js?v=1.0"></script>
+    <!-- Leaderboard Enhanced V2 -->
+    <script src="leaderboard-enhanced.js?v=2.0"></script>
+    <script src="leaderboard-ui-v2.js?v=2.0"></script>
     <script src="app.js?v=5.5.2"></script>
 
     <!-- Modal Défi Quotidien -->

@@ -238,6 +238,11 @@ const SRSUI_V2 = {
     const updatedCard = SRS.updateCard(card, quality);
     SRSStorage.saveCard(updatedCard);
 
+    // 🎯 Quête: Review SRS complétée
+    if (window.QuestsSystem) {
+      window.QuestsSystem.onSRSReview();
+    }
+
     // Mettre à jour les stats
     const statMap = { 0: 'again', 3: 'hard', 4: 'good', 5: 'easy' };
     const statKey = statMap[quality];

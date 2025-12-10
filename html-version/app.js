@@ -488,14 +488,35 @@ const Storage = {
     if (percentage >= 70 && !progress.lessons[lessonId].completed) {
       progress.lessons[lessonId].completed = true;
       progress.stats.lessonsCompleted++;
+
+      // 🎯 Quête: Leçon complétée
+      if (window.QuestsSystem) {
+        window.QuestsSystem.onLessonCompleted();
+      }
+    }
+
+    // 🎯 Quête: Score parfait
+    if (percentage === 100 && window.QuestsSystem) {
+      window.QuestsSystem.onPerfectScore();
     }
 
     // Calcul des points
     const points = Math.round(score * 10);
+    const oldLevel = progress.level;
     progress.totalPoints += points;
+
+    // 🎯 Quête: XP gagné
+    if (window.QuestsSystem) {
+      window.QuestsSystem.onXPGained(points);
+    }
 
     // Mise à jour du niveau (1 niveau par 100 points)
     progress.level = Math.floor(progress.totalPoints / 100) + 1;
+
+    // 🎯 Quête: Niveau augmenté
+    if (progress.level > oldLevel && window.QuestsSystem) {
+      window.QuestsSystem.onLevelUp(progress.level);
+    }
 
     // Mise à jour du streak
     const today = new Date().toDateString();
@@ -504,10 +525,26 @@ const Storage = {
       yesterday.setDate(yesterday.getDate() - 1);
       if (progress.lastStudyDate === yesterday.toDateString()) {
         progress.streak++;
+
+        // 🎯 Quête: Streak mis à jour
+        if (window.QuestsSystem) {
+          window.QuestsSystem.onStreakUpdated(progress.streak);
+          window.QuestsSystem.onStreakMaintained();
+        }
       } else if (progress.lastStudyDate !== today) {
         progress.streak = 1;
+
+        // 🎯 Quête: Streak reset
+        if (window.QuestsSystem) {
+          window.QuestsSystem.onStreakUpdated(progress.streak);
+        }
       }
       progress.lastStudyDate = today;
+    } else {
+      // 🎯 Quête: Streak maintenu (même jour)
+      if (window.QuestsSystem) {
+        window.QuestsSystem.onStreakMaintained();
+      }
     }
 
     this.saveProgress(progress);
@@ -841,7 +878,8 @@ const Navigation = {
     lessonsList.innerHTML = '';
 
     filteredLessons.forEach((lesson, index) => {
-      const isLocked = !lesson.free && (index > 0 && !progress.lessons[filteredLessons[index - 1].id]?.completed);
+      // Toutes les leçons sont débloquées pour l'apprentissage personnel
+      const isLocked = false; // Ancienne logique: !lesson.free && (index > 0 && !progress.lessons[filteredLessons[index - 1].id]?.completed);
       const lessonProgress = progress.lessons[lesson.id] || { completed: false, bestScore: 0 };
 
       const card = document.createElement('div');
@@ -1081,7 +1119,39 @@ const Navigation = {
   },
 
   renderLeaderboard: async function() {
-    // Afficher un loading
+    // 🏆 Utiliser la nouvelle UI V2 si disponible
+    if (window.LeaderboardUI && window.LeaderboardEnhanced) {
+      // Créer les onglets si pas déjà créés
+      const container = document.getElementById('leaderboard-screen');
+      if (container && !document.querySelector('.leaderboard-tabs')) {
+        // Insérer les onglets au début
+        const tabsHTML = `
+          <div class="leaderboard-tabs">
+            <button class="leaderboard-tab active" data-period="weekly" onclick="LeaderboardUI.switchTab('weekly')">
+              📅 Hebdomadaire
+            </button>
+            <button class="leaderboard-tab" data-period="monthly" onclick="LeaderboardUI.switchTab('monthly')">
+              📆 Mensuel
+            </button>
+            <button class="leaderboard-tab" data-period="alltime" onclick="LeaderboardUI.switchTab('alltime')">
+              🏆 All-Time
+            </button>
+          </div>
+        `;
+
+        const firstElement = container.firstElementChild;
+        if (firstElement) {
+          firstElement.insertAdjacentHTML('afterend', tabsHTML);
+        }
+      }
+
+      // Initialiser et rendre la nouvelle UI
+      window.LeaderboardEnhanced.init();
+      window.LeaderboardUI.init();
+      return;
+    }
+
+    // ===== FALLBACK: Ancien système =====
     const leaderboardList = document.getElementById('leaderboard-list');
     const userRankCard = document.getElementById('user-rank-card');
 
@@ -2338,6 +2408,18 @@ document.addEventListener('DOMContentLoaded', function() {
     console.error('❌ LivesUI or LivesSystem not loaded!', {
       LivesUI: !!window.LivesUI,
       LivesSystem: !!window.LivesSystem
+    });
+  }
+
+  // Initialisation Quests System
+  if (window.QuestsSystem && window.QuestsUI) {
+    window.QuestsSystem.initialize();
+    window.QuestsUI.initialize();
+    console.log('✅ Quests system initialized');
+  } else {
+    console.error('❌ QuestsSystem or QuestsUI not loaded!', {
+      QuestsSystem: !!window.QuestsSystem,
+      QuestsUI: !!window.QuestsUI
     });
   }
 
