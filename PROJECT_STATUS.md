@@ -1,8 +1,8 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 5.5.0 (Optimisation Mobile) 📱✨
-**Dernière mise à jour** : 11 décembre 2025, 00h00
-**Status** : ✅ STABLE - 30 leçons + Mobile Optimisé + Stats SRS + Quêtes + Leaderboard V2
+**Version** : 5.6.2 (Mobile UI Fixes - TESTÉ) 📱✨
+**Dernière mise à jour** : 11 décembre 2025, 21h10
+**Status** : ✅ TESTÉ SUR IPHONE - 30 leçons + Mobile Corrigé + Stats SRS + Quêtes + Leaderboard V2
 **URL Locale** : http://localhost:8080 (Serveur HTTP requis)
 **URL Production** : https://jorunojobanapassione.github.io/apprendre-japonais/ (à mettre à jour)
 

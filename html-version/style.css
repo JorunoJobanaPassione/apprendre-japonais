@@ -2033,13 +2033,12 @@ body {
 /* ===== MOBILE CRITICAL FIXES (FORCED) ===== */
 
 @media (max-width: 768px) {
-  /* CRITICAL FIX #1: Texte "Votre progression" LISIBLE */
+  /* CRITICAL FIX #1: Texte "Votre progression" - COULEUR BLEUE comme le titre */
   body .progress-section .section-title,
   .content .progress-section .section-title {
-    color: #111827 !important;
+    color: #667eea !important;
     font-size: 20px !important;
     font-weight: 700 !important;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
   }
 
   body .progress-section .progress-text,
@@ -2047,10 +2046,9 @@ body {
     color: #1f2937 !important;
     font-size: 16px !important;
     font-weight: 600 !important;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
   }
 
-  /* CRITICAL FIX #2: Bouton QUITTER visible */
+  /* CRITICAL FIX #2: Bouton QUITTER - Style simple comme Score */
   body .lesson-header,
   #lesson-screen .lesson-header {
     position: sticky !important;
@@ -2063,20 +2061,18 @@ body {
   body .lesson-header .back-btn,
   #lesson-screen .lesson-header .back-btn,
   button.back-btn#lesson-back-btn {
-    min-width: 48px !important;
-    min-height: 48px !important;
-    padding: 12px 16px !important;
+    min-width: auto !important;
+    min-height: auto !important;
+    padding: 8px 12px !important;
     font-size: 16px !important;
-    font-weight: 700 !important;
+    font-weight: 600 !important;
     color: #667eea !important;
-    background: rgba(102, 126, 234, 0.15) !important;
-    border: 2px solid rgba(102, 126, 234, 0.3) !important;
-    border-radius: 12px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
     opacity: 1 !important;
     visibility: visible !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: inline-block !important;
     position: relative !important;
     z-index: 10000 !important;
   }
@@ -2102,5 +2098,22 @@ body {
 
   body .app-footer #stats-btn .btn-label {
     font-size: 9px !important;
+  }
+
+  /* CRITICAL FIX #4: Cœurs et boutons ne débordent pas */
+  body .header-stats,
+  body .app-header .header-stats {
+    max-width: calc(100% - 120px) !important;
+    overflow: hidden !important;
+  }
+
+  body .cultural-phrase-btn {
+    max-width: 100% !important;
+    padding: 12px 16px !important;
+    font-size: 15px !important;
+  }
+
+  body .cultural-phrase-content {
+    padding: 20px 16px 16px 16px !important;
   }
 }
