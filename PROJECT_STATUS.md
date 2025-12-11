@@ -1,8 +1,8 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 5.6.2 (Mobile UI Fixes - TESTÉ) 📱✨
-**Dernière mise à jour** : 11 décembre 2025, 21h10
-**Status** : ✅ TESTÉ SUR IPHONE - 30 leçons + Mobile Corrigé + Stats SRS + Quêtes + Leaderboard V2
+**Version** : 5.6.4 (Mobile Header Compact - Duolingo Style) 📱✨
+**Dernière mise à jour** : 11 décembre 2025, 21h45
+**Status** : ✅ HEADER MOBILE OPTIMISÉ - 30 leçons + UI Compacte + Stats SRS + Quêtes + Leaderboard V2
 **URL Locale** : http://localhost:8080 (Serveur HTTP requis)
 **URL Production** : https://jorunojobanapassione.github.io/apprendre-japonais/ (à mettre à jour)
 
@@ -1709,5 +1709,24 @@ Pour tester rapidement tous les défis sans changer la date :
 
 ---
 
-**Dernière mise à jour** : 11 décembre 2025, 00h00
-**Prochaine étape** : 🚀 Push GitHub + Tests mobile sur devices réels + PWA audit
+### V5.6.4 (11 déc 2025, 21h45)
+**Header Mobile Compact - Inspiré Duolingo** 📱✨
+- **FIX CRITIQUE** : Header mobile optimisé pour éviter overflow horizontal
+  - ✅ Stats (trophée, étoile, flamme) masquées sur mobile
+  - ✅ Cœurs affichés en badge compact avec bordure rouge
+  - ✅ Titre réduit à 60% max-width avec ellipsis
+  - ✅ Bouton "Découvrir" compacté (padding réduit, font 14px)
+  - ✅ Header padding réduit (12px 16px)
+- **Approche Duolingo** :
+  - Focus uniquement sur les vies (❤️) en mobile
+  - Badge arrondi avec background rgba rouge
+  - Stats détaillées disponibles dans la page profil
+- **Fichiers modifiés** :
+  - style.css (+59 lignes, v5.6.4)
+  - index.html (version CSS 5.6.3 → 5.6.4)
+- **Impact** : Plus de scroll horizontal, UX mobile optimale comme Duolingo/Memrise
+
+---
+
+**Dernière mise à jour** : 11 décembre 2025, 21h45
+**Prochaine étape** : 🎯 Test sur iPhone (Safari local) + Push GitHub si OK

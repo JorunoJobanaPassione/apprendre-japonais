@@ -2100,20 +2100,62 @@ body {
     font-size: 9px !important;
   }
 
-  /* CRITICAL FIX #4: Cœurs et boutons ne débordent pas */
-  body .header-stats,
-  body .app-header .header-stats {
-    max-width: calc(100% - 120px) !important;
-    overflow: hidden !important;
+  /* CRITICAL FIX #4: Header mobile COMPACT inspiré de Duolingo */
+
+  /* Masquer les stats (trophée, étoile, flamme) sur mobile */
+  body .app-header .header-stats .stat-item:not(:last-child) {
+    display: none !important;
   }
 
-  body .cultural-phrase-btn {
-    max-width: 100% !important;
+  /* Vies (cœurs) compactes en badge */
+  body .app-header .header-stats {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    margin-left: auto !important;
+  }
+
+  body .app-header .header-stats .stat-item:last-child {
+    background: rgba(239, 68, 68, 0.1) !important;
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    border: 2px solid rgba(239, 68, 68, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #ef4444 !important;
+  }
+
+  /* Titre principal plus compact */
+  body .app-header .header-title {
+    font-size: 18px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    flex-shrink: 1 !important;
+    max-width: 60% !important;
+  }
+
+  body .app-header {
     padding: 12px 16px !important;
-    font-size: 15px !important;
+    gap: 8px !important;
+  }
+
+  /* Bouton "Découvrir" COMPACT */
+  body .cultural-phrase-btn {
+    padding: 10px 14px !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
   }
 
   body .cultural-phrase-content {
-    padding: 20px 16px 16px 16px !important;
+    padding: 16px 12px 12px 12px !important;
+  }
+
+  /* Emoji flèche plus petite */
+  body .cultural-phrase-arrow {
+    font-size: 14px !important;
   }
 }
