@@ -628,6 +628,11 @@ const Navigation = {
   },
 
   goToHome: function() {
+    // Désactiver le swipe mobile
+    if (window.mobileSwipe) {
+      window.mobileSwipe.disable();
+    }
+
     this.showScreen('home-screen');
     this.renderHome();
   },
@@ -1239,6 +1244,14 @@ const LessonController = {
     // Sélectionner les questions aléatoirement pour chaque étape
     this.selectQuestions();
     this.renderCurrentExercise();
+
+    // Activer le swipe mobile
+    if (window.mobileSwipe) {
+      setTimeout(() => {
+        window.mobileSwipe.init('exercise-container');
+        console.log('✅ Swipe activé pour les exercices');
+      }, 300);
+    }
   },
 
   selectQuestions: function() {
@@ -1939,6 +1952,14 @@ const ExpressMode = {
     Navigation.showScreen('express-game-screen');
     this.startTimer();
     this.renderQuestion();
+
+    // Activer le swipe mobile pour le mode Express
+    if (window.mobileSwipe) {
+      setTimeout(() => {
+        window.mobileSwipe.init('express-question-container');
+        console.log('✅ Swipe activé pour le mode Express');
+      }, 300);
+    }
   },
 
   reset: function() {
