@@ -140,6 +140,18 @@ const SRS = {
     // Calculer la prochaine review (timestamp)
     card.nextReview = now + (card.interval * 24 * 60 * 60 * 1000);
 
+    // 🆕 Déclencher événement pour le système de récupération de vies
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('srsReviewCompleted', {
+        detail: {
+          isCorrect: quality >= 3,
+          quality: quality,
+          character: card.character,
+          type: card.type
+        }
+      }));
+    }
+
     return card;
   },
 

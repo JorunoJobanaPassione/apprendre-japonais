@@ -518,32 +518,48 @@ const Storage = {
       window.QuestsSystem.onLevelUp(progress.level);
     }
 
-    // Mise à jour du streak
-    const today = new Date().toDateString();
-    if (progress.lastStudyDate !== today) {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      if (progress.lastStudyDate === yesterday.toDateString()) {
-        progress.streak++;
+    // 🔥 Mise à jour du streak avec système de jours de grâce (Anti-Duolingo)
+    if (window.StreakGraceSystem) {
+      const streakResult = window.StreakGraceSystem.checkAndUpdateStreak(progress);
 
-        // 🎯 Quête: Streak mis à jour
+      // Afficher notification si jour de grâce utilisé ou streak perdu
+      if (streakResult.action === 'graceDayUsed') {
+        console.log(`🔥 ${streakResult.message}`);
+        // TODO: Afficher notification UI "Streak protégé grâce au jour de grâce"
+      } else if (streakResult.action === 'reset') {
+        console.warn(`❌ ${streakResult.message}`);
+        // TODO: Afficher notification UI "Streak perdu"
+      } else if (streakResult.action === 'increased') {
+        console.log(`🔥 ${streakResult.message}`);
+      }
+    } else {
+      // Fallback : Ancien système (si StreakGraceSystem pas chargé)
+      const today = new Date().toDateString();
+      if (progress.lastStudyDate !== today) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        if (progress.lastStudyDate === yesterday.toDateString()) {
+          progress.streak++;
+
+          // 🎯 Quête: Streak mis à jour
+          if (window.QuestsSystem) {
+            window.QuestsSystem.onStreakUpdated(progress.streak);
+            window.QuestsSystem.onStreakMaintained();
+          }
+        } else if (progress.lastStudyDate !== today) {
+          progress.streak = 1;
+
+          // 🎯 Quête: Streak reset
+          if (window.QuestsSystem) {
+            window.QuestsSystem.onStreakUpdated(progress.streak);
+          }
+        }
+        progress.lastStudyDate = today;
+      } else {
+        // 🎯 Quête: Streak maintenu (même jour)
         if (window.QuestsSystem) {
-          window.QuestsSystem.onStreakUpdated(progress.streak);
           window.QuestsSystem.onStreakMaintained();
         }
-      } else if (progress.lastStudyDate !== today) {
-        progress.streak = 1;
-
-        // 🎯 Quête: Streak reset
-        if (window.QuestsSystem) {
-          window.QuestsSystem.onStreakUpdated(progress.streak);
-        }
-      }
-      progress.lastStudyDate = today;
-    } else {
-      // 🎯 Quête: Streak maintenu (même jour)
-      if (window.QuestsSystem) {
-        window.QuestsSystem.onStreakMaintained();
       }
     }
 
@@ -2422,6 +2438,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (livesContainer) {
       livesContainer.innerHTML = LivesUI.createLivesIndicator();
       console.log('✅ Lives system initialized:', LivesSystem.getStats());
+
+      // Initialiser Lives Recovery UI APRÈS création du container
+      if (window.LivesRecoveryUI) {
+        LivesRecoveryUI.init();
+        console.log('✅ Lives Recovery UI initialized');
+      }
     } else {
       console.error('❌ Lives container not found!');
     }
