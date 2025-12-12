@@ -209,7 +209,7 @@
     color: #ef4444 !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
-    max-width: 80px !important;
+    max-width: none !important; /* Permet au timer de s'afficher */
   }
 
   /* Icône cœur compacte */
@@ -241,6 +241,43 @@
   .stat-item .heart.full,
   .stat-item .heart.empty {
     display: none !important;
+  }
+
+  /* Container de vies dans le header - Layout horizontal compact */
+  .stat-item .lives-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  /* Hearts container */
+  .stat-item .lives-hearts {
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Timer des vies - Style mobile compact */
+  .stat-item .lives-timer {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 12px !important;
+    color: rgba(239, 68, 68, 0.8) !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .stat-item .lives-timer .timer-icon {
+    font-size: 14px !important;
+    line-height: 1 !important;
+  }
+
+  .stat-item .lives-timer .timer-text {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    font-variant-numeric: tabular-nums !important;
   }
 }
 

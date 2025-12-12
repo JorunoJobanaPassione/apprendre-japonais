@@ -1,8 +1,8 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 5.7.2 (Optimisations UX Complètes - App Native Mobile Ready) 🚀📱
-**Dernière mise à jour** : 12 décembre 2025, 06h00
-**Status** : ✅ APP NATIVE MOBILE READY - Tous correctifs appliqués + 4 Optimisations UX + Prêt pour GitHub
+**Version** : 5.7.3 (Fix Timer Vies Mobile - Header Complet) 🚀📱
+**Dernière mise à jour** : 12 décembre 2025, 07h00
+**Status** : ✅ FIX TIMER APPLIQUÉ - Header mobile affiche "❤️ 7" + Timer "⏱️ XX:XX" correctement
 **URL Locale** : http://localhost:8080 (Serveur HTTP requis)
 **URL Production** : https://jorunojobanapassione.github.io/apprendre-japonais/ (à mettre à jour)
 
@@ -1241,7 +1241,35 @@ Pour tester rapidement tous les défis sans changer la date :
 
 ## 🏆 Historique des Versions Récentes
 
-### V5.5.1 (9 déc 2025 soir) - 🎨 FIX CENTRAGE UI - ✅ ACTUELLE
+### V5.7.3 (12 déc 2025, 07h00) - 🔧 FIX TIMER VIES MOBILE - ✅ ACTUELLE
+**Correction affichage complet du header mobile avec timer des vies**
+- ✅ **Problème résolu** : Timer "⏱️ XX:XX" n'apparaissait pas dans le header mobile
+- ✅ **Cause** : `.stat-item:last-child` avait `max-width: 80px`, trop petit pour "❤️ 7" + timer
+- ✅ **Solution** : `max-width: none` + styles spécifiques pour `.lives-container`, `.lives-timer`
+- ✅ **Timer mobile compact** : 12px, gap 4px, couleur rgba(239, 68, 68, 0.8)
+- ✅ **Layout** : Horizontal compact avec `flex-wrap: nowrap`, `white-space: nowrap`
+- **Fichiers modifiés** :
+  - `mobile-fixes-critical.css` : Section 4 - Lignes 212, 246-281 (+50 lignes)
+  - `index.html` : Version CSS 5.7.2 → 5.7.3
+- **Résultat** : Header affiche maintenant "❤️ 7 ⏱️ 2:45" correctement sur iPhone
+- **Validation** : Screenshots iPhone fournis par l'utilisateur montrant l'espace vide
+
+---
+
+### V5.7.2 (12 déc 2025, 06h00) - 🎨 OPTIMISATIONS UX COMPLÈTES
+**4 optimisations UX appliquées pour expérience mobile native**
+- ✅ **Cœurs compacts mobile** : "❤️ 7" au lieu de 7 cœurs individuels
+- ✅ **Hiérarchie SRS** : Bouton "Réviser" dominant, "Stats" secondaire
+- ✅ **Onglets renforcés** : État actif très visible (style Duolingo + iOS)
+- ✅ **Phrase du jour** : Meilleur contraste (blanc/violet au lieu de violet/rose)
+- **Fichiers** :
+  - `lives-ui.js` : Mobile detection, compact hearts format
+  - `mobile-fixes-critical.css` : Sections 4, 6, 18, 19 (~940 lignes total)
+  - `index.html` : Version CSS 5.7.2
+
+---
+
+### V5.5.1 (9 déc 2025 soir) - 🎨 FIX CENTRAGE UI
 **Corrections UI pour centrage complet des éléments SRS**
 - ✅ Boutons de réponse centrés
 - ✅ Actions centrées
