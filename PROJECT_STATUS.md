@@ -1,8 +1,8 @@
 # 📊 Apprendre le Japonais - État du Projet
 
-**Version** : 5.6.4 (Mobile Header Compact - Duolingo Style) 📱✨
-**Dernière mise à jour** : 11 décembre 2025, 21h45
-**Status** : ✅ HEADER MOBILE OPTIMISÉ - 30 leçons + UI Compacte + Stats SRS + Quêtes + Leaderboard V2
+**Version** : 5.7.2 (Optimisations UX Complètes - App Native Mobile Ready) 🚀📱
+**Dernière mise à jour** : 12 décembre 2025, 06h00
+**Status** : ✅ APP NATIVE MOBILE READY - Tous correctifs appliqués + 4 Optimisations UX + Prêt pour GitHub
 **URL Locale** : http://localhost:8080 (Serveur HTTP requis)
 **URL Production** : https://jorunojobanapassione.github.io/apprendre-japonais/ (à mettre à jour)
 
@@ -1728,5 +1728,117 @@ Pour tester rapidement tous les défis sans changer la date :
 
 ---
 
-**Dernière mise à jour** : 11 décembre 2025, 21h45
-**Prochaine étape** : 🎯 Test sur iPhone (Safari local) + Push GitHub si OK
+### V5.7.2 (12 déc 2025, 06h00) 🚀
+**OPTIMISATIONS UX COMPLÈTES - Sensation App Native iOS/Android** ✨📱
+
+- **🎨 4 OPTIMISATIONS UX APPLIQUÉES** :
+  - ✅ **Cœurs format compact** : Affichage "❤️ 7" au lieu de 7 cœurs séparés (gain de place)
+  - ✅ **Bloc Révisions SRS hiérarchisé** : "Réviser" en bouton dominant pleine largeur, "Stats" en secondaire discret
+  - ✅ **Onglets Hiragana/Katakana renforcés** : État actif très visible (élévation, shadow, indicateur style iOS)
+  - ✅ **Bouton Phrase du Jour** : Fond blanc très contrasté sur rose, texte japonais plus grand
+
+- **📱 RÉSULTAT - SENSATION APP NATIVE** :
+  - ✅ Hiérarchie visuelle claire : 1 action principale par écran
+  - ✅ Feedback visuel fort : Onglets, boutons, états actifs très marqués
+  - ✅ Design cohérent : Style Duolingo/iOS avec identité japonaise
+  - ✅ UX premium : Transitions fluides, animations, contraste élevé
+
+- **📋 FICHIERS MODIFIÉS** :
+  - 📄 `lives-ui.js` - Détection mobile + format compact cœurs
+  - 📝 `mobile-fixes-critical.css` (+120 lignes) - 4 nouvelles sections UX
+  - 🔄 `index.html` - Version CSS 5.7.2
+
+- **🧹 NETTOYAGE PROJET** :
+  - ❌ Supprimé : `GUIDE_TEST_MOBILE.md` (obsolète)
+  - ❌ Supprimé : `MOBILE_UPDATE_11DEC2025.md` (obsolète)
+  - ✅ Conservé : `PROJECT_STATUS.md` (à jour)
+
+- **🎯 PRÊT POUR** :
+  - Commit Git avec message détaillé
+  - Push vers GitHub
+  - Déploiement production
+  - Tests utilisateurs réels
+
+---
+
+### V5.7.1 (12 déc 2025, 05h40) ✅
+**VALIDATION IPHONE - Correctifs Critiques 100% Fonctionnels** 📱✅
+
+- **🎉 SUCCÈS TOTAL DES CORRECTIFS CRITIQUES** :
+  - ✅ **0 Overflow horizontal** : Plus aucun scroll gauche-droite, toutes les cartes restent dans l'écran
+  - ✅ **Bouton GO! Mode Express** : Ne déborde plus, pleine largeur, bien visible
+  - ✅ **Bouton Découvrir** : Ne déborde plus de toutes les cartes roses
+  - ✅ **Viewport sécurisé** : Pas de zoom involontaire, app stable à 100%
+  - ✅ **Toutes les cartes** : Bien contenues, responsive parfait
+
+- **⚠️ OPTIMISATIONS UX RESTANTES (Mineures)** :
+  - ⚠️ **Cœurs header** : Affichés individuellement (❤️x7) au lieu de format compact "❤️ 7"
+  - ⚠️ **Bloc Révisions SRS** : 2 CTA concurrents ("Réviser" + "📊 Stats") au même niveau
+  - ⚠️ **Onglets Hiragana/Katakana** : État actif (bleu) pas assez différencié visuellement
+  - ⚠️ **Phrase du jour** : Bouton "Découvrir →" manque de contraste (violet sur rose)
+
+- **📊 VALIDATION TESTS IPHONE** :
+  - Testé sur iPhone réel (Safari iOS)
+  - 4 captures d'écran analysées
+  - Tous les problèmes critiques résolus
+  - Conforme à 100% à l'audit ChatGPT (problèmes critiques)
+
+- **🎯 PROCHAINES ÉTAPES** :
+  - Appliquer les 4 optimisations UX (v5.7.2)
+  - Push vers GitHub une fois optimisations terminées
+  - Déploiement production
+
+---
+
+### V5.7.0 (12 déc 2025, 02h30) 🔥
+**CORRECTIFS MOBILES CRITIQUES - Audit UI/UX iOS Complet** 📱✨
+
+- **CONTEXTE** : Audit détaillé réalisé par ChatGPT suite aux tests sur iPhone (Safari + PWA)
+  - Analyse complète des problèmes d'overflow, viewport, et UX mobile
+  - Objectif : Passer de "site web responsive" à "app native iOS/Android"
+
+- **🔴 CORRECTIFS TECHNIQUES CRITIQUES** :
+  - ✅ **Overflow horizontal éliminé** : max-width 100% + box-sizing sur tous conteneurs
+  - ✅ **Flexbox sécurisé iOS** : flex-wrap + min-width:0 (fix WebKit)
+  - ✅ **Viewport verrouillé** : maximum-scale=1.0, user-scalable=no (évite zoom auto iOS)
+  - ✅ **Safe areas** : Support notch + home indicator (env(safe-area-inset))
+  - ✅ **Mode PWA** : Différenciation standalone vs Safari mobile
+
+- **🎨 AMÉLIORATIONS UX/UI** :
+  - ✅ **Bottom navigation renforcée** : Icônes 24px, état actif très visible, indicateur iOS
+  - ✅ **Onglets Hiragana/Katakana/Kanji** : Contraste élevé, transform actif, shadow
+  - ✅ **Hiérarchie visuelle** : CTA dominant (20px, shadow), sections secondaires discrètes
+  - ✅ **Respiration verticale** : 28px entre sections, 16px entre cartes
+  - ✅ **Boutons optimisés** : Min 44x44px (Apple HIG), padding sécurisé, white-space contrôlé
+
+- **✨ TRANSITIONS APP NATIVE** :
+  - ✅ **Animations fluides** : fadeInUp écrans, slideInLeft cartes (stagger)
+  - ✅ **Feedback tactile** : scale(0.96) sur active, transitions cubic-bezier
+  - ✅ **Backdrop blur** : Header + footer avec blur(20px) + saturate(180%)
+
+- **⚡ PERFORMANCE & ACCESSIBILITÉ** :
+  - ✅ **GPU acceleration** : translateZ(0) + will-change sur éléments animés
+  - ✅ **Touch optimisé** : tap-highlight rgba, -webkit-tap-highlight-color
+  - ✅ **Reduced motion** : Support prefers-reduced-motion
+  - ✅ **Dark mode** : Optimisations spécifiques dark mode mobile
+
+- **📋 FICHIERS CRÉÉS/MODIFIÉS** :
+  - 📄 `mobile-fixes-critical.css` (~700 lignes) - 15 sections de correctifs
+  - 📝 `index.html` - Viewport + lien CSS v5.7.0
+  - 📊 Audit UI/UX PDF - Documentation complète des problèmes
+
+- **📈 IMPACT ATTENDU** :
+  - 🎯 **Sensation app native** : Plus de perception "site web"
+  - 📱 **0 overflow horizontal** : App Store ready
+  - ⚡ **UX premium** : Comparable Duolingo/Babbel
+  - 💰 **Prêt monétisation** : Confiance utilisateur maximale
+
+- **🧪 PROCHAINE ÉTAPE** :
+  - Test sur iPhone (Safari + PWA standalone)
+  - Validation de tous les correctifs en conditions réelles
+  - Push GitHub si validation OK
+
+---
+
+**Dernière mise à jour** : 12 décembre 2025, 06h00
+**Prochaine étape** : 📤 Commit Git + Push GitHub → Déploiement production

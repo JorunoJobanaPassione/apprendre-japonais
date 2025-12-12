@@ -27,8 +27,18 @@ const LivesUI = {
 
   /**
    * Générer les coeurs (pleins et vides)
+   * Sur mobile : format compact "❤️ 7" au lieu de 7 cœurs séparés
    */
   generateHearts: function(lives, maxLives) {
+    // Détection mobile (largeur < 768px)
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      // Format compact mobile : "❤️ 7"
+      return `<span class="heart-compact">❤️ ${lives}</span>`;
+    }
+
+    // Format desktop : cœurs individuels
     let hearts = '';
 
     // Coeurs pleins
