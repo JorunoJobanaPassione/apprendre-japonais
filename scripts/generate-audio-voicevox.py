@@ -32,7 +32,7 @@ BACKUP_DIR = Path(__file__).parent.parent / "mobile-app" / "assets" / "audio_bac
 # 8: 春日部つむぎ (ノーマル)
 # 10: 雨晴はう (ノーマル)
 # 14: 冥鳴ひまり (ノーマル)
-SPEAKER_ID = 8  # 春日部つむぎ (ノーマル) - voix féminine douce
+SPEAKER_ID = 3  # ずんだもん (ノーマル) - voix claire et naturelle
 
 # Mapping Romaji -> Hiragana (pour la prononciation correcte)
 ROMAJI_TO_HIRAGANA = {
