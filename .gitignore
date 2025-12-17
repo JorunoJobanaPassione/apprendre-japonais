@@ -39,3 +39,13 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Temporary files
+*.tmp
+*.log
+*.swp
+*~
+
+# Documentation temporaire
+NETTOYAGE_*.md
+RECAP_SESSION_*.md
