@@ -49,3 +49,9 @@ yarn-error.*
 # Documentation temporaire
 NETTOYAGE_*.md
 RECAP_SESSION_*.md
+
+# Windows reserved filenames (artifacts)
+nul
+NUL
+**/nul
+**/NUL
