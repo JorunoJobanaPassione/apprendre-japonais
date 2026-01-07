@@ -30,7 +30,15 @@ export default function LessonDetailScreen({ route, navigation }) {
   const isKanjiLesson = lesson?.type === 'kanji' || lesson?.category === 'kanji';
 
   // Calcul du numéro de leçon depuis l'ID
-  const lessonNumber = lesson?.id ? parseInt(lesson.id.split('-').pop()) || 1 : 1;
+  const getLessonNumber = () => {
+    if (!lesson?.id) return 1;
+    const idStr = String(lesson.id);
+    if (idStr.includes('-')) {
+      return parseInt(idStr.split('-').pop()) || 1;
+    }
+    return parseInt(idStr) || 1;
+  };
+  const lessonNumber = getLessonNumber();
 
   const handlePlayAudio = async (romaji) => {
     setPlayingRomaji(romaji);
