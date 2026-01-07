@@ -128,9 +128,7 @@ function AppNavigator() {
         <Stack.Screen
           name="LessonDetail"
           component={LessonDetailScreen}
-          options={({ route }) => ({
-            title: route.params?.lessonTitle || 'Leçon',
-          })}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Exercise"
@@ -156,9 +154,7 @@ function AppNavigator() {
         <Stack.Screen
           name="Settings"
           component={SettingsScreen}
-          options={{
-            title: 'Paramètres',
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Leaderboard"

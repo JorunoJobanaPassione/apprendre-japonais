@@ -26,8 +26,10 @@ import { BadgeGrid } from '../components/BadgeCard';
 import { getLives } from '../services/livesSystem';
 import { COLORS, FONTS, SIZES } from '../styles/theme';
 import globalStyles from '../styles/globalStyles';
+import { usePremium } from '../contexts/PremiumContext';
 
 export default function ProfileScreen({ navigation }) {
+  const { isPremium, openPaywall } = usePremium();
   const [progress, setProgress] = useState(null);
   const [badges, setBadges] = useState([]);
   const [badgeStats, setBadgeStats] = useState(null);
@@ -142,12 +144,23 @@ export default function ProfileScreen({ navigation }) {
         {/* Header - Design Figma */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Profil</Text>
-          <TouchableOpacity
-            style={styles.settingsButton}
-            onPress={() => navigation.navigate('Settings')}
-          >
-            <Text style={styles.settingsIcon}>⚙️</Text>
-          </TouchableOpacity>
+          <View style={styles.headerButtons}>
+            {!isPremium && (
+              <TouchableOpacity
+                style={styles.premiumButton}
+                onPress={openPaywall}
+              >
+                <Text style={styles.premiumIcon}>👑</Text>
+                <Text style={styles.premiumText}>Premium</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={styles.settingsButton}
+              onPress={() => navigation.navigate('Settings')}
+            >
+              <Text style={styles.settingsIcon}>⚙️</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Avatar et Rang - Design Figma */}
@@ -212,9 +225,9 @@ export default function ProfileScreen({ navigation }) {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>🏆 Achievements</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Badges')}>
-              <Text style={styles.seeAllText}>Voir tout ›</Text>
-            </TouchableOpacity>
+            <Text style={styles.seeAllText}>
+              {unlockedBadges.length} / 12
+            </Text>
           </View>
 
           {unlockedBadges.length > 0 ? (
@@ -393,6 +406,28 @@ const styles = StyleSheet.create({
   },
   settingsIcon: {
     fontSize: 22,
+  },
+  headerButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SIZES.marginSmall,
+  },
+  premiumButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: SIZES.padding,
+    paddingVertical: SIZES.paddingSmall,
+    borderRadius: SIZES.radius,
+    gap: 6,
+  },
+  premiumIcon: {
+    fontSize: 16,
+  },
+  premiumText: {
+    fontSize: FONTS.small,
+    fontWeight: 'bold',
+    color: COLORS.text,
   },
 
   // Profile Section
