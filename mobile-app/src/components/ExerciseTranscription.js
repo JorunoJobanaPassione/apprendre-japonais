@@ -12,6 +12,9 @@ import {
   TouchableOpacity,
   Keyboard,
   Animated,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import { COLORS, FONTS, SIZES } from '../styles/theme';
 
@@ -89,97 +92,110 @@ export default function ExerciseTranscription({ exercise, onAnswer }) {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Question */}
-      <View style={styles.questionContainer}>
-        <Text style={styles.questionText}>{exercise.question}</Text>
-        {exercise.character && (
-          <Text style={styles.character}>{exercise.character}</Text>
-        )}
-        {exercise.meaning && (
-          <Text style={styles.meaning}>({exercise.meaning})</Text>
-        )}
-      </View>
-
-      {/* Input */}
-      <Animated.View
-        style={[
-          styles.inputContainer,
-          { transform: [{ translateX: shakeAnim }] },
-        ]}
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 120 : 0}
+    >
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
-        <TextInput
-          ref={inputRef}
-          style={getInputStyle()}
-          value={userInput}
-          onChangeText={setUserInput}
-          onSubmitEditing={handleSubmit}
-          placeholder="Tapez la transcription romaji..."
-          placeholderTextColor={COLORS.textMuted}
-          autoCapitalize="none"
-          autoCorrect={false}
-          editable={!answered}
-          returnKeyType="done"
-        />
-      </Animated.View>
+        {/* Question */}
+        <View style={styles.questionContainer}>
+          <Text style={styles.questionText}>{exercise.question}</Text>
+          {exercise.character && (
+            <Text style={styles.character}>{exercise.character}</Text>
+          )}
+          {exercise.meaning && (
+            <Text style={styles.meaning}>({exercise.meaning})</Text>
+          )}
+        </View>
 
-      {/* Bouton Valider */}
-      {!answered && (
-        <TouchableOpacity
+        {/* Input */}
+        <Animated.View
           style={[
-            styles.submitButton,
-            !userInput.trim() && styles.submitButtonDisabled,
+            styles.inputContainer,
+            { transform: [{ translateX: shakeAnim }] },
           ]}
-          onPress={handleSubmit}
-          disabled={!userInput.trim()}
         >
-          <Text style={styles.submitButtonText}>Valider</Text>
-        </TouchableOpacity>
-      )}
+          <TextInput
+            ref={inputRef}
+            style={getInputStyle()}
+            value={userInput}
+            onChangeText={setUserInput}
+            onSubmitEditing={handleSubmit}
+            placeholder="Tapez le romaji..."
+            placeholderTextColor={COLORS.textMuted}
+            autoCapitalize="none"
+            autoCorrect={false}
+            editable={!answered}
+            returnKeyType="done"
+          />
+        </Animated.View>
 
-      {/* Feedback */}
-      {answered && (
-        <View style={styles.feedbackContainer}>
-          <Text style={styles.feedbackEmoji}>
-            {isCorrect ? '✅' : '❌'}
-          </Text>
-          <Text style={styles.feedbackText}>
-            {isCorrect ? 'Correct !' : `Réponse : ${exercise.correct}`}
-          </Text>
-        </View>
-      )}
+        {/* Bouton Valider principal */}
+        {!answered && (
+          <TouchableOpacity
+            style={[
+              styles.submitButton,
+              !userInput.trim() && styles.submitButtonDisabled,
+            ]}
+            onPress={handleSubmit}
+            disabled={!userInput.trim()}
+          >
+            <Text style={styles.submitButtonText}>Valider</Text>
+          </TouchableOpacity>
+        )}
 
-      {/* Explication */}
-      {answered && exercise.explanation && (
-        <View style={styles.explanationContainer}>
-          <Text style={styles.explanationText}>💡 {exercise.explanation}</Text>
-        </View>
-      )}
-    </View>
+        {/* Feedback */}
+        {answered && (
+          <View style={styles.feedbackContainer}>
+            <Text style={styles.feedbackEmoji}>
+              {isCorrect ? '✅' : '❌'}
+            </Text>
+            <Text style={styles.feedbackText}>
+              {isCorrect ? 'Correct !' : `Réponse : ${exercise.correct}`}
+            </Text>
+          </View>
+        )}
+
+        {/* Explication */}
+        {answered && exercise.explanation && (
+          <View style={styles.explanationContainer}>
+            <Text style={styles.explanationText}>💡 {exercise.explanation}</Text>
+          </View>
+        )}
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
     padding: SIZES.screenPadding,
   },
   questionContainer: {
     alignItems: 'center',
     marginBottom: SIZES.margin * 2,
-    paddingTop: SIZES.padding * 2,
+    paddingTop: SIZES.padding,
   },
   questionText: {
     fontSize: FONTS.xLarge,
-    fontWeight: '600',
     color: COLORS.text,
     textAlign: 'center',
     marginBottom: SIZES.margin,
+    lineHeight: 30,
+    minHeight: 30,
   },
   character: {
     fontSize: 72,
     color: COLORS.primary,
-    fontWeight: 'bold',
     marginTop: SIZES.margin,
   },
   meaning: {
@@ -188,7 +204,15 @@ const styles = StyleSheet.create({
     marginTop: SIZES.marginSmall,
   },
   inputContainer: {
-    marginBottom: SIZES.margin * 2,
+    marginBottom: SIZES.margin,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SIZES.marginSmall,
+  },
+  inputField: {
+    flex: 1,
   },
   input: {
     backgroundColor: COLORS.surface,
@@ -199,7 +223,23 @@ const styles = StyleSheet.create({
     fontSize: FONTS.xLarge,
     color: COLORS.text,
     textAlign: 'center',
-    fontWeight: '600',
+  },
+  inlineSubmitButton: {
+    backgroundColor: COLORS.primary,
+    borderRadius: SIZES.radius,
+    paddingVertical: SIZES.padding * 1.5,
+    paddingHorizontal: SIZES.padding * 1.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inlineSubmitButtonDisabled: {
+    backgroundColor: COLORS.surfaceLight,
+    opacity: 0.5,
+  },
+  inlineSubmitButtonText: {
+    fontSize: FONTS.large,
+    fontWeight: 'bold',
+    color: COLORS.background,
   },
   inputCorrect: {
     borderColor: COLORS.success,

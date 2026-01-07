@@ -173,10 +173,11 @@ const styles = StyleSheet.create({
   },
   questionText: {
     fontSize: FONTS.xLarge,
-    fontWeight: '600',
     color: COLORS.text,
     textAlign: 'center',
     marginBottom: SIZES.margin * 2,
+    lineHeight: 30,
+    minHeight: 30,
   },
   kanjiDisplay: {
     position: 'relative',
@@ -198,7 +199,6 @@ const styles = StyleSheet.create({
   },
   kanjiCharacter: {
     fontSize: 120,
-    fontWeight: 'bold',
     color: COLORS.text,
     lineHeight: 140,
   },
@@ -211,7 +211,6 @@ const styles = StyleSheet.create({
   },
   wordText: {
     fontSize: 64,
-    fontWeight: 'bold',
     color: COLORS.text,
     marginBottom: SIZES.marginSmall,
   },

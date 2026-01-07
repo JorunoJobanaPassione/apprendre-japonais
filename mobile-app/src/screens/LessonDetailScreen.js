@@ -1,10 +1,17 @@
 /**
- * Lesson Detail Screen - Détail d'une leçon avec exercices
- * Supporte Hiragana, Katakana, Vocabulaire ET Kanji
+ * Lesson Detail Screen - Nouveau Design Figma
+ * Détail d'une leçon avec liste de caractères et bouton exercices
  */
 
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import { getLessonById } from '../data/lessonsData';
 import audioService from '../services/audioService';
 import { COLORS, FONTS, SIZES } from '../styles/theme';
@@ -13,7 +20,7 @@ import KanjiCard from '../components/KanjiCard';
 import GrammarTips from '../components/GrammarTips';
 
 export default function LessonDetailScreen({ route, navigation }) {
-  const { lessonId } = route.params;
+  const { lessonId, lessonTitle, category } = route.params;
   const lesson = getLessonById(lessonId);
   const [playingRomaji, setPlayingRomaji] = useState(null);
   const [currentKanjiIndex, setCurrentKanjiIndex] = useState(0);
@@ -21,6 +28,9 @@ export default function LessonDetailScreen({ route, navigation }) {
 
   // Détermine si c'est une leçon de kanji
   const isKanjiLesson = lesson?.type === 'kanji' || lesson?.category === 'kanji';
+
+  // Calcul du numéro de leçon depuis l'ID
+  const lessonNumber = lesson?.id ? parseInt(lesson.id.split('-').pop()) || 1 : 1;
 
   const handlePlayAudio = async (romaji) => {
     setPlayingRomaji(romaji);
@@ -30,9 +40,18 @@ export default function LessonDetailScreen({ route, navigation }) {
 
   if (!lesson) {
     return (
-      <View style={globalStyles.centerContainer}>
-        <Text style={globalStyles.text}>Leçon introuvable</Text>
-      </View>
+      <SafeAreaView style={globalStyles.safeArea}>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorIcon}>📚</Text>
+          <Text style={styles.errorText}>Leçon introuvable</Text>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={styles.backButtonText}>← Retour</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     );
   }
 
@@ -42,25 +61,40 @@ export default function LessonDetailScreen({ route, navigation }) {
         style={styles.container}
         contentContainerStyle={styles.scrollContent}
       >
-        <View style={globalStyles.card}>
-          <Text style={styles.title}>{lesson.title}</Text>
-          <Text style={globalStyles.textSecondary}>{lesson.description}</Text>
-
-          {/* Bouton conseils grammaticaux */}
+        {/* Header - Design Figma */}
+        <View style={styles.header}>
           <TouchableOpacity
-            style={styles.grammarButton}
-            onPress={() => setShowGrammar(true)}
+            style={styles.backArrow}
+            onPress={() => navigation.goBack()}
           >
-            <Text style={styles.grammarButtonIcon}>📖</Text>
-            <Text style={styles.grammarButtonText}>Conseils & Explications</Text>
+            <Text style={styles.backArrowText}>←</Text>
           </TouchableOpacity>
+          <View style={styles.headerContent}>
+            <Text style={styles.headerTitle}>{lesson.title}</Text>
+            <Text style={styles.headerSubtitle}>
+              Leçon {lessonNumber} • {lesson.difficulty || 'Débutant'}
+            </Text>
+          </View>
         </View>
+
+        {/* Bouton Conseils - Design Figma */}
+        <TouchableOpacity
+          style={styles.tipsButton}
+          onPress={() => setShowGrammar(true)}
+        >
+          <Text style={styles.tipsIcon}>💡</Text>
+          <Text style={styles.tipsText}>Conseils & Explications</Text>
+          <Text style={styles.tipsArrow}>›</Text>
+        </TouchableOpacity>
 
         {/* Contenu selon le type de leçon */}
         {isKanjiLesson ? (
-          /* Affichage Kanji avec KanjiCard */
-          <View style={globalStyles.card}>
-            <Text style={styles.sectionTitle}>{`🈳 Kanji (${lesson.kanji?.length || 0})`}</Text>
+          /* Affichage Kanji */
+          <View style={styles.contentSection}>
+            <Text style={styles.sectionTitle}>
+              🈳 Kanji ({lesson.kanji?.length || 0})
+            </Text>
+
             {lesson.kanji && lesson.kanji.length > 0 && (
               <KanjiCard
                 kanji={lesson.kanji[currentKanjiIndex]}
@@ -72,9 +106,9 @@ export default function LessonDetailScreen({ route, navigation }) {
               />
             )}
 
-            {/* Liste des kanji de la leçon */}
-            <View style={styles.kanjiListContainer}>
-              <Text style={styles.kanjiListTitle}>Tous les kanji de cette leçon</Text>
+            {/* Grille de sélection kanji */}
+            <View style={styles.kanjiGridContainer}>
+              <Text style={styles.kanjiGridTitle}>Tous les kanji</Text>
               <View style={styles.kanjiGrid}>
                 {lesson.kanji?.map((k, index) => (
                   <TouchableOpacity
@@ -97,64 +131,65 @@ export default function LessonDetailScreen({ route, navigation }) {
             </View>
           </View>
         ) : (
-          /* Affichage standard Hiragana/Katakana/Vocabulaire */
-          <View style={globalStyles.card}>
-            <Text style={styles.sectionTitle}>{`📝 Caractères (${lesson.characters?.length || 0})`}</Text>
+          /* Affichage Hiragana/Katakana/Vocabulaire - Design Figma */
+          <View style={styles.contentSection}>
             {lesson.characters?.map((char, index) => {
-              // Supporter hiragana, katakana, ou autre type de caractère
               const displayChar = char.hiragana || char.katakana || char.kanji || '?';
               const isPlaying = playingRomaji === char.romaji;
 
               return (
                 <View key={index} style={styles.characterCard}>
-                  <Text style={styles.characterHiragana}>{displayChar}</Text>
-                  <View style={styles.characterInfo}>
-                    <View style={styles.romajiRow}>
-                      <Text style={styles.characterRomaji}>{char.romaji}</Text>
-                      <TouchableOpacity
-                        style={[styles.audioButton, isPlaying && styles.audioButtonPlaying]}
-                        onPress={() => handlePlayAudio(char.romaji)}
-                      >
-                        <Text style={styles.audioIcon}>{isPlaying ? '▶️' : '🔊'}</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <Text style={globalStyles.textSecondary}>{char.pronunciation}</Text>
-                    {char.meaning && (
-                      <Text style={globalStyles.textSecondary}>Signification: {char.meaning}</Text>
-                    )}
-                    <Text style={[globalStyles.textMuted, { marginTop: 8 }]}>
-                      💡 {char.mnemonic}
-                    </Text>
+                  {/* Box avec le caractère */}
+                  <View style={styles.characterBox}>
+                    <Text style={styles.characterMain}>{displayChar}</Text>
                   </View>
+
+                  {/* Infos du caractère */}
+                  <View style={styles.characterInfo}>
+                    <Text style={styles.characterRomaji}>{char.romaji}</Text>
+
+                    {/* Tip avec emoji */}
+                    <View style={styles.characterTip}>
+                      <Text style={styles.tipIcon}>💡</Text>
+                      <Text style={styles.tipText} numberOfLines={2}>
+                        {char.mnemonic || `Caractère ${displayChar}`}
+                      </Text>
+                    </View>
+                  </View>
+
+                  {/* Bouton audio */}
+                  <TouchableOpacity
+                    style={[styles.audioButton, isPlaying && styles.audioButtonPlaying]}
+                    onPress={() => handlePlayAudio(char.romaji)}
+                  >
+                    <Text style={styles.audioIcon}>🔊</Text>
+                  </TouchableOpacity>
                 </View>
               );
             })}
           </View>
         )}
 
-        <View style={globalStyles.card}>
-          <Text style={styles.sectionTitle}>
-            {`🎯 Exercices (${lesson.exercises?.length || 0})`}
-          </Text>
-          {lesson.exercises && lesson.exercises.length > 0 ? (
-            <>
-              <Text style={globalStyles.textSecondary}>
-                {`Testez vos connaissances avec ${lesson.exercises.length} exercices variés !`}
-              </Text>
-              <TouchableOpacity
-                style={styles.startButton}
-                onPress={() => navigation.navigate('Exercise', { lesson })}
-              >
-                <Text style={styles.startButtonText}>Commencer les exercices</Text>
-              </TouchableOpacity>
-            </>
-          ) : (
-            <Text style={globalStyles.textSecondary}>
-              Aucun exercice disponible pour cette leçon.
-            </Text>
-          )}
-        </View>
+        {/* Spacer pour le bouton fixe en bas */}
+        <View style={styles.bottomSpacer} />
       </ScrollView>
+
+      {/* Bouton Commencer - Fixe en bas - Design Figma */}
+      {lesson.exercises && lesson.exercises.length > 0 && (
+        <View style={styles.bottomButtonContainer}>
+          <TouchableOpacity
+            style={styles.startButton}
+            onPress={() => navigation.navigate('Exercise', { lesson })}
+          >
+            <Text style={styles.startButtonText}>
+              Commencer les exercices
+            </Text>
+            <Text style={styles.startButtonCount}>
+              {lesson.exercises.length} exercices
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       {/* Modal Conseils Grammaticaux */}
       <GrammarTips
@@ -173,14 +208,73 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   scrollContent: {
-    padding: SIZES.screenPadding,
-    paddingBottom: 100, // Espace pour permettre le scroll jusqu'en bas
+    paddingBottom: 120,
   },
-  title: {
+
+  // Header - Design Figma
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: SIZES.screenPadding,
+    paddingBottom: SIZES.padding,
+  },
+  backArrow: {
+    width: 40,
+    height: 40,
+    borderRadius: SIZES.radiusSmall,
+    backgroundColor: COLORS.surface,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: SIZES.margin,
+  },
+  backArrowText: {
+    fontSize: 24,
+    color: COLORS.text,
+  },
+  headerContent: {
+    flex: 1,
+  },
+  headerTitle: {
     fontSize: FONTS.xxLarge,
     fontWeight: 'bold',
     color: COLORS.text,
-    marginBottom: SIZES.marginSmall,
+  },
+  headerSubtitle: {
+    fontSize: FONTS.medium,
+    color: COLORS.textSecondary,
+    marginTop: 2,
+  },
+
+  // Tips Button - Design Figma
+  tipsButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.surface,
+    marginHorizontal: SIZES.screenPadding,
+    marginBottom: SIZES.margin,
+    padding: SIZES.padding,
+    borderRadius: SIZES.radius,
+    borderWidth: 1,
+    borderColor: COLORS.accent + '40',
+  },
+  tipsIcon: {
+    fontSize: 20,
+    marginRight: SIZES.marginSmall,
+  },
+  tipsText: {
+    flex: 1,
+    fontSize: FONTS.medium,
+    fontWeight: '600',
+    color: COLORS.accent,
+  },
+  tipsArrow: {
+    fontSize: 24,
+    color: COLORS.textMuted,
+  },
+
+  // Content Section
+  contentSection: {
+    paddingHorizontal: SIZES.screenPadding,
   },
   sectionTitle: {
     fontSize: FONTS.large,
@@ -188,87 +282,110 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     marginBottom: SIZES.margin,
   },
+
+  // Character Card - Design Figma
   characterCard: {
     flexDirection: 'row',
-    backgroundColor: COLORS.surfaceLight,
+    alignItems: 'center',
+    backgroundColor: COLORS.surface,
     borderRadius: SIZES.radius,
     padding: SIZES.padding,
     marginBottom: SIZES.marginSmall,
   },
-  characterHiragana: {
-    fontSize: 48,
-    color: COLORS.primary,
+  characterBox: {
+    width: 64,
+    height: 64,
+    borderRadius: SIZES.radiusSmall,
+    backgroundColor: COLORS.backgroundDark,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: SIZES.margin,
-    minWidth: 60,
-    textAlign: 'center',
+  },
+  characterMain: {
+    fontSize: 36,
+    color: COLORS.text,
+    fontWeight: '300',
   },
   characterInfo: {
     flex: 1,
-    justifyContent: 'center',
-  },
-  romajiRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
   },
   characterRomaji: {
     fontSize: FONTS.xLarge,
     fontWeight: 'bold',
     color: COLORS.text,
-    flex: 1,
+    marginBottom: 4,
   },
+  characterTip: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  tipIcon: {
+    fontSize: 14,
+    marginRight: 6,
+    marginTop: 2,
+  },
+  tipText: {
+    flex: 1,
+    fontSize: FONTS.small,
+    color: COLORS.textSecondary,
+    lineHeight: 18,
+  },
+
+  // Audio Button - Design Figma
   audioButton: {
+    width: 48,
+    height: 48,
+    borderRadius: SIZES.radius,
     backgroundColor: COLORS.primary + '20',
-    borderRadius: SIZES.radiusSmall,
-    padding: 8,
-    marginLeft: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   audioButtonPlaying: {
     backgroundColor: COLORS.primary + '40',
   },
   audioIcon: {
-    fontSize: 20,
+    fontSize: 24,
+  },
+
+  // Bottom Button - Design Figma
+  bottomSpacer: {
+    height: 80,
+  },
+  bottomButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: SIZES.screenPadding,
+    backgroundColor: COLORS.background,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
   },
   startButton: {
     backgroundColor: COLORS.primary,
     borderRadius: SIZES.radius,
-    padding: SIZES.padding * 1.5,
+    padding: SIZES.padding * 1.2,
     alignItems: 'center',
-    marginTop: SIZES.margin,
   },
   startButtonText: {
     fontSize: FONTS.large,
     fontWeight: 'bold',
-    color: COLORS.background,
+    color: COLORS.text,
   },
-  // Style bouton grammaire
-  grammarButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.surfaceLight,
-    borderRadius: SIZES.radius,
-    padding: SIZES.padding,
-    marginTop: SIZES.margin,
-    borderWidth: 1,
-    borderColor: COLORS.primary + '40',
+  startButtonCount: {
+    fontSize: FONTS.small,
+    color: COLORS.text + 'CC',
+    marginTop: 2,
   },
-  grammarButtonIcon: {
-    fontSize: 20,
-    marginRight: SIZES.marginSmall,
-  },
-  grammarButtonText: {
-    fontSize: FONTS.medium,
-    color: COLORS.primary,
-    fontWeight: '600',
-  },
-  // Styles pour la grille de kanji
-  kanjiListContainer: {
+
+  // Kanji Grid
+  kanjiGridContainer: {
     marginTop: SIZES.margin,
     paddingTop: SIZES.margin,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
   },
-  kanjiListTitle: {
+  kanjiGridTitle: {
     fontSize: FONTS.medium,
     color: COLORS.textSecondary,
     marginBottom: SIZES.marginSmall,
@@ -284,7 +401,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: SIZES.radiusSmall,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: COLORS.backgroundDark,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -296,7 +413,35 @@ const styles = StyleSheet.create({
     color: COLORS.text,
   },
   kanjiGridCharActive: {
-    color: COLORS.background,
+    color: COLORS.text,
     fontWeight: 'bold',
+  },
+
+  // Error state
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: SIZES.screenPadding,
+  },
+  errorIcon: {
+    fontSize: 64,
+    marginBottom: SIZES.margin,
+  },
+  errorText: {
+    fontSize: FONTS.large,
+    color: COLORS.textSecondary,
+    marginBottom: SIZES.margin,
+  },
+  backButton: {
+    backgroundColor: COLORS.surface,
+    paddingHorizontal: SIZES.padding * 1.5,
+    paddingVertical: SIZES.padding,
+    borderRadius: SIZES.radius,
+  },
+  backButtonText: {
+    fontSize: FONTS.medium,
+    color: COLORS.primary,
+    fontWeight: '600',
   },
 });

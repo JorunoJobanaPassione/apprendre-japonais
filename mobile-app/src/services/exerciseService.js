@@ -1,7 +1,11 @@
 /**
  * Exercise Service - Gestion des exercices et validation des réponses
  * Gère MCQ, Transcription, Intruder avec scoring et feedback
+ *
+ * Intègre le système de feedback cognitif pour des retours personnalisés
  */
+
+import confusionTracker from './confusionTracker';
 
 /**
  * Types d'exercices supportés
@@ -98,23 +102,48 @@ export const calculatePoints = (exerciseType, isCorrect, streak = 0) => {
 export const getFeedback = (isCorrect, exerciseType) => {
   if (isCorrect) {
     const correctMessages = [
-      '🎉 Excellent !',
-      '✨ Parfait !',
-      '🌟 Bravo !',
-      '💯 Superbe !',
-      '🔥 Génial !',
-      '⭐ Top !',
+      'Correct',
+      'Exact',
+      'Bien joué',
+      'Parfait',
     ];
     return correctMessages[Math.floor(Math.random() * correctMessages.length)];
   } else {
-    const incorrectMessages = [
-      '❌ Incorrect',
-      '😔 Raté',
-      '💭 Réessaye',
-      '🤔 Presque',
-    ];
-    return incorrectMessages[Math.floor(Math.random() * incorrectMessages.length)];
+    return 'Incorrect';
   }
+};
+
+/**
+ * Génère un feedback enrichi avec analyse cognitive
+ * @param {boolean} isCorrect - Si la réponse est correcte
+ * @param {string} expected - La réponse attendue
+ * @param {string} userAnswer - La réponse de l'utilisateur
+ * @param {string} charType - Type de caractère (hiragana, katakana, kanji)
+ * @returns {Promise<{message: string, cognitive: string|null}>}
+ */
+export const getEnrichedFeedback = async (isCorrect, expected, userAnswer, charType = 'unknown') => {
+  const basicMessage = getFeedback(isCorrect);
+
+  if (isCorrect) {
+    return { message: basicMessage, cognitive: null };
+  }
+
+  // Tracker l'erreur et obtenir le feedback cognitif
+  await confusionTracker.trackError(expected, userAnswer, charType);
+  const cognitiveFeedback = await confusionTracker.getCognitiveFeedback(expected, userAnswer);
+
+  return {
+    message: basicMessage,
+    cognitive: cognitiveFeedback,
+    correctAnswer: expected,
+  };
+};
+
+/**
+ * Récupère les points faibles de l'utilisateur pour affichage
+ */
+export const getUserWeakPoints = async () => {
+  return await confusionTracker.getWeakPoints();
 };
 
 /**
@@ -237,6 +266,8 @@ export default {
   validateAnswer,
   calculatePoints,
   getFeedback,
+  getEnrichedFeedback,
+  getUserWeakPoints,
   shuffleArray,
   prepareExercises,
   calculateSessionStats,

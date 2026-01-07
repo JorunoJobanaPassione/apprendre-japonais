@@ -1,6 +1,7 @@
 /**
- * Streak Indicator Component - Affichage du streak avec protection gratuite
- * Feature Anti-Duolingo : Jours de grâce GRATUITS visible
+ * Streak Indicator Component - Affichage discret de la constance
+ * Feature Anti-Duolingo : Jours de grâce GRATUITS
+ * Design : Sobre et encourageant (pas de pression)
  */
 
 import React, { useState, useEffect } from 'react';
@@ -46,42 +47,25 @@ export default function StreakIndicator({ onPress, showDetailed = false }) {
   return (
     <>
       <TouchableOpacity style={styles.container} onPress={handlePress}>
-        {/* Main Streak Display */}
+        {/* Main Streak Display - Compact & Discret */}
         <View style={styles.mainContent}>
           <Text style={styles.emoji}>{emoji}</Text>
           <View style={styles.streakInfo}>
             <Text style={styles.streakText}>{`${currentStreak}`}</Text>
             <Text style={styles.streakLabel}>
-              {currentStreak === 0 ? 'Commencer' : currentStreak === 1 ? 'jour' : 'jours'}
+              {currentStreak === 0 ? 'jours' : currentStreak === 1 ? 'jour' : 'jours'}
             </Text>
           </View>
-        </View>
 
-        {/* Protection Badges */}
-        <View style={styles.badges}>
-          {hasGraceProtection && !isVacation && (
-            <View style={styles.badge}>
-              <Text style={styles.badgeEmoji}>🛡️</Text>
-              <Text style={styles.badgeText}>{`${graceDays.remaining}j grâce`}</Text>
-            </View>
-          )}
-
-          {isVacation && (
-            <View style={[styles.badge, styles.badgeVacation]}>
-              <Text style={styles.badgeEmoji}>🏖️</Text>
-              <Text style={styles.badgeText}>Vacances</Text>
+          {/* Protection discrète - petit indicateur */}
+          {(hasGraceProtection || isVacation) && (
+            <View style={styles.protectionIndicator}>
+              <Text style={styles.protectionEmoji}>
+                {isVacation ? '🏖️' : '🛡️'}
+              </Text>
             </View>
           )}
         </View>
-
-        {/* Next Milestone */}
-        {milestones.next && currentStreak > 0 && (
-          <View style={styles.nextMilestone}>
-            <Text style={styles.nextMilestoneText}>
-              {`${milestones.next.emoji} ${milestones.next.days - currentStreak}j → ${milestones.next.name}`}
-            </Text>
-          </View>
-        )}
       </TouchableOpacity>
 
       {/* Detailed Modal */}
@@ -96,7 +80,7 @@ export default function StreakIndicator({ onPress, showDetailed = false }) {
             <ScrollView>
               {/* Header */}
               <View style={styles.modalHeader}>
-                <Text style={styles.modalTitle}>🔥 Votre Streak</Text>
+                <Text style={styles.modalTitle}>🔥 Votre Flamme</Text>
                 <TouchableOpacity onPress={() => setModalVisible(false)}>
                   <Text style={styles.modalClose}>✕</Text>
                 </TouchableOpacity>
@@ -107,7 +91,7 @@ export default function StreakIndicator({ onPress, showDetailed = false }) {
                 <Text style={styles.statEmoji}>{emoji}</Text>
                 <Text style={styles.statValue}>{`${currentStreak}`}</Text>
                 <Text style={styles.statLabel}>
-                  {currentStreak === 0 ? 'Commencez votre streak !' : `jour${currentStreak > 1 ? 's' : ''} de suite`}
+                  {currentStreak === 0 ? 'Allumez votre flamme !' : `jour${currentStreak > 1 ? 's' : ''} de Volonté du Feu`}
                 </Text>
                 {stats.highestStreak > currentStreak && (
                   <Text style={styles.statSubtext}>
@@ -120,14 +104,14 @@ export default function StreakIndicator({ onPress, showDetailed = false }) {
               <View style={styles.statCard}>
                 <View style={styles.statHeader}>
                   <Text style={styles.statEmoji}>🛡️</Text>
-                  <Text style={styles.statTitle}>Jours de Grâce</Text>
+                  <Text style={styles.statTitle}>Bouclier Ninja</Text>
                   <View style={styles.freeBadge}>
                     <Text style={styles.freeBadgeText}>GRATUIT</Text>
                   </View>
                 </View>
 
                 <Text style={styles.statDescription}>
-                  Si vous manquez un jour, votre streak est protégé !
+                  Si vous manquez un jour, votre flamme est protégée !
                 </Text>
 
                 <View style={styles.graceDaysBar}>
@@ -193,8 +177,8 @@ export default function StreakIndicator({ onPress, showDetailed = false }) {
               {/* Milestones */}
               <View style={styles.statCard}>
                 <View style={styles.statHeader}>
-                  <Text style={styles.statEmoji}>🏆</Text>
-                  <Text style={styles.statTitle}>Milestones</Text>
+                  <Text style={styles.statEmoji}>⚡</Text>
+                  <Text style={styles.statTitle}>Niveaux de Puissance</Text>
                 </View>
 
                 <View style={styles.milestonesList}>
@@ -234,16 +218,16 @@ export default function StreakIndicator({ onPress, showDetailed = false }) {
                 </View>
               </View>
 
-              {/* Anti-Duolingo Message */}
+              {/* Notre Philosophie */}
               <View style={styles.antiDuolingoCard}>
                 <Text style={styles.antiDuolingoTitle}>
-                  💎 Différence vs Duolingo
+                  🥷 La Voie du Ninja
                 </Text>
                 <Text style={styles.antiDuolingoText}>
-                  ❌ Duolingo : Freeze paywall{'\n'}
-                  ✅ Notre app : Jours de grâce GRATUITS{'\n'}
-                  ✅ Mode vacances GRATUIT{'\n'}
-                  ✅ 0 manipulation, 0 culpabilisation
+                  ✅ Bouclier Ninja GRATUIT{'\n'}
+                  ✅ Mode Vacances GRATUIT (14j/an){'\n'}
+                  ✅ Pas de pression, apprends à ton rythme{'\n'}
+                  ✅ La vraie force vient de la persévérance !
                 </Text>
               </View>
             </ScrollView>
@@ -255,33 +239,34 @@ export default function StreakIndicator({ onPress, showDetailed = false }) {
 }
 
 const styles = StyleSheet.create({
-  // Compact View
+  // Compact View - Design discret
   container: {
     backgroundColor: COLORS.surface,
-    borderRadius: 16,
-    padding: SIZES.padding,
-    borderWidth: 2,
-    borderColor: COLORS.border,
+    borderRadius: 12,
+    padding: SIZES.padding * 0.8,
+    marginBottom: SIZES.marginSmall,
   },
 
   mainContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: SIZES.marginSmall,
   },
 
   emoji: {
-    fontSize: 32,
-    marginRight: SIZES.marginSmall,
+    fontSize: 20,
+    marginRight: 8,
   },
 
   streakInfo: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    gap: 4,
   },
 
   streakText: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
     color: COLORS.text,
   },
 
@@ -290,46 +275,12 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
   },
 
-  badges: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: SIZES.marginSmall,
-    marginBottom: SIZES.marginSmall,
+  protectionIndicator: {
+    marginLeft: 8,
   },
 
-  badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.primary + '20',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-
-  badgeVacation: {
-    backgroundColor: COLORS.accent + '20',
-  },
-
-  badgeEmoji: {
-    fontSize: 12,
-    marginRight: 4,
-  },
-
-  badgeText: {
-    fontSize: FONTS.tiny,
-    color: COLORS.primary,
-  },
-
-  nextMilestone: {
-    backgroundColor: COLORS.background,
-    padding: 8,
-    borderRadius: 8,
-  },
-
-  nextMilestoneText: {
-    fontSize: FONTS.tiny,
-    color: COLORS.textSecondary,
-    textAlign: 'center',
+  protectionEmoji: {
+    fontSize: 14,
   },
 
   // Modal Styles

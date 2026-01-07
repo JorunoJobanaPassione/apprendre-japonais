@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
   },
   character: {
     fontSize: 120,
-    fontWeight: 'bold',
     color: COLORS.text,
     marginBottom: SIZES.margin,
   },

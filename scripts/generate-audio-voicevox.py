@@ -32,7 +32,7 @@ BACKUP_DIR = Path(__file__).parent.parent / "mobile-app" / "assets" / "audio_bac
 # 8: 春日部つむぎ (ノーマル)
 # 10: 雨晴はう (ノーマル)
 # 14: 冥鳴ひまり (ノーマル)
-SPEAKER_ID = 3  # ずんだもん (ノーマル) - voix claire et naturelle
+SPEAKER_ID = 8  # 春日部つむぎ (ノーマル) - voix douce et naturelle
 
 # Mapping Romaji -> Hiragana (pour la prononciation correcte)
 ROMAJI_TO_HIRAGANA = {
@@ -90,8 +90,12 @@ ROMAJI_TO_HIRAGANA = {
 
     # Kanji readings (mots)
     'ichi': 'いち',
+    'ni': 'に',
     'san': 'さん',
+    'yon': 'よん',
+    'go': 'ご',
     'roku': 'ろく',
+    'nana': 'なな',
     'shichi': 'しち',
     'hachi': 'はち',
     'kyuu': 'きゅう',
@@ -177,6 +181,61 @@ ROMAJI_TO_HIRAGANA = {
     'chichi': 'ちち',
     'haha': 'はは',
     'tomo': 'とも',
+
+    # === VOCABULAIRE - Salutations ===
+    'konnichiwa': 'こんにちは',
+    'ohayou': 'おはよう',
+    'konbanwa': 'こんばんは',
+    'sayounara': 'さようなら',
+    'arigatou': 'ありがとう',
+    'sumimasen': 'すみません',
+    'gomennasai': 'ごめんなさい',
+    'hai': 'はい',
+    'iie': 'いいえ',
+    'onegaishimasu': 'おねがいします',
+
+    # === VOCABULAIRE - Jours de la semaine ===
+    'getsuyoubi': 'げつようび',
+    'kayoubi': 'かようび',
+    'suiyoubi': 'すいようび',
+    'mokuyoubi': 'もくようび',
+    'kinyoubi': 'きんようび',
+    'doyoubi': 'どようび',
+    'nichiyoubi': 'にちようび',
+
+    # === VOCABULAIRE - Couleurs ===
+    'aka': 'あか',
+    'ao': 'あお',
+    'kiiro': 'きいろ',
+    'midori': 'みどり',
+    'shiro': 'しろ',
+    'kuro': 'くろ',
+    'orenji': 'オレンジ',
+    'pinku': 'ピンク',
+    'murasaki': 'むらさき',
+    'chairo': 'ちゃいろ',
+
+    # === VOCABULAIRE - Famille ===
+    'okaasan': 'おかあさん',
+    'otousan': 'おとうさん',
+    'oniisan': 'おにいさん',
+    'oneesan': 'おねえさん',
+    'otouto': 'おとうと',
+    'imouto': 'いもうと',
+    'ojiisan': 'おじいさん',
+    'obaasan': 'おばあさん',
+
+    # === VOCABULAIRE - Nourriture ===
+    'mizu': 'みず',
+    'gohan': 'ごはん',
+    'pan': 'パン',
+    'niku': 'にく',
+    'sakana': 'さかな',
+    'yasai': 'やさい',
+    'kudamono': 'くだもの',
+    'ocha': 'おちゃ',
+    'koohii': 'コーヒー',
+    'tamago': 'たまご',
 }
 
 def check_voicevox_running():

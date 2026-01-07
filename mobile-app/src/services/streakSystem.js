@@ -4,6 +4,7 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import haptic from './hapticService';
 
 const STORAGE_KEYS = {
   STREAK_CURRENT: 'streak_current',
@@ -31,15 +32,15 @@ export const CONFIG = {
     FREE: true,             // 100% gratuit
   },
 
-  // Milestones
+  // Milestones - Thème Naruto/Dragon Ball
   MILESTONES: [
-    { days: 7, name: 'Une semaine', emoji: '🔥', reward: { xp: 100 } },
-    { days: 14, name: 'Deux semaines', emoji: '💪', reward: { xp: 200 } },
-    { days: 30, name: 'Un mois', emoji: '⭐', reward: { xp: 500, lives: 1 } },
-    { days: 50, name: '50 jours', emoji: '🎯', reward: { xp: 750 } },
-    { days: 100, name: '100 jours', emoji: '💎', reward: { xp: 1500, lives: 2 } },
-    { days: 200, name: '200 jours', emoji: '🏆', reward: { xp: 3000 } },
-    { days: 365, name: 'Une année', emoji: '👑', reward: { xp: 10000, lives: 5 } },
+    { days: 7, name: 'Volonté du Feu', emoji: '🔥', reward: { xp: 100 } },
+    { days: 14, name: 'Esprit du Bushido', emoji: '⚔️', reward: { xp: 200 } },
+    { days: 30, name: 'Détermination de Rock Lee', emoji: '💪', reward: { xp: 500, lives: 1 } },
+    { days: 50, name: 'Sage des Crapauds', emoji: '🐸', reward: { xp: 750 } },
+    { days: 100, name: 'Super Saiyan', emoji: '⚡', reward: { xp: 1500, lives: 2 } },
+    { days: 200, name: 'Super Saiyan Blue', emoji: '💙', reward: { xp: 3000 } },
+    { days: 365, name: 'Ultra Instinct', emoji: '🌟', reward: { xp: 10000, lives: 5 } },
   ],
 };
 
@@ -351,6 +352,13 @@ export const updateStreak = async () => {
       // Vérifier les milestones
       const milestone = await checkMilestone(newStreak);
 
+      // Haptic feedback pour streak maintenu
+      if (milestone?.unlocked) {
+        haptic.levelUp(); // Pattern spécial pour milestone
+      } else {
+        haptic.streak(); // Pattern simple pour streak quotidien
+      }
+
       // Reset les jours de grâce utilisés
       await AsyncStorage.setItem(
         STORAGE_KEYS.STREAK_GRACE_DAYS,
@@ -518,26 +526,26 @@ export const getStreakStats = async () => {
 };
 
 /**
- * Formatte le streak pour l'affichage
+ * Formatte la flamme pour l'affichage
  */
 export const formatStreak = (streak) => {
-  if (streak === 0) return 'Commencez votre streak !';
-  if (streak === 1) return '1 jour';
-  return `${streak} jours`;
+  if (streak === 0) return 'Allumez votre flamme !';
+  if (streak === 1) return '1 jour de feu';
+  return `${streak} jours de feu`;
 };
 
 /**
- * Obtient l'emoji du palier actuel
+ * Obtient l'emoji du palier actuel - Thème Dragon Ball/Naruto
  */
 export const getStreakTierEmoji = (streak) => {
-  if (streak >= 365) return '👑';
-  if (streak >= 200) return '🏆';
-  if (streak >= 100) return '💎';
-  if (streak >= 50) return '🎯';
-  if (streak >= 30) return '⭐';
-  if (streak >= 14) return '💪';
-  if (streak >= 7) return '🔥';
-  return '🌱';
+  if (streak >= 365) return '🌟'; // Ultra Instinct
+  if (streak >= 200) return '💙'; // Super Saiyan Blue
+  if (streak >= 100) return '⚡'; // Super Saiyan
+  if (streak >= 50) return '🐸'; // Sage des Crapauds
+  if (streak >= 30) return '💪'; // Rock Lee
+  if (streak >= 14) return '⚔️'; // Bushido
+  if (streak >= 7) return '🔥'; // Volonté du Feu
+  return '🌱'; // Genin
 };
 
 export default {

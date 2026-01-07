@@ -123,6 +123,8 @@ const AUDIO_FILES = {
 
   // Nombres
   'ichi': require('../../assets/audio/ichi.mp3'),
+  'yon': require('../../assets/audio/yon.mp3'),
+  'nana': require('../../assets/audio/nana.mp3'),
   'san': require('../../assets/audio/san.mp3'),
   'roku': require('../../assets/audio/roku.mp3'),
   'shichi': require('../../assets/audio/shichi.mp3'),
@@ -245,6 +247,71 @@ const AUDIO_FILES = {
   'chichi': require('../../assets/audio/chichi.mp3'),
   'haha': require('../../assets/audio/haha.mp3'),
   'tomo': require('../../assets/audio/tomo.mp3'),
+
+  // ========================================
+  // VOCABULAIRE - Salutations
+  // ========================================
+  'konnichiwa': require('../../assets/audio/konnichiwa.mp3'),
+  'ohayou': require('../../assets/audio/ohayou.mp3'),
+  'konbanwa': require('../../assets/audio/konbanwa.mp3'),
+  'sayounara': require('../../assets/audio/sayounara.mp3'),
+  'arigatou': require('../../assets/audio/arigatou.mp3'),
+  'sumimasen': require('../../assets/audio/sumimasen.mp3'),
+  'gomennasai': require('../../assets/audio/gomennasai.mp3'),
+  'hai': require('../../assets/audio/hai.mp3'),
+  'iie': require('../../assets/audio/iie.mp3'),
+  'onegaishimasu': require('../../assets/audio/onegaishimasu.mp3'),
+
+  // ========================================
+  // VOCABULAIRE - Jours de la semaine
+  // ========================================
+  'getsuyoubi': require('../../assets/audio/getsuyoubi.mp3'),
+  'kayoubi': require('../../assets/audio/kayoubi.mp3'),
+  'suiyoubi': require('../../assets/audio/suiyoubi.mp3'),
+  'mokuyoubi': require('../../assets/audio/mokuyoubi.mp3'),
+  'kinyoubi': require('../../assets/audio/kinyoubi.mp3'),
+  'doyoubi': require('../../assets/audio/doyoubi.mp3'),
+  'nichiyoubi': require('../../assets/audio/nichiyoubi.mp3'),
+
+  // ========================================
+  // VOCABULAIRE - Couleurs
+  // ========================================
+  'aka': require('../../assets/audio/aka.mp3'),
+  'ao': require('../../assets/audio/ao.mp3'),
+  'kiiro': require('../../assets/audio/kiiro.mp3'),
+  'midori': require('../../assets/audio/midori.mp3'),
+  'shiro': require('../../assets/audio/shiro.mp3'),
+  'kuro': require('../../assets/audio/kuro.mp3'),
+  'orenji': require('../../assets/audio/orenji.mp3'),
+  'pinku': require('../../assets/audio/pinku.mp3'),
+  'murasaki': require('../../assets/audio/murasaki.mp3'),
+  'chairo': require('../../assets/audio/chairo.mp3'),
+
+  // ========================================
+  // VOCABULAIRE - Famille
+  // ========================================
+  'okaasan': require('../../assets/audio/okaasan.mp3'),
+  'otousan': require('../../assets/audio/otousan.mp3'),
+  'oniisan': require('../../assets/audio/oniisan.mp3'),
+  'oneesan': require('../../assets/audio/oneesan.mp3'),
+  'otouto': require('../../assets/audio/otouto.mp3'),
+  'imouto': require('../../assets/audio/imouto.mp3'),
+  'ojiisan': require('../../assets/audio/ojiisan.mp3'),
+  'obaasan': require('../../assets/audio/obaasan.mp3'),
+
+  // ========================================
+  // VOCABULAIRE - Nourriture
+  // ========================================
+  'mizu': require('../../assets/audio/mizu.mp3'),
+  'gohan': require('../../assets/audio/gohan.mp3'),
+  'pan': require('../../assets/audio/pan.mp3'),
+  'niku': require('../../assets/audio/niku.mp3'),
+  'sakana': require('../../assets/audio/sakana.mp3'),
+  'yasai': require('../../assets/audio/yasai.mp3'),
+  'kudamono': require('../../assets/audio/kudamono.mp3'),
+  'ocha': require('../../assets/audio/ocha.mp3'),
+  'koohii': require('../../assets/audio/koohii.mp3'),
+  'tamago': require('../../assets/audio/tamago.mp3'),
 };
 
 class AudioService {

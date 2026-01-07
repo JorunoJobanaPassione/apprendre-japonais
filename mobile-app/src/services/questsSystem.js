@@ -9,6 +9,7 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import haptic from './hapticService';
 
 const STORAGE_KEYS = {
   QUESTS_DATA: 'user_quests_data',
@@ -17,58 +18,58 @@ const STORAGE_KEYS = {
 };
 
 /**
- * Types de quêtes disponibles
+ * Types de missions quotidiennes - Thème Ninja
  */
 const QUEST_TYPES = {
-  // Leçons
+  // Leçons - Entraînement
   COMPLETE_LESSONS: {
     id: 'complete_lessons',
-    title: 'Apprendre du nouveau',
+    title: 'Entraînement au Dojo',
     description: 'Complète {target} leçons',
-    icon: '📚',
+    icon: '🥷',
     target: 3,
     reward: { xp: 50, lives: 1 },
     check: (progress) => progress.lessonsCompleted >= 3,
   },
 
-  // SRS Reviews
+  // SRS Reviews - Technique du Clone
   SRS_REVIEWS: {
     id: 'srs_reviews',
-    title: 'Réviser et mémoriser',
-    description: 'Révise {target} cartes SRS',
-    icon: '🔄',
+    title: 'Technique du Clone',
+    description: 'Révise {target} cartes',
+    icon: '👥',
     target: 10,
     reward: { xp: 30 },
     check: (progress) => progress.srsReviews >= 10,
   },
 
-  // Perfect exercises
+  // Perfect exercises - Maîtrise du Sharingan
   PERFECT_EXERCISES: {
     id: 'perfect_exercises',
-    title: 'Maîtrise parfaite',
+    title: 'Précision du Sharingan',
     description: 'Fais {target} exercices sans erreur',
-    icon: '⭐',
+    icon: '👁️',
     target: 5,
     reward: { xp: 100, lives: 2 },
     check: (progress) => progress.perfectExercises >= 5,
   },
 
-  // Daily Challenge
+  // Daily Challenge - Mission spéciale
   DAILY_CHALLENGE: {
     id: 'daily_challenge',
-    title: 'Défi culturel',
+    title: 'Mission Spéciale',
     description: 'Complète le défi du jour',
-    icon: '🎯',
+    icon: '📜',
     target: 1,
     reward: { xp: 20, lives: 1 },
     check: (progress) => progress.dailyChallengeCompleted,
   },
 
-  // Streak maintenance
+  // Streak maintenance - Volonté du Feu
   MAINTAIN_STREAK: {
     id: 'maintain_streak',
-    title: 'Régularité',
-    description: 'Garde ton streak vivant aujourd\'hui',
+    title: 'Volonté du Feu',
+    description: 'Garde ta flamme vivante aujourd\'hui',
     icon: '🔥',
     target: 1,
     reward: { xp: 25 },
@@ -190,6 +191,8 @@ export const updateQuestProgress = async (questId, newProgress) => {
     const justCompleted = updatedQuests.find((q) => q.id === questId && q.justCompleted);
     if (justCompleted) {
       await incrementQuestStats();
+      // Haptic feedback pour quête complétée
+      haptic.questCompleted();
       return {
         quests: updatedQuests,
         reward: justCompleted.reward,

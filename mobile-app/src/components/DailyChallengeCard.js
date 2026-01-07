@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
   },
   japanese: {
     fontSize: 24,
-    fontWeight: 'bold',
     color: COLORS.text,
     textAlign: 'center',
     marginBottom: 4,

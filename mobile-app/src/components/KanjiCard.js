@@ -255,7 +255,6 @@ const styles = StyleSheet.create({
   },
   kanjiCharacter: {
     fontSize: 120,
-    fontWeight: 'bold',
     color: COLORS.text,
     lineHeight: 140,
   },

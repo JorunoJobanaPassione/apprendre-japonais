@@ -18,6 +18,8 @@ import SRSScreen from '../screens/SRSScreen';
 import SRSReviewScreen from '../screens/SRSReviewScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DailyChallengeScreen from '../screens/DailyChallengeScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import LeaderboardScreen from '../screens/LeaderboardScreen';
 
 // Theme
 import { COLORS } from '../styles/theme';
@@ -149,6 +151,20 @@ function AppNavigator() {
           component={DailyChallengeScreen}
           options={{
             title: 'Défi du Jour',
+          }}
+        />
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            title: 'Paramètres',
+          }}
+        />
+        <Stack.Screen
+          name="Leaderboard"
+          component={LeaderboardScreen}
+          options={{
+            title: 'Classement',
           }}
         />
       </Stack.Navigator>

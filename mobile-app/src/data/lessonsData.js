@@ -4713,6 +4713,709 @@ export const vocabularyLessons = [
         "meaning": "50"
       }
     ]
+  },
+  {
+    "id": 12,
+    "title": "Salutations",
+    "description": "Les expressions essentielles du quotidien",
+    "difficulty": "Débutant",
+    "category": "vocabulary",
+    "free": true,
+    "characters": [
+      {
+        "hiragana": "こんにちは",
+        "romaji": "konnichiwa",
+        "pronunciation": "konnichiwa",
+        "mnemonic": "Bonjour (journée)",
+        "examples": [],
+        "audio": "konnichiwa.mp3",
+        "meaning": "Bonjour"
+      },
+      {
+        "hiragana": "おはよう",
+        "romaji": "ohayou",
+        "pronunciation": "ohayou",
+        "mnemonic": "Bonjour (matin)",
+        "examples": [],
+        "audio": "ohayou.mp3",
+        "meaning": "Bonjour (matin)"
+      },
+      {
+        "hiragana": "こんばんは",
+        "romaji": "konbanwa",
+        "pronunciation": "konbanwa",
+        "mnemonic": "Bonsoir",
+        "examples": [],
+        "audio": "konbanwa.mp3",
+        "meaning": "Bonsoir"
+      },
+      {
+        "hiragana": "さようなら",
+        "romaji": "sayounara",
+        "pronunciation": "sayounara",
+        "mnemonic": "Au revoir",
+        "examples": [],
+        "audio": "sayounara.mp3",
+        "meaning": "Au revoir"
+      },
+      {
+        "hiragana": "ありがとう",
+        "romaji": "arigatou",
+        "pronunciation": "arigatou",
+        "mnemonic": "Merci",
+        "examples": [],
+        "audio": "arigatou.mp3",
+        "meaning": "Merci"
+      },
+      {
+        "hiragana": "すみません",
+        "romaji": "sumimasen",
+        "pronunciation": "sumimasen",
+        "mnemonic": "Excusez-moi / Pardon",
+        "examples": [],
+        "audio": "sumimasen.mp3",
+        "meaning": "Excusez-moi"
+      },
+      {
+        "hiragana": "ごめんなさい",
+        "romaji": "gomennasai",
+        "pronunciation": "gomennasai",
+        "mnemonic": "Je suis désolé",
+        "examples": [],
+        "audio": "gomennasai.mp3",
+        "meaning": "Désolé"
+      },
+      {
+        "hiragana": "はい",
+        "romaji": "hai",
+        "pronunciation": "hai",
+        "mnemonic": "Oui",
+        "examples": [],
+        "audio": "hai.mp3",
+        "meaning": "Oui"
+      },
+      {
+        "hiragana": "いいえ",
+        "romaji": "iie",
+        "pronunciation": "iie",
+        "mnemonic": "Non",
+        "examples": [],
+        "audio": "iie.mp3",
+        "meaning": "Non"
+      },
+      {
+        "hiragana": "おねがいします",
+        "romaji": "onegaishimasu",
+        "pronunciation": "onegaishimasu",
+        "mnemonic": "S'il vous plaît",
+        "examples": [],
+        "audio": "onegaishimasu.mp3",
+        "meaning": "S'il vous plaît"
+      }
+    ],
+    "exercises": [
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Bonjour' l'après-midi ?",
+        "options": ["こんにちは", "おはよう", "こんばんは", "さようなら"],
+        "correct": "こんにちは",
+        "character": "Bonjour"
+      },
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Merci' ?",
+        "options": ["ありがとう", "すみません", "ごめんなさい", "はい"],
+        "correct": "ありがとう",
+        "character": "Merci"
+      },
+      {
+        "type": "mcq",
+        "question": "Que signifie おはよう ?",
+        "options": ["Bonjour (matin)", "Bonsoir", "Au revoir", "Merci"],
+        "correct": "Bonjour (matin)",
+        "character": "おはよう"
+      },
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Au revoir' ?",
+        "options": ["さようなら", "こんにちは", "ありがとう", "すみません"],
+        "correct": "さようなら",
+        "character": "Au revoir"
+      },
+      {
+        "type": "mcq",
+        "question": "Que signifie すみません ?",
+        "options": ["Excusez-moi", "Merci", "Oui", "Non"],
+        "correct": "Excusez-moi",
+        "character": "すみません"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: こんにちは",
+        "correct": "konnichiwa",
+        "character": "こんにちは",
+        "meaning": "Bonjour"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: ありがとう",
+        "correct": "arigatou",
+        "character": "ありがとう",
+        "meaning": "Merci"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: さようなら",
+        "correct": "sayounara",
+        "character": "さようなら",
+        "meaning": "Au revoir"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Jours de la semaine",
+    "description": "Les 7 jours en japonais",
+    "difficulty": "Débutant",
+    "category": "vocabulary",
+    "free": true,
+    "characters": [
+      {
+        "hiragana": "げつようび",
+        "romaji": "getsuyoubi",
+        "pronunciation": "getsuyoubi",
+        "mnemonic": "月曜日 - Jour de la lune",
+        "examples": [],
+        "audio": "getsuyoubi.mp3",
+        "meaning": "Lundi"
+      },
+      {
+        "hiragana": "かようび",
+        "romaji": "kayoubi",
+        "pronunciation": "kayoubi",
+        "mnemonic": "火曜日 - Jour du feu",
+        "examples": [],
+        "audio": "kayoubi.mp3",
+        "meaning": "Mardi"
+      },
+      {
+        "hiragana": "すいようび",
+        "romaji": "suiyoubi",
+        "pronunciation": "suiyoubi",
+        "mnemonic": "水曜日 - Jour de l'eau",
+        "examples": [],
+        "audio": "suiyoubi.mp3",
+        "meaning": "Mercredi"
+      },
+      {
+        "hiragana": "もくようび",
+        "romaji": "mokuyoubi",
+        "pronunciation": "mokuyoubi",
+        "mnemonic": "木曜日 - Jour du bois",
+        "examples": [],
+        "audio": "mokuyoubi.mp3",
+        "meaning": "Jeudi"
+      },
+      {
+        "hiragana": "きんようび",
+        "romaji": "kinyoubi",
+        "pronunciation": "kinyoubi",
+        "mnemonic": "金曜日 - Jour de l'or",
+        "examples": [],
+        "audio": "kinyoubi.mp3",
+        "meaning": "Vendredi"
+      },
+      {
+        "hiragana": "どようび",
+        "romaji": "doyoubi",
+        "pronunciation": "doyoubi",
+        "mnemonic": "土曜日 - Jour de la terre",
+        "examples": [],
+        "audio": "doyoubi.mp3",
+        "meaning": "Samedi"
+      },
+      {
+        "hiragana": "にちようび",
+        "romaji": "nichiyoubi",
+        "pronunciation": "nichiyoubi",
+        "mnemonic": "日曜日 - Jour du soleil",
+        "examples": [],
+        "audio": "nichiyoubi.mp3",
+        "meaning": "Dimanche"
+      }
+    ],
+    "exercises": [
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Lundi' ?",
+        "options": ["げつようび", "かようび", "すいようび", "もくようび"],
+        "correct": "げつようび",
+        "character": "Lundi"
+      },
+      {
+        "type": "mcq",
+        "question": "Que signifie きんようび ?",
+        "options": ["Vendredi", "Jeudi", "Samedi", "Dimanche"],
+        "correct": "Vendredi",
+        "character": "きんようび"
+      },
+      {
+        "type": "mcq",
+        "question": "Quel jour est にちようび ?",
+        "options": ["Dimanche", "Samedi", "Lundi", "Mardi"],
+        "correct": "Dimanche",
+        "character": "にちようび"
+      },
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Mercredi' ?",
+        "options": ["すいようび", "かようび", "もくようび", "きんようび"],
+        "correct": "すいようび",
+        "character": "Mercredi"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: げつようび",
+        "correct": "getsuyoubi",
+        "character": "げつようび",
+        "meaning": "Lundi"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: にちようび",
+        "correct": "nichiyoubi",
+        "character": "にちようび",
+        "meaning": "Dimanche"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Couleurs",
+    "description": "Les couleurs principales",
+    "difficulty": "Débutant",
+    "category": "vocabulary",
+    "free": true,
+    "characters": [
+      {
+        "hiragana": "あか",
+        "romaji": "aka",
+        "pronunciation": "aka",
+        "mnemonic": "赤 - Rouge",
+        "examples": [],
+        "audio": "aka.mp3",
+        "meaning": "Rouge"
+      },
+      {
+        "hiragana": "あお",
+        "romaji": "ao",
+        "pronunciation": "ao",
+        "mnemonic": "青 - Bleu",
+        "examples": [],
+        "audio": "ao.mp3",
+        "meaning": "Bleu"
+      },
+      {
+        "hiragana": "きいろ",
+        "romaji": "kiiro",
+        "pronunciation": "kiiro",
+        "mnemonic": "黄色 - Jaune",
+        "examples": [],
+        "audio": "kiiro.mp3",
+        "meaning": "Jaune"
+      },
+      {
+        "hiragana": "みどり",
+        "romaji": "midori",
+        "pronunciation": "midori",
+        "mnemonic": "緑 - Vert",
+        "examples": [],
+        "audio": "midori.mp3",
+        "meaning": "Vert"
+      },
+      {
+        "hiragana": "しろ",
+        "romaji": "shiro",
+        "pronunciation": "shiro",
+        "mnemonic": "白 - Blanc",
+        "examples": [],
+        "audio": "shiro.mp3",
+        "meaning": "Blanc"
+      },
+      {
+        "hiragana": "くろ",
+        "romaji": "kuro",
+        "pronunciation": "kuro",
+        "mnemonic": "黒 - Noir",
+        "examples": [],
+        "audio": "kuro.mp3",
+        "meaning": "Noir"
+      },
+      {
+        "hiragana": "オレンジ",
+        "romaji": "orenji",
+        "pronunciation": "orenji",
+        "mnemonic": "Orange (katakana car emprunté)",
+        "examples": [],
+        "audio": "orenji.mp3",
+        "meaning": "Orange"
+      },
+      {
+        "hiragana": "ピンク",
+        "romaji": "pinku",
+        "pronunciation": "pinku",
+        "mnemonic": "Rose (katakana car emprunté)",
+        "examples": [],
+        "audio": "pinku.mp3",
+        "meaning": "Rose"
+      },
+      {
+        "hiragana": "むらさき",
+        "romaji": "murasaki",
+        "pronunciation": "murasaki",
+        "mnemonic": "紫 - Violet",
+        "examples": [],
+        "audio": "murasaki.mp3",
+        "meaning": "Violet"
+      },
+      {
+        "hiragana": "ちゃいろ",
+        "romaji": "chairo",
+        "pronunciation": "chairo",
+        "mnemonic": "茶色 - Marron (couleur du thé)",
+        "examples": [],
+        "audio": "chairo.mp3",
+        "meaning": "Marron"
+      }
+    ],
+    "exercises": [
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Rouge' ?",
+        "options": ["あか", "あお", "きいろ", "みどり"],
+        "correct": "あか",
+        "character": "Rouge"
+      },
+      {
+        "type": "mcq",
+        "question": "Que signifie あお ?",
+        "options": ["Bleu", "Rouge", "Vert", "Jaune"],
+        "correct": "Bleu",
+        "character": "あお"
+      },
+      {
+        "type": "mcq",
+        "question": "Quelle couleur est しろ ?",
+        "options": ["Blanc", "Noir", "Gris", "Bleu"],
+        "correct": "Blanc",
+        "character": "しろ"
+      },
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Vert' ?",
+        "options": ["みどり", "きいろ", "あお", "あか"],
+        "correct": "みどり",
+        "character": "Vert"
+      },
+      {
+        "type": "mcq",
+        "question": "Que signifie くろ ?",
+        "options": ["Noir", "Blanc", "Marron", "Violet"],
+        "correct": "Noir",
+        "character": "くろ"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: あか",
+        "correct": "aka",
+        "character": "あか",
+        "meaning": "Rouge"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: みどり",
+        "correct": "midori",
+        "character": "みどり",
+        "meaning": "Vert"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Famille",
+    "description": "Les membres de la famille",
+    "difficulty": "Débutant",
+    "category": "vocabulary",
+    "free": true,
+    "characters": [
+      {
+        "hiragana": "おかあさん",
+        "romaji": "okaasan",
+        "pronunciation": "okaasan",
+        "mnemonic": "お母さん - Mère (poli)",
+        "examples": [],
+        "audio": "okaasan.mp3",
+        "meaning": "Mère"
+      },
+      {
+        "hiragana": "おとうさん",
+        "romaji": "otousan",
+        "pronunciation": "otousan",
+        "mnemonic": "お父さん - Père (poli)",
+        "examples": [],
+        "audio": "otousan.mp3",
+        "meaning": "Père"
+      },
+      {
+        "hiragana": "おにいさん",
+        "romaji": "oniisan",
+        "pronunciation": "oniisan",
+        "mnemonic": "お兄さん - Grand frère",
+        "examples": [],
+        "audio": "oniisan.mp3",
+        "meaning": "Grand frère"
+      },
+      {
+        "hiragana": "おねえさん",
+        "romaji": "oneesan",
+        "pronunciation": "oneesan",
+        "mnemonic": "お姉さん - Grande sœur",
+        "examples": [],
+        "audio": "oneesan.mp3",
+        "meaning": "Grande sœur"
+      },
+      {
+        "hiragana": "おとうと",
+        "romaji": "otouto",
+        "pronunciation": "otouto",
+        "mnemonic": "弟 - Petit frère",
+        "examples": [],
+        "audio": "otouto.mp3",
+        "meaning": "Petit frère"
+      },
+      {
+        "hiragana": "いもうと",
+        "romaji": "imouto",
+        "pronunciation": "imouto",
+        "mnemonic": "妹 - Petite sœur",
+        "examples": [],
+        "audio": "imouto.mp3",
+        "meaning": "Petite sœur"
+      },
+      {
+        "hiragana": "おじいさん",
+        "romaji": "ojiisan",
+        "pronunciation": "ojiisan",
+        "mnemonic": "お祖父さん - Grand-père",
+        "examples": [],
+        "audio": "ojiisan.mp3",
+        "meaning": "Grand-père"
+      },
+      {
+        "hiragana": "おばあさん",
+        "romaji": "obaasan",
+        "pronunciation": "obaasan",
+        "mnemonic": "お祖母さん - Grand-mère",
+        "examples": [],
+        "audio": "obaasan.mp3",
+        "meaning": "Grand-mère"
+      }
+    ],
+    "exercises": [
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Mère' ?",
+        "options": ["おかあさん", "おとうさん", "おねえさん", "おばあさん"],
+        "correct": "おかあさん",
+        "character": "Mère"
+      },
+      {
+        "type": "mcq",
+        "question": "Que signifie おとうさん ?",
+        "options": ["Père", "Mère", "Grand-père", "Grand frère"],
+        "correct": "Père",
+        "character": "おとうさん"
+      },
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Petit frère' ?",
+        "options": ["おとうと", "おにいさん", "いもうと", "おとうさん"],
+        "correct": "おとうと",
+        "character": "Petit frère"
+      },
+      {
+        "type": "mcq",
+        "question": "Que signifie おばあさん ?",
+        "options": ["Grand-mère", "Grand-père", "Mère", "Grande sœur"],
+        "correct": "Grand-mère",
+        "character": "おばあさん"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: おかあさん",
+        "correct": "okaasan",
+        "character": "おかあさん",
+        "meaning": "Mère"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: おとうさん",
+        "correct": "otousan",
+        "character": "おとうさん",
+        "meaning": "Père"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Nourriture de base",
+    "description": "Aliments et boissons essentiels",
+    "difficulty": "Débutant",
+    "category": "vocabulary",
+    "free": true,
+    "characters": [
+      {
+        "hiragana": "みず",
+        "romaji": "mizu",
+        "pronunciation": "mizu",
+        "mnemonic": "水 - Eau",
+        "examples": [],
+        "audio": "mizu.mp3",
+        "meaning": "Eau"
+      },
+      {
+        "hiragana": "ごはん",
+        "romaji": "gohan",
+        "pronunciation": "gohan",
+        "mnemonic": "ご飯 - Riz / Repas",
+        "examples": [],
+        "audio": "gohan.mp3",
+        "meaning": "Riz / Repas"
+      },
+      {
+        "hiragana": "パン",
+        "romaji": "pan",
+        "pronunciation": "pan",
+        "mnemonic": "Pain (du portugais)",
+        "examples": [],
+        "audio": "pan.mp3",
+        "meaning": "Pain"
+      },
+      {
+        "hiragana": "にく",
+        "romaji": "niku",
+        "pronunciation": "niku",
+        "mnemonic": "肉 - Viande",
+        "examples": [],
+        "audio": "niku.mp3",
+        "meaning": "Viande"
+      },
+      {
+        "hiragana": "さかな",
+        "romaji": "sakana",
+        "pronunciation": "sakana",
+        "mnemonic": "魚 - Poisson",
+        "examples": [],
+        "audio": "sakana.mp3",
+        "meaning": "Poisson"
+      },
+      {
+        "hiragana": "やさい",
+        "romaji": "yasai",
+        "pronunciation": "yasai",
+        "mnemonic": "野菜 - Légumes",
+        "examples": [],
+        "audio": "yasai.mp3",
+        "meaning": "Légumes"
+      },
+      {
+        "hiragana": "くだもの",
+        "romaji": "kudamono",
+        "pronunciation": "kudamono",
+        "mnemonic": "果物 - Fruits",
+        "examples": [],
+        "audio": "kudamono.mp3",
+        "meaning": "Fruits"
+      },
+      {
+        "hiragana": "おちゃ",
+        "romaji": "ocha",
+        "pronunciation": "ocha",
+        "mnemonic": "お茶 - Thé",
+        "examples": [],
+        "audio": "ocha.mp3",
+        "meaning": "Thé"
+      },
+      {
+        "hiragana": "コーヒー",
+        "romaji": "koohii",
+        "pronunciation": "koohii",
+        "mnemonic": "Café (katakana)",
+        "examples": [],
+        "audio": "koohii.mp3",
+        "meaning": "Café"
+      },
+      {
+        "hiragana": "たまご",
+        "romaji": "tamago",
+        "pronunciation": "tamago",
+        "mnemonic": "卵 - Œuf",
+        "examples": [],
+        "audio": "tamago.mp3",
+        "meaning": "Œuf"
+      }
+    ],
+    "exercises": [
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Eau' ?",
+        "options": ["みず", "おちゃ", "コーヒー", "ごはん"],
+        "correct": "みず",
+        "character": "Eau"
+      },
+      {
+        "type": "mcq",
+        "question": "Que signifie ごはん ?",
+        "options": ["Riz / Repas", "Pain", "Viande", "Poisson"],
+        "correct": "Riz / Repas",
+        "character": "ごはん"
+      },
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Poisson' ?",
+        "options": ["さかな", "にく", "たまご", "やさい"],
+        "correct": "さかな",
+        "character": "Poisson"
+      },
+      {
+        "type": "mcq",
+        "question": "Que signifie おちゃ ?",
+        "options": ["Thé", "Café", "Eau", "Lait"],
+        "correct": "Thé",
+        "character": "おちゃ"
+      },
+      {
+        "type": "mcq",
+        "question": "Comment dit-on 'Légumes' ?",
+        "options": ["やさい", "くだもの", "にく", "さかな"],
+        "correct": "やさい",
+        "character": "Légumes"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: みず",
+        "correct": "mizu",
+        "character": "みず",
+        "meaning": "Eau"
+      },
+      {
+        "type": "transcription",
+        "question": "Tapez le romaji de: さかな",
+        "correct": "sakana",
+        "character": "さかな",
+        "meaning": "Poisson"
+      }
+    ]
   }
 ];
 

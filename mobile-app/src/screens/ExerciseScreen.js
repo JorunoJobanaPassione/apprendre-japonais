@@ -17,20 +17,21 @@ import ExerciseMCQ from '../components/ExerciseMCQ';
 import ExerciseTranscription from '../components/ExerciseTranscription';
 import ExerciseIntruder from '../components/ExerciseIntruder';
 import ExerciseKanji from '../components/ExerciseKanji';
-import { SuccessAnimation, ErrorShake } from '../components/FeedbackAnimation';
+import { ErrorShake } from '../components/FeedbackAnimation';
 import {
   prepareExercises,
   validateAnswer,
   calculatePoints,
-  getFeedback,
   calculateSessionStats,
   shouldLoseLife,
   EXERCISE_TYPES,
 } from '../services/exerciseService';
+import { getCognitiveFeedback, trackError } from '../services/confusionTracker';
 import { getProgress, saveProgress } from '../services/storage';
 import { getLives, loseLife, checkAutoRecharge, CONFIG } from '../services/livesSystem';
 import { incrementQuestProgress } from '../services/questsSystem';
 import audioService from '../services/audioService';
+import haptic from '../services/hapticService';
 import { COLORS, FONTS, SIZES } from '../styles/theme';
 import globalStyles from '../styles/globalStyles';
 import { usePremium } from '../contexts/PremiumContext';
@@ -45,15 +46,13 @@ export default function ExerciseScreen({ route, navigation }) {
   const [streak, setStreak] = useState(0);
   const [lives, setLives] = useState(CONFIG.MAX_LIVES);
   const [showFeedback, setShowFeedback] = useState(false);
-  const [currentFeedback, setCurrentFeedback] = useState('');
+  const [feedbackData, setFeedbackData] = useState({ isCorrect: false, message: '', cognitive: '' });
   const [showResults, setShowResults] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false);
   const [shakeError, setShakeError] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
 
   // Animations
   const feedbackAnim = useState(new Animated.Value(0))[0];
-  const progressAnim = useState(new Animated.Value(0))[0];
 
   useEffect(() => {
     checkExerciseLimit();
@@ -68,14 +67,6 @@ export default function ExerciseScreen({ route, navigation }) {
     }
   };
 
-  useEffect(() => {
-    // Animer la barre de progression
-    Animated.timing(progressAnim, {
-      toValue: currentIndex,
-      duration: 300,
-      useNativeDriver: false,
-    }).start();
-  }, [currentIndex]);
 
   useEffect(() => {
     // Jouer l'audio du caractère au début de chaque exercice (Feature Audio Intégré)
@@ -146,17 +137,30 @@ export default function ExerciseScreen({ route, navigation }) {
       await incrementQuestProgress('perfect_exercise');
     }
 
-    // Afficher feedback
-    const feedback = getFeedback(isCorrect, currentExercise.type);
-    setCurrentFeedback(feedback);
+    // Préparer le feedback cognitif (Anti-Duolingo: feedback sobre et utile)
+    let cognitiveFeedback = '';
+    if (!isCorrect) {
+      // Tracker l'erreur pour le système cognitif
+      const expected = currentExercise.correct || currentExercise.correctAnswer?.character;
+      await trackError(expected, userAnswer, currentExercise.type);
+      cognitiveFeedback = await getCognitiveFeedback(expected, userAnswer) || '';
+    }
+
+    // Afficher feedback toast (pas de "Superbe!" excessif)
+    setFeedbackData({
+      isCorrect,
+      message: isCorrect ? 'Correct' : 'Incorrect',
+      cognitive: cognitiveFeedback,
+      correctAnswer: !isCorrect ? (currentExercise.correct || currentExercise.correctAnswer?.character) : null,
+    });
     setShowFeedback(true);
 
-    // Animations de feedback visuelles
+    // Animations de feedback visuelles + haptic (sans confettis)
     if (isCorrect) {
-      setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 2000);
+      haptic.success(); // Vibration de succès
     } else {
       setShakeError(true);
+      haptic.error(); // Vibration d'erreur
       setTimeout(() => setShakeError(false), 500);
     }
 
@@ -181,6 +185,12 @@ export default function ExerciseScreen({ route, navigation }) {
     if (shouldLoseLife(newResults, 3) && lives > 0) {
       const newLives = await loseLife();
       setLives(newLives);
+      // Haptic feedback pour perte de vie
+      if (newLives === 1) {
+        haptic.lastLife(); // Warning intense pour dernière vie
+      } else {
+        haptic.lifeLost();
+      }
     }
 
     // Passer à l'exercice suivant ou afficher résultats
@@ -195,6 +205,9 @@ export default function ExerciseScreen({ route, navigation }) {
 
   const showFinalResults = async (finalResults) => {
     const stats = calculateSessionStats(finalResults);
+
+    // Haptic feedback pour leçon terminée
+    haptic.lessonCompleted();
 
     // Sauvegarder progression
     const progress = await getProgress();
@@ -312,23 +325,19 @@ export default function ExerciseScreen({ route, navigation }) {
     );
   };
 
-  const progress = exercises.length > 0 ? (currentIndex / exercises.length) * 100 : 0;
-
   return (
     <SafeAreaView style={globalStyles.safeArea}>
       <View style={styles.container}>
-        {/* Header */}
+        {/* Header (Anti-Duolingo: texte simple au lieu de barre de progression) */}
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={styles.closeButton}>✕</Text>
           </TouchableOpacity>
 
-          {/* Progress Bar */}
-          <View style={styles.progressBarContainer}>
-            <View
-              style={[styles.progressBar, { width: `${progress}%` }]}
-            />
-          </View>
+          {/* Progress Text (au lieu de barre de progression "game") */}
+          <Text style={styles.progressText}>
+            {currentIndex + 1} / {exercises.length}
+          </Text>
 
           {/* Lives */}
           <View style={styles.livesContainer}>
@@ -345,30 +354,37 @@ export default function ExerciseScreen({ route, navigation }) {
           </View>
         )}
 
-        {/* Streak */}
-        {streak > 0 && (
-          <View style={styles.streakBanner}>
-            <Text style={styles.streakText}>🔥 Série de {streak} !</Text>
-          </View>
-        )}
+        {/* Streak Banner retiré - Anti-Duolingo: focus sur la question, pas sur les stats */}
+        {/* Le streak est toujours calculé mais affiché uniquement en fin de session */}
 
         {/* Exercise with Shake Animation */}
         <ErrorShake shake={shakeError}>
           {renderExercise()}
         </ErrorShake>
 
-        {/* Success Confetti Animation */}
-        <SuccessAnimation visible={showConfetti} />
-
-        {/* Feedback Overlay */}
+        {/* Feedback Toast (Anti-Duolingo: discret, en bas, pas de confettis) */}
         {showFeedback && (
           <Animated.View
             style={[
-              styles.feedbackOverlay,
+              styles.feedbackToast,
+              feedbackData.isCorrect ? styles.feedbackToastCorrect : styles.feedbackToastIncorrect,
               { opacity: feedbackAnim },
             ]}
           >
-            <Text style={styles.feedbackText}>{currentFeedback}</Text>
+            <View style={styles.feedbackToastHeader}>
+              <Text style={styles.feedbackToastIcon}>
+                {feedbackData.isCorrect ? '✓' : '✗'}
+              </Text>
+              <Text style={styles.feedbackToastMessage}>{feedbackData.message}</Text>
+            </View>
+            {!feedbackData.isCorrect && feedbackData.correctAnswer && (
+              <Text style={styles.feedbackCorrectAnswer}>
+                Réponse : {feedbackData.correctAnswer}
+              </Text>
+            )}
+            {feedbackData.cognitive ? (
+              <Text style={styles.feedbackCognitive}>{feedbackData.cognitive}</Text>
+            ) : null}
           </Animated.View>
         )}
 
@@ -395,17 +411,13 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     fontWeight: 'bold',
   },
-  progressBarContainer: {
+  // Progress Text (Anti-Duolingo: texte sobre au lieu de barre game)
+  progressText: {
     flex: 1,
-    height: 12,
-    backgroundColor: COLORS.surface,
-    borderRadius: SIZES.radiusSmall,
-    overflow: 'hidden',
-  },
-  progressBar: {
-    height: '100%',
-    backgroundColor: COLORS.primary,
-    borderRadius: SIZES.radiusSmall,
+    textAlign: 'center',
+    fontSize: FONTS.medium,
+    color: COLORS.textSecondary,
+    fontWeight: '500',
   },
   livesContainer: {
     backgroundColor: COLORS.surface,
@@ -428,16 +440,7 @@ const styles = StyleSheet.create({
     color: COLORS.warning,
     fontWeight: '500',
   },
-  streakBanner: {
-    backgroundColor: COLORS.primary + '20',
-    padding: SIZES.paddingSmall,
-    alignItems: 'center',
-  },
-  streakText: {
-    fontSize: FONTS.medium,
-    fontWeight: 'bold',
-    color: COLORS.primary,
-  },
+  // streakBanner retiré - Anti-Duolingo
   unsupportedContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -449,21 +452,50 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     textAlign: 'center',
   },
-  feedbackOverlay: {
+  // Feedback Toast (Anti-Duolingo: discret, en bas)
+  feedbackToast: {
     position: 'absolute',
-    top: '40%',
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
+    bottom: 40,
+    left: SIZES.screenPadding,
+    right: SIZES.screenPadding,
+    borderRadius: SIZES.radius,
+    padding: SIZES.padding,
+    paddingVertical: SIZES.padding * 1.2,
   },
-  feedbackText: {
-    fontSize: 48,
+  feedbackToastCorrect: {
+    backgroundColor: COLORS.success + 'E6', // 90% opacité
+  },
+  feedbackToastIncorrect: {
+    backgroundColor: COLORS.error + 'E6', // 90% opacité
+  },
+  feedbackToastHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  feedbackToastIcon: {
+    fontSize: FONTS.xLarge,
     fontWeight: 'bold',
     color: COLORS.text,
-    textShadowColor: COLORS.background,
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 8,
+    marginRight: SIZES.marginSmall,
+  },
+  feedbackToastMessage: {
+    fontSize: FONTS.large,
+    fontWeight: 'bold',
+    color: COLORS.text,
+  },
+  feedbackCorrectAnswer: {
+    fontSize: FONTS.medium,
+    color: COLORS.text,
+    marginTop: 4,
+    opacity: 0.9,
+  },
+  feedbackCognitive: {
+    fontSize: FONTS.medium,
+    color: COLORS.text,
+    marginTop: SIZES.marginSmall,
+    fontStyle: 'italic',
+    opacity: 0.9,
   },
   resultsContainer: {
     flex: 1,

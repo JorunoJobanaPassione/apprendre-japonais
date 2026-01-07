@@ -117,38 +117,36 @@ function Sparkle({ x, y, delay }) {
   );
 }
 
-// Success Animation (Confetti + Sparkles)
+// Success Animation (Subtle confetti - reduced for focus on learning)
 export function SuccessAnimation({ visible }) {
   if (!visible) return null;
 
+  // Couleurs sobres - moins de distraction
   const confettiColors = [
     COLORS.primary,
     COLORS.success,
-    '#FFD700', // Gold
-    '#FF69B4', // Pink
-    '#00CED1', // Cyan
   ];
 
-  // Generate confetti particles
+  // Seulement 8 confettis (au lieu de 30) - feedback subtil
   const confetti = [];
-  for (let i = 0; i < 30; i++) {
-    const startX = (i / 30) * SCREEN_WIDTH;
+  for (let i = 0; i < 8; i++) {
+    const startX = (i / 8) * SCREEN_WIDTH;
     const color = confettiColors[i % confettiColors.length];
-    const delay = Math.random() * 200;
+    const delay = Math.random() * 100;
     confetti.push(
       <ConfettiParticle key={i} startX={startX} color={color} delay={delay} />
     );
   }
 
-  // Generate sparkles
+  // Seulement 3 sparkles (au lieu de 8)
   const sparkles = [];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 3; i++) {
     sparkles.push(
       <Sparkle
         key={`sparkle-${i}`}
-        x={Math.random() * SCREEN_WIDTH}
-        y={100 + Math.random() * 200}
-        delay={i * 100}
+        x={SCREEN_WIDTH * 0.3 + Math.random() * SCREEN_WIDTH * 0.4}
+        y={150 + Math.random() * 100}
+        delay={i * 150}
       />
     );
   }
@@ -179,7 +177,7 @@ export function ErrorShake({ children, shake }) {
   }, [shake]);
 
   return (
-    <Animated.View style={{ transform: [{ translateX: shakeAnim }] }}>
+    <Animated.View style={{ flex: 1, transform: [{ translateX: shakeAnim }] }}>
       {children}
     </Animated.View>
   );

@@ -4,10 +4,17 @@
  */
 
 export const COLORS = {
-  // Couleurs principales
-  primary: '#667eea',
-  primaryDark: '#5568d3',
-  primaryLight: '#7e92f7',
+  // Couleurs principales (nouveau design)
+  primary: '#e74c3c', // Rouge/rose du design
+  primaryDark: '#c0392b',
+  primaryLight: '#ff6b6b',
+
+  // Accent violet (card quiz)
+  accent: '#8b5cf6',
+  accentLight: '#a78bfa',
+
+  // Ancien primary (pour rétro-compatibilité)
+  primaryOld: '#667eea',
 
   // Couleurs de fond
   background: '#1a1a2e',
@@ -23,10 +30,11 @@ export const COLORS = {
   text: '#ffffff',
   textSecondary: '#b0b0b0',
   textMuted: '#808080',
+  textOnPrimary: '#ffffff',
 
-  // Couleurs d'état
-  success: '#4caf50',
-  error: '#ff4757',
+  // Couleurs d'état (Anti-Duolingo: bleu/teal pour correct, orange/ambre pour erreur)
+  success: '#2bb3c0',
+  error: '#e6a341',
   warning: '#ffa726',
   info: '#29b6f6',
 
@@ -39,11 +47,11 @@ export const COLORS = {
   livesGradientStart: '#ff6b9d',
   livesGradientEnd: '#c44569',
 
-  // SRS
-  srsEasy: '#4caf50',
+  // SRS (couleurs alignées avec feedback)
+  srsEasy: '#2bb3c0',
   srsGood: '#29b6f6',
   srsHard: '#ffa726',
-  srsAgain: '#ff4757',
+  srsAgain: '#e6a341',
   srsPerfect: '#9c27b0',
 
   // Badges
@@ -73,7 +81,7 @@ export const GRADIENTS = {
   primary: ['#667eea', '#764ba2'],
   card: ['#16213e', '#0f1929'],
   lives: ['#ff6b9d', '#c44569'],
-  success: ['#4caf50', '#388e3c'],
+  success: ['#2bb3c0', '#1f8f9a'],
   accent: ['#f093fb', '#f5576c'],
 };
 

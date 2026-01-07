@@ -21,25 +21,22 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1a1a2e"
       },
-      "package": "com.apprendre.japonais",
-      "edgeToEdgeEnabled": true
+      "package": "com.apprendre.japonais"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "apprendre-japonais"
+        "projectId": "efab330b-4cc7-437e-acce-1d2cd0a93860"
       }
     },
-    "plugins": [
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-3940256099942544~3347511713",
-          "iosAppId": "ca-app-pub-3940256099942544~1458002511"
-        }
-      ]
-    ]
+    "owner": "giorno2077",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/efab330b-4cc7-437e-acce-1d2cd0a93860"
+    }
   }
 }

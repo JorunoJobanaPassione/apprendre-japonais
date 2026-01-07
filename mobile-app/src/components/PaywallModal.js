@@ -1,6 +1,6 @@
 /**
- * Paywall Modal - Interface d'achat Premium
- * Affiche les avantages premium et les options d'abonnement
+ * Paywall Modal - Nouveau Design Figma
+ * Interface d'achat Premium avec features et pricing
  */
 
 import React, { useState, useEffect } from 'react';
@@ -13,66 +13,48 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  SafeAreaView,
 } from 'react-native';
 import {
   getOfferings,
   purchasePackage,
   restorePurchases,
   FREE_LIMITS,
-  PREMIUM_LIMITS,
   DISPLAY_PRICES,
 } from '../services/premiumService';
 import { COLORS, FONTS, SIZES } from '../styles/theme';
 
-// Liste des avantages Premium
-const PREMIUM_BENEFITS = [
+// Features Premium - Design Figma
+const PREMIUM_FEATURES = [
   {
-    emoji: '\u{1F4DA}',
-    title: '2136 Kanji',
-    description: 'Tous les kanji JLPT N5 à N1',
-    free: `${FREE_LIMITS.KANJI_UNLOCKED} kanji`,
+    icon: '📚',
+    title: 'Apprentissage illimité',
+    description: 'Exercices et révisions sans limite',
   },
   {
-    emoji: '\u{267E}\u{FE0F}',
-    title: 'Exercices illimités',
-    description: 'Pratique sans restriction',
-    free: `${FREE_LIMITS.EXERCISES_PER_DAY}/jour`,
+    icon: '🈳',
+    title: 'Tous les Kanji',
+    description: '2136 kanji du JLPT N5 à N1',
   },
   {
-    emoji: '\u{1F9E0}',
-    title: 'Révisions SRS illimitées',
-    description: 'Mémorisation optimale',
-    free: `${FREE_LIMITS.SRS_REVIEWS_PER_DAY}/jour`,
+    icon: '🧠',
+    title: 'Mémorisation optimale',
+    description: 'SRS illimité pour ancrer les connaissances',
   },
   {
-    emoji: '\u{2764}\u{FE0F}',
-    title: '7 vies',
-    description: 'Plus de marge pour apprendre',
-    free: `${FREE_LIMITS.LIVES_MAX} vies`,
+    icon: '🎧',
+    title: 'Audio natif',
+    description: 'Prononciation par locuteurs japonais',
   },
   {
-    emoji: '\u{1F916}',
-    title: 'IA Tutor',
-    description: 'Questions illimitées à l\'IA',
-    free: `${FREE_LIMITS.AI_QUESTIONS_PER_DAY}/jour`,
-  },
-  {
-    emoji: '\u{1F3A7}',
-    title: 'Audio natif HD',
-    description: 'Prononciation professionnelle',
-    free: 'TTS basique',
-  },
-  {
-    emoji: '\u{1F4F6}',
+    icon: '📴',
     title: 'Mode hors-ligne',
-    description: 'Apprenez partout',
-    free: 'Non',
+    description: 'Étudiez partout, même sans connexion',
   },
   {
-    emoji: '\u{1F6AB}',
+    icon: '🚫',
     title: 'Sans publicité',
-    description: 'Expérience immersive',
-    free: 'Avec pubs',
+    description: 'Concentration maximale',
   },
 ];
 
@@ -107,16 +89,17 @@ export default function PaywallModal({ visible, onClose, onPurchaseSuccess }) {
 
     if (result.success) {
       Alert.alert(
-        'Bienvenue Premium !',
+        '🎉 Bienvenue Premium !',
         'Merci pour votre abonnement. Profitez de toutes les fonctionnalités !',
-        [{ text: 'Super !', onPress: () => {
-          onPurchaseSuccess?.();
-          onClose();
-        }}]
+        [{
+          text: 'Super !',
+          onPress: () => {
+            onPurchaseSuccess?.();
+            onClose();
+          }
+        }]
       );
-    } else if (result.cancelled) {
-      // Utilisateur a annulé, ne rien faire
-    } else {
+    } else if (!result.cancelled) {
       Alert.alert('Erreur', result.error || 'Une erreur est survenue');
     }
   };
@@ -128,12 +111,15 @@ export default function PaywallModal({ visible, onClose, onPurchaseSuccess }) {
 
     if (result.success && result.isPremium) {
       Alert.alert(
-        'Achats restaurés',
+        '✅ Achats restaurés',
         'Votre abonnement Premium a été restauré !',
-        [{ text: 'Super !', onPress: () => {
-          onPurchaseSuccess?.();
-          onClose();
-        }}]
+        [{
+          text: 'Super !',
+          onPress: () => {
+            onPurchaseSuccess?.();
+            onClose();
+          }
+        }]
       );
     } else if (result.success) {
       Alert.alert('Aucun achat', 'Aucun abonnement actif trouvé.');
@@ -142,38 +128,31 @@ export default function PaywallModal({ visible, onClose, onPurchaseSuccess }) {
     }
   };
 
-  const getPlanDetails = () => {
-    // Utiliser les prix de RevenueCat si disponibles, sinon fallback
-    const plans = [
-      {
-        id: 'monthly',
-        name: 'Mensuel',
-        price: offerings?.monthly?.product?.priceString || DISPLAY_PRICES.MONTHLY,
-        period: DISPLAY_PRICES.MONTHLY_PERIOD,
-        package: offerings?.monthly,
-        savings: null,
-      },
-      {
-        id: 'yearly',
-        name: 'Annuel',
-        price: offerings?.yearly?.product?.priceString || DISPLAY_PRICES.YEARLY,
-        period: DISPLAY_PRICES.YEARLY_PERIOD,
-        package: offerings?.yearly,
-        savings: `${DISPLAY_PRICES.YEARLY_SAVINGS} d'économie`,
-        subPrice: DISPLAY_PRICES.YEARLY_MONTHLY_EQUIVALENT,
-        popular: true,
-      },
-      {
-        id: 'lifetime',
-        name: 'À vie',
-        price: offerings?.lifetime?.product?.priceString || DISPLAY_PRICES.LIFETIME,
-        period: DISPLAY_PRICES.LIFETIME_PERIOD,
-        package: offerings?.lifetime,
-        savings: 'Accès permanent',
-      },
-    ];
-    return plans;
-  };
+  const plans = [
+    {
+      id: 'monthly',
+      name: 'Mensuel',
+      price: offerings?.monthly?.product?.priceString || DISPLAY_PRICES.MONTHLY,
+      period: '/mois',
+      package: offerings?.monthly,
+    },
+    {
+      id: 'yearly',
+      name: 'Annuel',
+      price: offerings?.yearly?.product?.priceString || DISPLAY_PRICES.YEARLY,
+      period: '/an',
+      package: offerings?.yearly,
+      savings: '-58%',
+      popular: true,
+    },
+    {
+      id: 'lifetime',
+      name: 'À vie',
+      price: offerings?.lifetime?.product?.priceString || DISPLAY_PRICES.LIFETIME,
+      period: 'une fois',
+      package: offerings?.lifetime,
+    },
+  ];
 
   return (
     <Modal
@@ -182,11 +161,13 @@ export default function PaywallModal({ visible, onClose, onPurchaseSuccess }) {
       transparent={false}
       onRequestClose={onClose}
     >
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
+          <View style={styles.headerSpacer} />
+          <Text style={styles.headerTitle}>Premium</Text>
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeText}>✕</Text>
+            <Text style={styles.closeIcon}>✕</Text>
           </TouchableOpacity>
         </View>
 
@@ -195,50 +176,48 @@ export default function PaywallModal({ visible, onClose, onPurchaseSuccess }) {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
         >
-          {/* Hero Section */}
+          {/* Hero - Design Figma */}
           <View style={styles.hero}>
-            <Text style={styles.heroEmoji}>{'\u{1F451}'}</Text>
-            <Text style={styles.heroTitle}>JaponaisApp Premium</Text>
+            <View style={styles.heroIcon}>
+              <Text style={styles.heroEmoji}>👑</Text>
+            </View>
+            <Text style={styles.heroTitle}>Unlock Premium</Text>
             <Text style={styles.heroSubtitle}>
-              Débloquez tout le potentiel de votre apprentissage
+              Débloquez toutes les fonctionnalités et maîtrisez le japonais
             </Text>
           </View>
 
-          {/* Benefits */}
-          <View style={styles.benefitsSection}>
-            <Text style={styles.sectionTitle}>Avantages Premium</Text>
-            {PREMIUM_BENEFITS.map((benefit, index) => (
-              <View key={index} style={styles.benefitRow}>
-                <View style={styles.benefitIcon}>
-                  <Text style={styles.benefitEmoji}>{benefit.emoji}</Text>
+          {/* Features Grid - Design Figma */}
+          <View style={styles.featuresSection}>
+            <Text style={styles.sectionTitle}>✨ Fonctionnalités incluses</Text>
+
+            <View style={styles.featuresGrid}>
+              {PREMIUM_FEATURES.map((feature, index) => (
+                <View key={index} style={styles.featureCard}>
+                  <View style={styles.featureIcon}>
+                    <Text style={styles.featureEmoji}>{feature.icon}</Text>
+                  </View>
+                  <Text style={styles.featureTitle}>{feature.title}</Text>
+                  <Text style={styles.featureDesc}>{feature.description}</Text>
                 </View>
-                <View style={styles.benefitContent}>
-                  <Text style={styles.benefitTitle}>{benefit.title}</Text>
-                  <Text style={styles.benefitDesc}>{benefit.description}</Text>
-                </View>
-                <View style={styles.benefitComparison}>
-                  <Text style={styles.freeLabel}>Gratuit</Text>
-                  <Text style={styles.freeValue}>{benefit.free}</Text>
-                </View>
-              </View>
-            ))}
+              ))}
+            </View>
           </View>
 
-          {/* Pricing Plans */}
+          {/* Pricing Plans - Design Figma */}
           <View style={styles.plansSection}>
-            <Text style={styles.sectionTitle}>Choisissez votre plan</Text>
+            <Text style={styles.sectionTitle}>💳 Choisissez votre plan</Text>
 
             {loading ? (
               <ActivityIndicator size="large" color={COLORS.primary} />
             ) : (
               <View style={styles.plansContainer}>
-                {getPlanDetails().map((plan) => (
+                {plans.map((plan) => (
                   <TouchableOpacity
                     key={plan.id}
                     style={[
                       styles.planCard,
                       selectedPlan === plan.id && styles.planCardSelected,
-                      plan.popular && styles.planCardPopular,
                     ]}
                     onPress={() => setSelectedPlan(plan.id)}
                   >
@@ -247,18 +226,20 @@ export default function PaywallModal({ visible, onClose, onPurchaseSuccess }) {
                         <Text style={styles.popularText}>Populaire</Text>
                       </View>
                     )}
+
+                    {plan.savings && (
+                      <View style={styles.savingsBadge}>
+                        <Text style={styles.savingsText}>{plan.savings}</Text>
+                      </View>
+                    )}
+
                     <Text style={styles.planName}>{plan.name}</Text>
                     <Text style={styles.planPrice}>{plan.price}</Text>
                     <Text style={styles.planPeriod}>{plan.period}</Text>
-                    {plan.subPrice && (
-                      <Text style={styles.planSubPrice}>{plan.subPrice}</Text>
-                    )}
-                    {plan.savings && (
-                      <Text style={styles.planSavings}>{plan.savings}</Text>
-                    )}
+
                     {selectedPlan === plan.id && (
-                      <View style={styles.selectedIndicator}>
-                        <Text style={styles.selectedCheck}>{'\u{2713}'}</Text>
+                      <View style={styles.checkBadge}>
+                        <Text style={styles.checkIcon}>✓</Text>
                       </View>
                     )}
                   </TouchableOpacity>
@@ -266,18 +247,20 @@ export default function PaywallModal({ visible, onClose, onPurchaseSuccess }) {
               </View>
             )}
           </View>
+        </ScrollView>
 
-          {/* Purchase Button */}
+        {/* Bottom Actions - Design Figma */}
+        <View style={styles.bottomActions}>
           <TouchableOpacity
-            style={[styles.purchaseButton, purchasing && styles.purchaseButtonDisabled]}
+            style={[styles.purchaseButton, purchasing && styles.buttonDisabled]}
             onPress={() => {
-              const plan = getPlanDetails().find(p => p.id === selectedPlan);
+              const plan = plans.find(p => p.id === selectedPlan);
               handlePurchase(plan?.package);
             }}
             disabled={purchasing || loading}
           >
             {purchasing ? (
-              <ActivityIndicator color={COLORS.background} />
+              <ActivityIndicator color={COLORS.text} />
             ) : (
               <Text style={styles.purchaseButtonText}>
                 Devenir Premium
@@ -285,19 +268,19 @@ export default function PaywallModal({ visible, onClose, onPurchaseSuccess }) {
             )}
           </TouchableOpacity>
 
-          {/* Restore & Terms */}
-          <View style={styles.footer}>
-            <TouchableOpacity onPress={handleRestore} disabled={purchasing}>
-              <Text style={styles.restoreText}>Restaurer mes achats</Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.restoreButton}
+            onPress={handleRestore}
+            disabled={purchasing}
+          >
+            <Text style={styles.restoreText}>Restaurer mes achats</Text>
+          </TouchableOpacity>
 
-            <Text style={styles.termsText}>
-              L'abonnement se renouvelle automatiquement sauf annulation 24h avant la fin de la période.
-              En continuant, vous acceptez nos Conditions d'utilisation.
-            </Text>
-          </View>
-        </ScrollView>
-      </View>
+          <Text style={styles.termsText}>
+            L'abonnement se renouvelle automatiquement. Annulation possible à tout moment.
+          </Text>
+        </View>
+      </SafeAreaView>
     </Modal>
   );
 }
@@ -307,42 +290,64 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.background,
   },
+
+  // Header
   header: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    padding: SIZES.padding,
-    paddingTop: 50,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: SIZES.screenPadding,
+  },
+  headerSpacer: {
+    width: 40,
+  },
+  headerTitle: {
+    fontSize: FONTS.xxLarge,
+    fontWeight: 'bold',
+    color: COLORS.text,
   },
   closeButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: COLORS.surface,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  closeText: {
+  closeIcon: {
     fontSize: 20,
     color: COLORS.text,
     fontWeight: 'bold',
   },
+
+  // Content
   content: {
     flex: 1,
   },
   scrollContent: {
     paddingHorizontal: SIZES.screenPadding,
-    paddingBottom: 40,
+    paddingBottom: 20,
   },
+
+  // Hero
   hero: {
     alignItems: 'center',
     marginBottom: SIZES.margin * 2,
   },
-  heroEmoji: {
-    fontSize: 64,
+  heroIcon: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: COLORS.primary + '20',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: SIZES.margin,
   },
+  heroEmoji: {
+    fontSize: 40,
+  },
   heroTitle: {
-    fontSize: FONTS.xxLarge,
+    fontSize: FONTS.xxxLarge,
     fontWeight: 'bold',
     color: COLORS.primary,
     marginBottom: SIZES.marginSmall,
@@ -351,8 +356,11 @@ const styles = StyleSheet.create({
     fontSize: FONTS.medium,
     color: COLORS.textSecondary,
     textAlign: 'center',
+    paddingHorizontal: SIZES.padding,
   },
-  benefitsSection: {
+
+  // Features
+  featuresSection: {
     marginBottom: SIZES.margin * 2,
   },
   sectionTitle: {
@@ -361,52 +369,44 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     marginBottom: SIZES.margin,
   },
-  benefitRow: {
+  featuresGrid: {
     flexDirection: 'row',
-    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: SIZES.marginSmall,
+  },
+  featureCard: {
+    width: '48%',
     backgroundColor: COLORS.surface,
     borderRadius: SIZES.radius,
     padding: SIZES.padding,
-    marginBottom: SIZES.marginSmall,
   },
-  benefitIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+  featureIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: SIZES.radiusSmall,
     backgroundColor: COLORS.primary + '20',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: SIZES.margin,
+    marginBottom: SIZES.marginSmall,
   },
-  benefitEmoji: {
-    fontSize: 20,
+  featureEmoji: {
+    fontSize: 22,
   },
-  benefitContent: {
-    flex: 1,
-  },
-  benefitTitle: {
+  featureTitle: {
     fontSize: FONTS.medium,
     fontWeight: '600',
     color: COLORS.text,
+    marginBottom: 4,
   },
-  benefitDesc: {
+  featureDesc: {
     fontSize: FONTS.small,
     color: COLORS.textSecondary,
+    lineHeight: 18,
   },
-  benefitComparison: {
-    alignItems: 'flex-end',
-  },
-  freeLabel: {
-    fontSize: FONTS.tiny,
-    color: COLORS.textMuted,
-  },
-  freeValue: {
-    fontSize: FONTS.small,
-    color: COLORS.error,
-    fontWeight: '500',
-  },
+
+  // Plans
   plansSection: {
-    marginBottom: SIZES.margin * 2,
+    marginBottom: SIZES.margin,
   },
   plansContainer: {
     flexDirection: 'row',
@@ -420,11 +420,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
     borderColor: 'transparent',
+    position: 'relative',
   },
   planCardSelected: {
     borderColor: COLORS.primary,
-  },
-  planCardPopular: {
     backgroundColor: COLORS.primary + '10',
   },
   popularBadge: {
@@ -432,45 +431,47 @@ const styles = StyleSheet.create({
     top: -10,
     backgroundColor: COLORS.primary,
     paddingHorizontal: 8,
-    paddingVertical: 2,
+    paddingVertical: 3,
     borderRadius: 10,
   },
   popularText: {
     fontSize: FONTS.tiny,
-    color: COLORS.background,
     fontWeight: 'bold',
+    color: COLORS.text,
+  },
+  savingsBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: COLORS.success,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 6,
+  },
+  savingsText: {
+    fontSize: FONTS.tiny,
+    fontWeight: 'bold',
+    color: COLORS.text,
   },
   planName: {
     fontSize: FONTS.medium,
     fontWeight: '600',
     color: COLORS.text,
     marginTop: SIZES.marginSmall,
+    marginBottom: 4,
   },
   planPrice: {
     fontSize: FONTS.xLarge,
     fontWeight: 'bold',
     color: COLORS.primary,
-    marginTop: SIZES.marginSmall,
   },
   planPeriod: {
     fontSize: FONTS.small,
     color: COLORS.textSecondary,
   },
-  planSubPrice: {
-    fontSize: FONTS.tiny,
-    color: COLORS.primary,
-    fontWeight: '500',
-    marginTop: 2,
-  },
-  planSavings: {
-    fontSize: FONTS.tiny,
-    color: COLORS.success,
-    fontWeight: '600',
-    marginTop: SIZES.marginSmall,
-  },
-  selectedIndicator: {
+  checkBadge: {
     position: 'absolute',
-    top: 8,
+    bottom: 8,
     right: 8,
     width: 24,
     height: 24,
@@ -479,32 +480,42 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  selectedCheck: {
+  checkIcon: {
     fontSize: 14,
-    color: COLORS.background,
+    fontWeight: 'bold',
+    color: COLORS.text,
+  },
+
+  // Bottom Actions
+  bottomActions: {
+    padding: SIZES.screenPadding,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    backgroundColor: COLORS.background,
   },
   purchaseButton: {
     backgroundColor: COLORS.primary,
     borderRadius: SIZES.radius,
-    padding: SIZES.padding * 1.5,
+    padding: SIZES.padding * 1.2,
     alignItems: 'center',
-    marginBottom: SIZES.margin,
+    marginBottom: SIZES.marginSmall,
   },
-  purchaseButtonDisabled: {
+  buttonDisabled: {
     opacity: 0.7,
   },
   purchaseButtonText: {
     fontSize: FONTS.large,
     fontWeight: 'bold',
-    color: COLORS.background,
+    color: COLORS.text,
   },
-  footer: {
+  restoreButton: {
+    padding: SIZES.paddingSmall,
     alignItems: 'center',
+    marginBottom: SIZES.marginSmall,
   },
   restoreText: {
     fontSize: FONTS.medium,
     color: COLORS.primary,
-    marginBottom: SIZES.margin,
   },
   termsText: {
     fontSize: FONTS.tiny,

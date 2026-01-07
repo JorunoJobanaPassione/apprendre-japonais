@@ -1,6 +1,6 @@
 /**
- * Exercise MCQ Component - Questions à choix multiples
- * Affiche une question avec 2-4 options
+ * Exercise MCQ Component - Nouveau Design Figma
+ * Questions à choix multiples avec card violette
  */
 
 import React, { useState, useEffect } from 'react';
@@ -19,6 +19,9 @@ export default function ExerciseMCQ({ exercise, onAnswer }) {
   const [scaleAnims] = useState(
     exercise.options.map(() => new Animated.Value(1))
   );
+
+  // Labels pour les options (A, B, C, D)
+  const optionLabels = ['A', 'B', 'C', 'D'];
 
   useEffect(() => {
     // Réinitialiser l'état quand l'exercice change
@@ -73,17 +76,30 @@ export default function ExerciseMCQ({ exercise, onAnswer }) {
     return [styles.option, styles.optionFaded];
   };
 
+  const getOptionTextStyle = (option) => {
+    if (!answered) return styles.optionText;
+
+    const isCorrect = option === exercise.correct;
+    const isSelected = option === selectedOption;
+
+    if (isSelected || isCorrect) {
+      return [styles.optionText, styles.optionTextActive];
+    }
+
+    return [styles.optionText, styles.optionTextFaded];
+  };
+
   return (
     <View style={styles.container}>
-      {/* Question */}
-      <View style={styles.questionContainer}>
+      {/* Card violette avec la question - Design Figma */}
+      <View style={styles.questionCard}>
         <Text style={styles.questionText}>{exercise.question}</Text>
         {exercise.character && (
           <Text style={styles.character}>{exercise.character}</Text>
         )}
       </View>
 
-      {/* Options */}
+      {/* Options avec labels A, B, C, D */}
       <View style={styles.optionsContainer}>
         {exercise.options.map((option, index) => (
           <Animated.View
@@ -96,7 +112,12 @@ export default function ExerciseMCQ({ exercise, onAnswer }) {
               disabled={answered}
               activeOpacity={0.7}
             >
-              <Text style={styles.optionText}>{option}</Text>
+              <View style={styles.optionLabel}>
+                <Text style={styles.optionLabelText}>
+                  {optionLabels[index]}
+                </Text>
+              </View>
+              <Text style={getOptionTextStyle(option)}>{option}</Text>
             </TouchableOpacity>
           </Animated.View>
         ))}
@@ -117,36 +138,45 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: SIZES.screenPadding,
   },
-  questionContainer: {
-    alignItems: 'center',
+
+  // Card violette pour la question (Design Figma)
+  questionCard: {
+    backgroundColor: '#8b5cf6', // Violet du design
+    borderRadius: SIZES.radiusLarge,
+    padding: SIZES.padding * 2,
     marginBottom: SIZES.margin * 2,
-    paddingTop: SIZES.padding * 2,
+    alignItems: 'center',
+    // Effet de motif asanoha simulé avec overlay
+    shadowColor: '#8b5cf6',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
   },
   questionText: {
-    fontSize: FONTS.xLarge,
-    fontWeight: '600',
+    fontSize: FONTS.large,
     color: COLORS.text,
     textAlign: 'center',
     marginBottom: SIZES.margin,
   },
   character: {
     fontSize: 72,
-    color: COLORS.primary,
-    fontWeight: 'bold',
-    marginTop: SIZES.margin,
+    color: COLORS.text,
+    fontWeight: '300',
   },
+
+  // Options avec style Figma
   optionsContainer: {
     gap: SIZES.marginSmall,
   },
   option: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: COLORS.surface,
     borderRadius: SIZES.radius,
-    padding: SIZES.padding * 1.5,
+    padding: SIZES.padding * 1.2,
     borderWidth: 2,
-    borderColor: COLORS.surfaceLight,
-    minHeight: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderColor: 'transparent',
   },
   optionCorrect: {
     backgroundColor: COLORS.success + '20',
@@ -159,18 +189,42 @@ const styles = StyleSheet.create({
   optionFaded: {
     opacity: 0.5,
   },
+  optionLabel: {
+    width: 36,
+    height: 36,
+    borderRadius: SIZES.radiusSmall,
+    backgroundColor: COLORS.surfaceLight,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: SIZES.margin,
+  },
+  optionLabelText: {
+    fontSize: FONTS.medium,
+    fontWeight: 'bold',
+    color: COLORS.textSecondary,
+  },
   optionText: {
+    flex: 1,
     fontSize: FONTS.large,
     fontWeight: '600',
     color: COLORS.text,
+    textAlign: 'center',
   },
+  optionTextActive: {
+    color: COLORS.text,
+  },
+  optionTextFaded: {
+    color: COLORS.textMuted,
+  },
+
+  // Explication
   explanationContainer: {
     marginTop: SIZES.margin * 2,
     backgroundColor: COLORS.surfaceLight,
     borderRadius: SIZES.radius,
     padding: SIZES.padding,
     borderLeftWidth: 4,
-    borderLeftColor: COLORS.primary,
+    borderLeftColor: '#8b5cf6',
   },
   explanationText: {
     fontSize: FONTS.medium,

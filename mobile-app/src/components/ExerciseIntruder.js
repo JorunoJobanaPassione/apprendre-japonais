@@ -127,10 +127,11 @@ const styles = StyleSheet.create({
   },
   questionText: {
     fontSize: FONTS.xLarge,
-    fontWeight: '600',
     color: COLORS.text,
     textAlign: 'center',
     marginBottom: SIZES.marginSmall,
+    lineHeight: 30,
+    minHeight: 30,
   },
   hint: {
     fontSize: FONTS.medium,
@@ -169,7 +170,6 @@ const styles = StyleSheet.create({
   },
   optionCharacter: {
     fontSize: 56,
-    fontWeight: 'bold',
     color: COLORS.text,
   },
   explanationContainer: {
